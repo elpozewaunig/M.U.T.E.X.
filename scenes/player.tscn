@@ -1,0 +1,60 @@
+[gd_scene load_steps=9 format=3 uid="uid://c111b6l8it2x6"]
+
+[ext_resource type="Script" uid="uid://cc6g7dopbnu7h" path="res://scripts/Player.gd" id="1_qhqgy"]
+[ext_resource type="Texture2D" uid="uid://cslvlgyrpicam" path="res://_coolscene/sealtext.png" id="2_dqkch"]
+[ext_resource type="ArrayMesh" uid="uid://br5rnl4j1b3p8" path="res://_coolscene/seal.obj" id="3_qlg0r"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_tuyoq"]
+albedo_texture = ExtResource("2_dqkch")
+
+[sub_resource type="GDScript" id="GDScript_fjrip"]
+resource_name = "sealspin"
+script/source = "extends MeshInstance3D
+func _ready():
+	pass
+func _process(delta):
+	rotation.y += delta/2
+"
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_qhqgy"]
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_qhqgy"]
+properties/0/path = NodePath(".:position")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+properties/1/path = NodePath(".:rotation")
+properties/1/spawn = true
+properties/1/replication_mode = 1
+properties/2/path = NodePath(".:scale")
+properties/2/spawn = true
+properties/2/replication_mode = 1
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_qhqgy"]
+albedo_texture = ExtResource("2_dqkch")
+
+[node name="CharacterBody3D" type="CharacterBody3D"]
+script = ExtResource("1_qhqgy")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2.6066658)
+
+[node name="Seal2" type="MeshInstance3D" parent="."]
+transform = Transform3D(-4.371139e-09, 0, -0.10000001, 0, 0.10000001, 0, 0.10000001, 0, -4.371139e-09, 0, -0.74000025, -4.652)
+material_override = SubResource("StandardMaterial3D_tuyoq")
+mesh = ExtResource("3_qlg0r")
+skeleton = NodePath("../Seal")
+script = SubResource("GDScript_fjrip")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(-4.3711387e-07, 0, 10, 0, 10, 0, -10, 0, -4.3711387e-07, 46.52, 7.4, -2.0334537e-06)
+shape = SubResource("SphereShape3D_qhqgy")
+disabled = true
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_qhqgy")
+
+[node name="Seal" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.00646594, 0, -0.069700725, 0, 0.07, 0, 0.069700725, 0, 0.00646594, -0.245, -0.405, -5.14)
+visible = false
+material_override = SubResource("StandardMaterial3D_qhqgy")
+mesh = ExtResource("3_qlg0r")

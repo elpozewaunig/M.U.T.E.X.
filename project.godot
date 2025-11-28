@@ -11,14 +11,16 @@ config_version=5
 [application]
 
 config/name="KluJamTechEditionWS2025"
-run/main_scene="uid://hl7atkd2bbai"
+run/main_scene="uid://dg4010mng0mdx"
 config/features=PackedStringArray("4.5", "GL Compatibility")
 config/icon="res://assets/sprites/icon.svg"
 
+[autoload]
+
+NetworkManager="*res://scripts/networkManager.gd"
+
 [display]
 
-window/size/viewport_width=2560
-window/size/viewport_height=1440
 window/stretch/mode="canvas_items"
 
 [rendering]
