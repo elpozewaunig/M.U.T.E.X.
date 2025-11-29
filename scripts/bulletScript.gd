@@ -7,7 +7,7 @@ extends Area3D
 # SYNCED VARIABLE
 # The server sets this. The Synchronizer sends it to Clients.
 # Clients read this to know who to hit.
-@export var shooter_is_host := false 
+@export var shooter_is_host: bool
 
 var velocity := Vector3.ZERO
 var current_target: Node3D = null
@@ -18,28 +18,29 @@ func _ready():
 	$LifeTimer.timeout.connect(queue_free)
 	body_entered.connect(_on_impact)
 
-	# 2. CLIENT INITIALIZATION
-	# Clients need to wait for the data (shooter_is_host) to arrive from the Server.
-	if not multiplayer.is_server():
-		# Turn off physics/collision momentarily to prevent bugs
-		set_physics_process(false)
-		monitoring = false
-		
-		# Wait one frame for the MultiplayerSynchronizer to update variables
-		await get_tree().process_frame 
-		
-		# Now that we have the data, setup the masks
-		_apply_collision_logic()
-		
-		# Turn physics back on
-		monitoring = true
-		set_physics_process(true)
-	else:
-		# Server runs immediately
-		_apply_collision_logic()
+	## 2. CLIENT INITIALIZATION
+	## Clients need to wait for the data (shooter_is_host) to arrive from the Server.
+	#if not multiplayer.is_server():
+		## Turn off physics/collision momentarily to prevent bugs
+		#set_physics_process(false)
+		#monitoring = false
+		#
+		## Wait one frame for the MultiplayerSynchronizer to update variables
+		#await get_tree().process_frame 
+		#
+		## Now that we have the data, setup the masks
+		#_apply_collision_logic()
+		#
+		## Turn physics back on
+		#monitoring = true
+		#set_physics_process(true)
+	#else:
+		## Server runs immediately
+		#_apply_collision_logic()
+
 
 # Called manually by the Gun Script (Server Only)
-func setup_server_logic(is_host: bool, _shooter_node: Node3D):
+func setup_server_logic(is_host: bool):
 	shooter_is_host = is_host
 	
 	# We run this immediately on server
@@ -61,11 +62,13 @@ func _apply_collision_logic():
 		set_collision_mask_value(3, true)
 		set_collision_mask_value(5, true)
 		$DetectionArea.set_collision_mask_value(3, true)
+		print("Host Fired")
 	else:
 		# CLIENT FIRED: Hit Enemy 1 (Layer 2) + Host (Layer 4)
 		set_collision_mask_value(2, true)
 		set_collision_mask_value(4, true)
 		$DetectionArea.set_collision_mask_value(2, true)
+		print("Client Fired")
 
 func _physics_process(delta):
 	# HOMING LOGIC

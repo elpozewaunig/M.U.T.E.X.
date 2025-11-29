@@ -37,8 +37,6 @@ func _ready():
 	_current_pitch = _default_pitch
 	_current_yaw = _default_yaw
 	
-		
-	
 
 func _input(event):
 	if Input.is_mouse_button_pressed(MOUSE_BUTTON_RIGHT):
@@ -84,7 +82,6 @@ func _process(delta):
 	if not player or not camera:
 		return
 	var speed = player.velocity.length()
-	print(speed)
 	if speed <= maxSpeed+1: 
 		if(speed<=15):
 			camera.fov= lerp(camera.fov, stoppedFOV, 2 * delta)

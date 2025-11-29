@@ -13,12 +13,12 @@ func _process(_delta):
 	if Input.is_action_just_pressed("shoot"):
 		# Networking Check
 		if multiplayer.is_server():
-			spawn_missile()
+			spawn_missile(true, gun_ray.global_position, gun_ray.global_transform.basis)
 		else:
-			rpc_id(1, "spawn_missile")
+			rpc_id(1, "spawn_missile", gun_ray.global_position, gun_ray.global_transform.basis)
 
 @rpc("any_peer", "call_local")
-func spawn_missile():
+func spawn_missile(isHost, position, transform):
 	# Security: Only Server spawns
 	if not multiplayer.is_server(): return
 
@@ -38,10 +38,10 @@ func spawn_missile():
 	container.add_child(missile, true)
 	
 	# 5. Position & Rotation
-	missile.global_position = gun_ray.global_position
-	missile.global_transform.basis = gun_ray.global_transform.basis
+	missile.global_position = position
+	missile.global_transform.basis = transform
 	
 	# 6. Setup Logic
 	# owner.name == "1" checks if the shooter is the Host
 	if missile.has_method("setup_server_logic"):
-		missile.setup_server_logic(owner.name == "1", owner)
+		missile.setup_server_logic(isHost)
