@@ -5,6 +5,6 @@
 [resource]
 albedo_color = Color(0.14579031, 0.35332316, 0.18939814, 1)
 albedo_texture = ExtResource("1_ardxw")
-metallic = 0.51
-metallic_specular = 0.31
-roughness = 0.23
+metallic = 0.33
+metallic_specular = 0.0
+roughness = 0.36
