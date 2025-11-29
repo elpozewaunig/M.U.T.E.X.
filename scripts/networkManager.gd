@@ -23,9 +23,9 @@ func _ready():
 
 # --- HOSTING (The P2P "Server" Player) ---
 func host_game():
-	var error = peer.create_server(PORT)
+	var error: Error = peer.create_server(PORT)
 	if error != OK:
-		print("cannot host: " + error)
+		print("cannot host: " + error_string(error))
 		return
 	
 	peer.get_host().compress(ENetConnection.COMPRESS_RANGE_CODER)

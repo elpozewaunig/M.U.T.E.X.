@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=3 uid="uid://d2snjgmsw07qr"]
+
+[ext_resource type="Script" uid="uid://c4p1n8i8471kv" path="res://gun.gd" id="1_x77fm"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_og67c"]
+
+[node name="Gun" type="Node3D"]
+script = ExtResource("1_x77fm")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.5, 0, 0, 0)
+mesh = SubResource("BoxMesh_og67c")
+
+[node name="RayCast3D" type="RayCast3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.29293367)
+target_position = Vector3(0, 0, -1)
+hit_from_inside = true

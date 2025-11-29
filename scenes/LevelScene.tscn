@@ -51,14 +51,16 @@ transform = Transform3D(23.047922, 0, 0, 0, 10.132043, 0, 0, 0, 1, 18.303036, 3.
 mesh = SubResource("BoxMesh_y8gwd")
 
 [node name="Opponent" type="MeshInstance3D" parent="."]
-transform = Transform3D(4.05, 0, 0, 0, 4.05, 0, 0, 0, 4.05, -2.0117016, 0.7571354, -26.930803)
+transform = Transform3D(4.05, 0, 0, 0, 4.05, 0, 0, 0, 4.05, -0.1376456, 0.7571354, -7.656151)
 material_override = SubResource("StandardMaterial3D_y8gwd")
 mesh = SubResource("CapsuleMesh_lpkg1")
+script = ExtResource("3_y8gwd")
 
 [node name="RigidBody3D" type="RigidBody3D" parent="Opponent"]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Opponent/RigidBody3D"]
 transform = Transform3D(1.005, 0, 0, 0, 1.005, 0, 0, 0, 1.005, 0, 0, 0)
+visible = false
 shape = SubResource("CapsuleShape3D_n4611")
 
 [node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="."]
