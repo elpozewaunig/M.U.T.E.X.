@@ -4,8 +4,7 @@ extends Node3D
 @onready var mesh = $MeshInstance3D
 @onready var homing_area = $Area3D
 
-var speed = 10
-var steering_force = 10
+var speed = 30
 var target: Node3D = null
 
 
@@ -18,32 +17,31 @@ func _ready() -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	position += transform.basis * Vector3(0,0,-speed) * delta
 	homing(delta)
 	enemyHit()
-
-
 
 func enemyHit():
 	if ray.is_colliding():
 		var collider = ray.get_collider()
-		if ray.get_collider().is_in_group("enemy"):
+		#print(collider)
+		if ray.get_collider().is_in_group("enemies"):
 			print("hit")
 			mesh.visible = false
 			ray.enabled = false
 			queue_free()
 
 func homing(delta):
+	position += transform.basis * Vector3(0,0,-speed) * delta
+
 	if target == null:
 		return
 	look_at(target.global_position, Vector3(1,1,1))
-	position = position.move_toward(target.global_position, speed * delta)
-	if ray.get_collider().is_in_group("enemy"):
-		pass
+	#position = position.move_toward(target.global_position, 0.1 * speed * delta)
 
 
 func _on_area_3d_body_entered(body: Node3D) -> void:
-	if body.is_in_group("enemy"):
+	if body.is_in_group("enemies"):
+		#print("homing in now")
 		if target != null:
 			return
 		if body == null:

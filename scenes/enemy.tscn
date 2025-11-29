@@ -36,7 +36,7 @@ floor_max_angle = 3.1415927
 script = ExtResource("1_7p1mj")
 metadata/_edit_group_ = true
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." groups=["enemies"]]
 transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0)
 material_override = SubResource("StandardMaterial3D_8tegq")
 mesh = SubResource("CapsuleMesh_7p1mj")
@@ -46,20 +46,20 @@ mesh = SubResource("CapsuleMesh_7p1mj")
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
 replication_config = SubResource("SceneReplicationConfig_8tegq")
 
-[node name="FrontIndicator" type="MeshInstance3D" parent="."]
-transform = Transform3D(0.20000002, 0, 0, 0, 0.20000002, 0, 0, 0, 0.20000002, 0, 0, -5.102937)
+[node name="FrontIndicator" type="MeshInstance3D" parent="." groups=["enemies"]]
+transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0, 0, -1.0051968)
 mesh = SubResource("BoxMesh_7p1mj")
 
-[node name="EnemyCollision" type="CollisionShape3D" parent="."]
+[node name="EnemyCollision" type="CollisionShape3D" parent="." groups=["enemies"]]
 transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0)
 shape = SubResource("CapsuleShape3D_7p1mj")
 
-[node name="DetectionArea" type="Area3D" parent="."]
 transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0)
+[node name="DetectionArea" type="Area3D" parent="." groups=["enemies"]]
 collision_layer = 2
 collision_mask = 65535
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="DetectionArea"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="DetectionArea" groups=["enemies"]]
 transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, -4.001897e-09, 0.091552734)
 shape = SubResource("SphereShape3D_7p1mj")
 

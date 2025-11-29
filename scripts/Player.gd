@@ -2,7 +2,8 @@
 extends CharacterBody3D
 
 @export var movement_controller: Node3D
-@onready var camera = $Camera3D
+@export var camera_controller: Node3D
+@export var camera: Camera3D
 
 func _enter_tree():
 	# 1. Set Authority based on Name (Standard stuff)
@@ -16,6 +17,7 @@ func _ready():
 		camera.current = true
 		# Enable Movement Controller.
 		movement_controller.set_physics_process(true)
+		camera_controller.set_process(true)
 	else:
 		# This is SOMEONE ELSE'S player.
 		# Disable Camera.
@@ -23,3 +25,4 @@ func _ready():
 		# KILL THE CONTROLLER. 
 		# We do not want to process inputs for other people's players.
 		movement_controller.set_physics_process(false)
+		camera_controller.set_process(true)
