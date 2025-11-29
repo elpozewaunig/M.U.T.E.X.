@@ -1,6 +1,9 @@
-[gd_scene load_steps=8 format=3 uid="uid://c111b6l8it2x6"]
+[gd_scene load_steps=12 format=3 uid="uid://c111b6l8it2x6"]
 
 [ext_resource type="Script" uid="uid://cc6g7dopbnu7h" path="res://scripts/Player.gd" id="1_qhqgy"]
+[ext_resource type="Texture2D" uid="uid://cslvlgyrpicam" path="res://_coolscene/sealtext.png" id="2_dqkch"]
+[ext_resource type="ArrayMesh" uid="uid://br5rnl4j1b3p8" path="res://_coolscene/seal.obj" id="3_qlg0r"]
+[ext_resource type="Script" uid="uid://b4rer4p7cpwlv" path="res://scripts/cameraController.gd" id="3_tuyoq"]
 [ext_resource type="Script" uid="uid://t5w0edulbr26" path="res://scripts/playerMovement.gd" id="4_dqkch"]
 [ext_resource type="PackedScene" uid="uid://84qcf0s50w45" path="res://assets/models/thruster_exhaust/ship_model.tscn" id="4_qlg0r"]
 [ext_resource type="PackedScene" uid="uid://d2snjgmsw07qr" path="res://scenes/gun.tscn" id="5_qlg0r"]
@@ -19,12 +22,30 @@ properties/2/replication_mode = 1
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_qhqgy"]
 
-[node name="CharacterBody3D" type="CharacterBody3D" node_paths=PackedStringArray("movement_controller") groups=["Players"]]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_tuyoq"]
+albedo_texture = ExtResource("2_dqkch")
+
+[sub_resource type="GDScript" id="GDScript_fjrip"]
+resource_name = "sealspin"
+script/source = "extends MeshInstance3D
+func _ready():
+	pass
+func _process(_delta):
+	pass
+	#rotation.y += delta/2
+"
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_qhqgy"]
+albedo_texture = ExtResource("2_dqkch")
+
+[node name="CharacterBody3D" type="CharacterBody3D" node_paths=PackedStringArray("movement_controller", "camera_controller", "camera") groups=["Players"]]
 collision_layer = 2
 collision_mask = 8
 motion_mode = 1
 script = ExtResource("1_qhqgy")
 movement_controller = NodePath("movementController")
+camera_controller = NodePath("SpringArm3D")
+camera = NodePath("SpringArm3D/Camera3D")
 
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
 replication_config = SubResource("SceneReplicationConfig_qhqgy")
@@ -34,9 +55,12 @@ script = ExtResource("4_dqkch")
 player = NodePath("..")
 model_container = NodePath("../ModelContainer")
 
-[node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 0.9300461, 0.36744288, 0, -0.36744288, 0.9300461, 0, 2.3808396, 6.8393536)
-visible = false
+[node name="SpringArm3D" type="SpringArm3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.8755742, 0.48308375, 0, -0.48308375, 0.8755742, 0, 0, 0)
+spring_length = 10.0
+script = ExtResource("3_tuyoq")
+
+[node name="Camera3D" type="Camera3D" parent="SpringArm3D"]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(-2.6226832e-07, 0, 6, 0, 6, 0, -6, 0, -2.6226832e-07, 0, 0, 0)
