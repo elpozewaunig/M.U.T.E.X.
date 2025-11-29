@@ -35,16 +35,19 @@ func remove_player(peer_id):
 	if player:
 		player.queue_free()
 		
-func spawn_enemy(spawn_position: Vector3): 
+func spawn_enemy(): 
 	if not multiplayer.is_server():
 		# Only host may spawn enemies
 		return;
+		
+	var route_data = $PatrolRouteManager.get_random_route()
 
 	var enemy_instance = enemy_scene.instantiate();
-	enemy_instance.global_position = spawn_position;
+	var enemyTypes = [1,2]
+	enemy_instance.initialize(enemyTypes.pick_random(), route_data["points"])
+
 	$Enemies.add_child(enemy_instance)
 	enemy_instance.set_multiplayer_authority(1)
-	print("Spawned enemy")
 
 func _on_enemy_spawn_timer_timeout() -> void:
-	spawn_enemy(Vector3(0,0,-20))
+	spawn_enemy()

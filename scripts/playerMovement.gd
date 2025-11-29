@@ -13,7 +13,7 @@ extends Node3D
 @export_group("Boosting")
 @export var booooooooooost_acceleration := 100.0
 @export var max_speed_while_boosting := 120.0
-@export var boost_duration = 1.0
+@export var boost_duration = 5.0
 @export var boost_cooldown = 2.0
 var default_acceleration : float 
 

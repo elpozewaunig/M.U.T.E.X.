@@ -1,6 +1,7 @@
 extends CharacterBody3D
 
 var health = 100
+var typeId: int; # 1 -> Host, 2 -> Client 
 
 @export_group("Movement Settings")
 @export var MOVEMENT_SPEED = 15.0
@@ -37,7 +38,30 @@ func _ready() -> void:
 	if not is_multiplayer_authority():
 		return
 	
-	_setup_patrol_path()
+func initialize(enemy_type_id: int, path_points: Array[Vector3]) -> void:
+	typeId = enemy_type_id
+	
+	match enemy_type_id:
+		1:
+			# Layer 2, Mask: 1, 4, 5
+			set_collision_layer_value(2, true)
+			set_collision_mask_value(1, true)
+			set_collision_mask_value(4, true)
+			set_collision_mask_value(5, true)
+		2:
+			# Layer 3, Mask: 1, 4, 5
+			set_collision_layer_value(3, true)
+			set_collision_mask_value(1, true)
+			set_collision_mask_value(4, true)
+			set_collision_mask_value(5, true)
+		_:
+			push_error("Unknown enemy type: %d" % enemy_type_id)
+	
+	patrol_points = path_points
+	
+	var random_index = randi() % path_points.size()
+	var spawn_position: Vector3 = patrol_points[random_index];
+	call_deferred("set_global_position", spawn_position)
 
 func _setup_patrol_path() -> void:
 	var all_paths: Array = get_tree().get_nodes_in_group(PATROL_PATH_GROUP_NAME)
@@ -141,7 +165,7 @@ func detect_obstacles(desired_direction: Vector3) -> Vector3:
 		var best_direction = Vector3.ZERO
 		var best_score = -1.0
 		
-		# Check multiple directions around the obstacle
+		# Shoot RAYCAST_COUNT amount of ray casts to check multiple directions around the obstacle
 		for i in range(RAYCAST_COUNT):
 			var angle = (i - RAYCAST_COUNT / 2.0) * 30.0  # ±60° Spread
 			var test_direction = desired_direction.rotated(Vector3.UP, deg_to_rad(angle))

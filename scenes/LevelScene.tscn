@@ -113,7 +113,7 @@ spawn_path = NodePath("../Enemies")
 spawn_limit = 15
 
 [node name="EnemySpawnTimer" type="Timer" parent="."]
-wait_time = 2.0
+wait_time = 10.0
 autostart = true
 
 [node name="StaticBody3D" type="StaticBody3D" parent="."]
