@@ -22,10 +22,10 @@ properties/2/path = NodePath(".:scale")
 properties/2/spawn = true
 properties/2/replication_mode = 1
 
-[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_tuyoq"]
-
 [sub_resource type="ViewportTexture" id="ViewportTexture_smehm"]
 viewport_path = NodePath("ModelContainer/HUD/SubViewport")
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_tuyoq"]
 
 [node name="CharacterBody3D" type="CharacterBody3D" node_paths=PackedStringArray("movement_controller", "camera_controller", "camera") groups=["Players"]]
 collision_layer = 2
@@ -50,14 +50,6 @@ spring_length = 10.0
 script = ExtResource("3_tuyoq")
 
 [node name="Camera3D" type="Camera3D" parent="SpringArm3D"]
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
-transform = Transform3D(2.70113e-07, 0, 0.89754, 0, 0.528894, 0, 6.17946, 0, -3.92327e-08, 0, 0.038, -0.914)
-shape = SubResource("CapsuleShape3D_tuyoq")
-
-[node name="CollisionShape3D2" type="CollisionShape3D" parent="."]
-transform = Transform3D(5.95371, 0, 5.05552e-08, 0, 0.279729, 0, 1.53151e-06, 0, 1.3531, -0.07686, 0.058098, 1.39981)
-shape = SubResource("CapsuleShape3D_tuyoq")
 
 [node name="ModelContainer" type="Node3D" parent="." node_paths=PackedStringArray("player", "thrusterMain", "thrusterLeft", "thrusterRight", "movement")]
 script = ExtResource("4_y4r1p")
@@ -110,6 +102,14 @@ transform = Transform3D(2.70113e-07, 0, 0.89754, 0, 0.528894, 0, 6.17946, 0, -3.
 shape = SubResource("CapsuleShape3D_tuyoq")
 
 [node name="CollisionShape3D2" type="CollisionShape3D" parent="ModelContainer"]
+transform = Transform3D(5.95371, 0, 5.05552e-08, 0, 0.279729, 0, 1.53151e-06, 0, 1.3531, -0.07686, 0.058098, 1.39981)
+shape = SubResource("CapsuleShape3D_tuyoq")
+
+[node name="CollisionShape3D3" type="CollisionShape3D" parent="ModelContainer"]
+transform = Transform3D(2.70113e-07, 0, 0.89754, 0, 0.528894, 0, 6.17946, 0, -3.92327e-08, 0, 0.038, -0.914)
+shape = SubResource("CapsuleShape3D_tuyoq")
+
+[node name="CollisionShape3D4" type="CollisionShape3D" parent="ModelContainer"]
 transform = Transform3D(5.95371, 0, 5.05552e-08, 0, 0.279729, 0, 1.53151e-06, 0, 1.3531, -0.07686, 0.058098, 1.39981)
 shape = SubResource("CapsuleShape3D_tuyoq")
 
