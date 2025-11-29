@@ -1,10 +1,11 @@
-[gd_scene load_steps=17 format=3 uid="uid://curg5wfwg0y3w"]
+[gd_scene load_steps=18 format=3 uid="uid://curg5wfwg0y3w"]
 
 [ext_resource type="Script" uid="uid://b0g8rxgtpwr8c" path="res://scripts/levelScript.gd" id="1_in5yg"]
 [ext_resource type="PackedScene" uid="uid://c111b6l8it2x6" path="res://scenes/player.tscn" id="2_dfg5a"]
 [ext_resource type="PackedScene" uid="uid://cuyyf2weq0thj" path="res://scenes/enemy.tscn" id="3_y8gwd"]
 [ext_resource type="PackedScene" uid="uid://bcglhcauxwnwl" path="res://scenes/patrol_route_manager.tscn" id="4_lpkg1"]
 [ext_resource type="Texture2D" uid="uid://d151yfr6rb33i" path="res://assets/skybox/skybox.jpg" id="5_n4611"]
+[ext_resource type="ArrayMesh" uid="uid://7x3x5kvhgdei" path="res://assets/models/map/asteroid belt8.obj" id="6_vle45"]
 
 [sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_vle45"]
 panorama = ExtResource("5_n4611")
@@ -151,6 +152,13 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -121.35637, 0, -128.3823)
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Wall4"]
 transform = Transform3D(23.047922, 0, 0, 0, 10.132043, 0, 0, 0, 1, 18.303036, 3.0949965, -13.6137085)
 mesh = SubResource("BoxMesh_y8gwd")
+
+[node name="Map" type="Node3D" parent="."]
+
+[node name="AsteroidBelt8" type="MeshInstance3D" parent="Map"]
+transform = Transform3D(450, 0, 0, 0, 10.429138, -449.87915, 0, 449.87915, 10.429138, 696.3865, -296.8474, -848.5074)
+mesh = ExtResource("6_vle45")
+skeleton = NodePath("../..")
 
 [connection signal="timeout" from="EnemySpawnTimer" to="." method="_on_enemy_spawn_timer_timeout"]
 
