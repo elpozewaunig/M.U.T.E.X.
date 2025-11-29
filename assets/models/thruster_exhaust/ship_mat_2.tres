@@ -1,0 +1,10 @@
+[gd_resource type="StandardMaterial3D" load_steps=2 format=3 uid="uid://qwfqyk43ciba"]
+
+[ext_resource type="Texture2D" uid="uid://diwtqm3uh7cn8" path="res://assets/models/ship/Ship_A.png" id="1_ardxw"]
+
+[resource]
+albedo_color = Color(0.14579031, 0.35332316, 0.18939814, 1)
+albedo_texture = ExtResource("1_ardxw")
+metallic = 0.51
+metallic_specular = 0.31
+roughness = 0.23

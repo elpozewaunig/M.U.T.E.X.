@@ -1,0 +1,20 @@
+[gd_scene load_steps=3 format=3 uid="uid://bdfw8wp21jlmh"]
+
+[ext_resource type="PackedScene" uid="uid://d03en4a46ugui" path="res://assets/models/thruster_exhaust/thruster_exhaust.glb" id="1_uqbgk"]
+[ext_resource type="Material" uid="uid://do6gmpgv16hde" path="res://assets/models/thruster_exhaust/thruster_exhaust.tres" id="2_c1mik"]
+
+[node name="ThrusterExhaust" type="Node3D"]
+
+[node name="thruster_exhaust" parent="." instance=ExtResource("1_uqbgk")]
+
+[node name="SIDE" parent="thruster_exhaust" index="0"]
+material_override = ExtResource("2_c1mik")
+
+[node name="TOP" parent="thruster_exhaust" index="1"]
+material_override = ExtResource("2_c1mik")
+
+[node name="AnimationPlayer" parent="thruster_exhaust" index="2"]
+autoplay = "Action"
+speed_scale = 5.0
+
+[editable path="thruster_exhaust"]

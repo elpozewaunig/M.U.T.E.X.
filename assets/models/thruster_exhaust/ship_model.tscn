@@ -1,0 +1,17 @@
+[gd_scene load_steps=6 format=3 uid="uid://84qcf0s50w45"]
+
+[ext_resource type="ArrayMesh" uid="uid://c8ywj02dkssvf" path="res://assets/models/ship/Spaceship_Player.obj" id="1_ndk7p"]
+[ext_resource type="Material" uid="uid://7xh2q63vqpfw" path="res://assets/models/thruster_exhaust/ship_mat_1.tres" id="2_3sxe2"]
+[ext_resource type="Material" uid="uid://qwfqyk43ciba" path="res://assets/models/thruster_exhaust/ship_mat_2.tres" id="3_61wn5"]
+[ext_resource type="Material" uid="uid://b3o1jsjj24iq5" path="res://assets/models/thruster_exhaust/ship_mat_3.tres" id="4_oglwn"]
+[ext_resource type="Material" uid="uid://clftfo4qgw4tb" path="res://assets/models/thruster_exhaust/ship_mat_4.tres" id="5_ulq15"]
+
+[node name="ShipModel" type="Node3D"]
+
+[node name="SpaceshipPlayer" type="MeshInstance3D" parent="."]
+transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 0, 0, 0)
+mesh = ExtResource("1_ndk7p")
+surface_material_override/0 = ExtResource("2_3sxe2")
+surface_material_override/1 = ExtResource("3_61wn5")
+surface_material_override/2 = ExtResource("4_oglwn")
+surface_material_override/3 = ExtResource("5_ulq15")

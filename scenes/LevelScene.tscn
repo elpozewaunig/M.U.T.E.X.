@@ -1,22 +1,69 @@
-[gd_scene load_steps=11 format=3 uid="uid://curg5wfwg0y3w"]
+[gd_scene load_steps=15 format=3 uid="uid://curg5wfwg0y3w"]
 
 [ext_resource type="Script" uid="uid://b0g8rxgtpwr8c" path="res://scripts/levelScript.gd" id="1_in5yg"]
 [ext_resource type="PackedScene" uid="uid://c111b6l8it2x6" path="res://scenes/player.tscn" id="2_dfg5a"]
 [ext_resource type="PackedScene" uid="uid://cuyyf2weq0thj" path="res://scenes/enemy.tscn" id="3_y8gwd"]
 [ext_resource type="PackedScene" uid="uid://bcglhcauxwnwl" path="res://scenes/patrol_route_manager.tscn" id="4_lpkg1"]
+[ext_resource type="Texture2D" uid="uid://d151yfr6rb33i" path="res://assets/skybox/skybox.jpg" id="5_n4611"]
+
+[sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_vle45"]
+panorama = ExtResource("5_n4611")
+
+[sub_resource type="Sky" id="Sky_bevc7"]
+sky_material = SubResource("PanoramaSkyMaterial_vle45")
 
 [sub_resource type="Environment" id="Environment_dfg5a"]
-background_mode = 1
-background_color = Color(0.6225993, 0.6370448, 0.6955025, 1)
+background_mode = 2
+sky = SubResource("Sky_bevc7")
+ambient_light_source = 3
+reflected_light_source = 2
+ssr_enabled = true
+glow_enabled = true
+volumetric_fog_enabled = true
+volumetric_fog_density = 0.005
+volumetric_fog_albedo = Color(0.46618086, 0.4661808, 0.4661808, 1)
+volumetric_fog_emission = Color(0.17805454, 0.06473716, 1.8049032e-08, 1)
+volumetric_fog_emission_energy = 13.05
+
+[sub_resource type="Animation" id="Animation_vle45"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("WorldEnvironment:environment:sky:sky_material:energy_multiplier")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [1.0]
+}
+
+[sub_resource type="Animation" id="Animation_n4611"]
+resource_name = "fadein"
+length = 1.125
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("WorldEnvironment:environment:sky:sky_material:energy_multiplier")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.9333333),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [3.0, 1.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_bevc7"]
+_data = {
+&"RESET": SubResource("Animation_vle45"),
+&"fadein": SubResource("Animation_n4611")
+}
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_lpkg1"]
 size = Vector3(50, 20, 1)
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_lpkg1"]
-albedo_color = Color(0, 0.87058824, 0.1882353, 1)
-
-[sub_resource type="BoxMesh" id="BoxMesh_n4611"]
-material = SubResource("StandardMaterial3D_lpkg1")
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_dfg5a"]
 vertex_color_is_srgb = true
@@ -46,6 +93,16 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 5.270752)
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_dfg5a")
 
+[node name="AnimationPlayer" type="AnimationPlayer" parent="WorldEnvironment"]
+root_node = NodePath("../..")
+libraries = {
+&"": SubResource("AnimationLibrary_bevc7")
+}
+autoplay = "fadein"
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="WorldEnvironment"]
+transform = Transform3D(-0.9569052, -0.11949257, -0.2646767, 0.014246265, -0.9296398, 0.36819422, -0.2900505, 0.34855643, 0.89127946, -159.26929, 40.64657, 0)
+
 [node name="EnemySpawner" type="MultiplayerSpawner" parent="."]
 spawn_path = NodePath("../Enemies")
 spawn_limit = 15
@@ -63,12 +120,6 @@ shape = SubResource("BoxShape3D_lpkg1")
 
 [node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="."]
 volume_db = 0.75
-
-[node name="Floor" type="Node3D" parent="."]
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Floor"]
-transform = Transform3D(2923.0745, 0, 0, 0, 16.805, 0, 0, 0, 2782.5305, 0, -55.576134, 0)
-mesh = SubResource("BoxMesh_n4611")
 
 [node name="Wall2" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -124.94079)

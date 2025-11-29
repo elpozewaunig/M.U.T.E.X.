@@ -1,10 +1,10 @@
-[gd_scene load_steps=11 format=3 uid="uid://c111b6l8it2x6"]
+[gd_scene load_steps=8 format=3 uid="uid://c111b6l8it2x6"]
 
 [ext_resource type="Script" uid="uid://cc6g7dopbnu7h" path="res://scripts/Player.gd" id="1_qhqgy"]
-[ext_resource type="Texture2D" uid="uid://cslvlgyrpicam" path="res://_coolscene/sealtext.png" id="2_dqkch"]
-[ext_resource type="ArrayMesh" uid="uid://br5rnl4j1b3p8" path="res://_coolscene/seal.obj" id="3_qlg0r"]
 [ext_resource type="Script" uid="uid://t5w0edulbr26" path="res://scripts/playerMovement.gd" id="4_dqkch"]
+[ext_resource type="PackedScene" uid="uid://84qcf0s50w45" path="res://assets/models/thruster_exhaust/ship_model.tscn" id="4_qlg0r"]
 [ext_resource type="PackedScene" uid="uid://d2snjgmsw07qr" path="res://scenes/gun.tscn" id="5_qlg0r"]
+[ext_resource type="PackedScene" uid="uid://bdfw8wp21jlmh" path="res://scenes/thruster_exhaust.tscn" id="5_tuyoq"]
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_qhqgy"]
 properties/0/path = NodePath(".:position")
@@ -18,22 +18,6 @@ properties/2/spawn = true
 properties/2/replication_mode = 1
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_qhqgy"]
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_tuyoq"]
-albedo_texture = ExtResource("2_dqkch")
-
-[sub_resource type="GDScript" id="GDScript_fjrip"]
-resource_name = "sealspin"
-script/source = "extends MeshInstance3D
-func _ready():
-	pass
-func _process(_delta):
-	pass
-	#rotation.y += delta/2
-"
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_qhqgy"]
-albedo_texture = ExtResource("2_dqkch")
 
 [node name="CharacterBody3D" type="CharacterBody3D" node_paths=PackedStringArray("movement_controller") groups=["Players"]]
 collision_layer = 2
@@ -60,19 +44,17 @@ shape = SubResource("SphereShape3D_qhqgy")
 
 [node name="ModelContainer" type="Node3D" parent="."]
 
-[node name="Seal2" type="MeshInstance3D" parent="ModelContainer"]
-transform = Transform3D(-4.371139e-09, 0, 0.10000001, 0, 0.10000001, 0, -0.10000001, 0, -4.371139e-09, 0, 0, 0)
-material_override = SubResource("StandardMaterial3D_tuyoq")
-mesh = ExtResource("3_qlg0r")
-skeleton = NodePath("../Seal")
-script = SubResource("GDScript_fjrip")
+[node name="ThrusterExhaust" parent="ModelContainer" instance=ExtResource("5_tuyoq")]
+transform = Transform3D(0.445, 0, 0, 0, 0.010235764, 0.21294236, 0, -0.43988094, 0.0049550403, 0, 0.17720568, 2.230224)
 
-[node name="Seal" type="MeshInstance3D" parent="ModelContainer"]
-transform = Transform3D(0.07, 0, 0, 0, 0.07, 0, 0, 0, 0.07, 0, 0, 0)
-visible = false
-material_override = SubResource("StandardMaterial3D_qhqgy")
-mesh = ExtResource("3_qlg0r")
-skeleton = NodePath("../..")
+[node name="ThrusterExhaust2" parent="ModelContainer" instance=ExtResource("5_tuyoq")]
+transform = Transform3D(0.43191287, 0.10589531, -0.0011928582, 0, 0.010235766, 0.21294239, 0.10712765, -0.42694435, 0.0048093162, 1.2663579, 0.046215594, 1.9760575)
+
+[node name="ThrusterExhaust3" parent="ModelContainer" instance=ExtResource("5_tuyoq")]
+transform = Transform3D(0.4298149, -0.11393116, 0.001283378, 0, 0.010235766, 0.21294239, -0.11525702, -0.42487055, 0.0047859554, -1.2936997, 0.046215594, 1.9760575)
+
+[node name="ShipModel" parent="ModelContainer" instance=ExtResource("4_qlg0r")]
+transform = Transform3D(0.25, 0, 0, 0, 0.25, 0, 0, 0, 0.25, 0, 0, 0)
 
 [node name="Gun" parent="." instance=ExtResource("5_qlg0r")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.14239645, 1.7010101, -0.37525558)
