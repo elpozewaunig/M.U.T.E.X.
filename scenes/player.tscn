@@ -50,14 +50,6 @@ script = ExtResource("3_tuyoq")
 
 [node name="Camera3D" type="Camera3D" parent="SpringArm3D"]
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
-transform = Transform3D(2.7011293e-07, 0, 0.89754, 0, 0.5288943, 0, 6.1794634, 0, -3.9232717e-08, 0, 0.038, -0.914)
-shape = SubResource("CapsuleShape3D_tuyoq")
-
-[node name="CollisionShape3D2" type="CollisionShape3D" parent="."]
-transform = Transform3D(5.953706, 0, 5.0555247e-08, 0, 0.2797292, 0, 1.5315118e-06, 0, 1.3531013, -0.07686001, 0.05809798, 1.3998126)
-shape = SubResource("CapsuleShape3D_tuyoq")
-
 [node name="ModelContainer" type="Node3D" parent="."]
 
 [node name="ThrusterExhaust" parent="ModelContainer" instance=ExtResource("5_tuyoq")]
@@ -75,8 +67,11 @@ transform = Transform3D(0.25, 0, 0, 0, 0.25, 0, 0, 0, 0.25, 0, 0, 0)
 [node name="Ship A" parent="ModelContainer/ShipModel/Spaceship_Player" index="0"]
 material_overlay = ExtResource("6_ur7pv")
 
-[node name="Gun" parent="." instance=ExtResource("5_qlg0r")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.14239645, -0.105989575, -4.380159)
+[node name="LeftGun" parent="ModelContainer" instance=ExtResource("5_qlg0r")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.47844988, 0.42692745, -0.53148603)
+
+[node name="RightGun" parent="ModelContainer" instance=ExtResource("5_qlg0r")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.247, 0.36378676, -0.56205153)
 
 [node name="HUD" type="Node3D" parent="."]
 
@@ -95,3 +90,11 @@ texture = SubResource("ViewportTexture_smehm")
 
 [editable path="ModelContainer/ShipModel"]
 [editable path="ModelContainer/ShipModel/Spaceship_Player"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="ModelContainer"]
+transform = Transform3D(2.7011293e-07, 0, 0.89754, 0, 0.5288943, 0, 6.1794634, 0, -3.9232717e-08, 0, 0.038, -0.914)
+shape = SubResource("CapsuleShape3D_tuyoq")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="ModelContainer"]
+transform = Transform3D(5.953706, 0, 5.0555247e-08, 0, 0.2797292, 0, 1.5315118e-06, 0, 1.3531013, -0.07686001, 0.05809798, 1.3998126)
+shape = SubResource("CapsuleShape3D_tuyoq")
