@@ -1,9 +1,10 @@
 [gd_scene load_steps=10 format=3 uid="uid://cuyyf2weq0thj"]
 
 [ext_resource type="Script" uid="uid://tfednihsjjtl" path="res://scripts/enemy.gd" id="1_7p1mj"]
-[ext_resource type="ArrayMesh" uid="uid://c8ywj02dkssvf" path="res://assets/models/ship/Spaceship_Player.obj" id="2_md0e3"]
-[ext_resource type="Script" path="res://scripts/enemyVisibility.gd" id="3_4ra3w"]
-[ext_resource type="PackedScene" uid="uid://dls7354f4iw2m" path="res://scenes/enemy_gun.tscn" id="3_5uy6h"]
+[ext_resource type="PackedScene" uid="uid://b3aj32sk5v1qo" path="res://assets/models/enemy.glb" id="2_5uy6h"]
+[ext_resource type="Script" uid="uid://cindsixiocgcm" path="res://scripts/enemyVisibility.gd" id="3_4ra3w"]
+[ext_resource type="PackedScene" path="res://scenes/enemy_gun.tscn" id="3_5uy6h"]
+[ext_resource type="PackedScene" uid="uid://be63w05i85cw1" path="res://scenes/thruster_exhaustEnemy.tscn" id="3_nenq2"]
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_8tegq"]
 properties/0/path = NodePath(".:position")
@@ -20,24 +21,21 @@ properties/3/spawn = true
 properties/3/replication_mode = 1
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_md0e3"]
-radius = 2.0092773
-height = 19.225952
+radius = 2.00928
+height = 19.226
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_4ra3w"]
-radius = 3.2211914
-height = 19.86084
+radius = 3.22119
+height = 19.8608
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_7p1mj"]
 radius = 50.0
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_8tegq"]
-albedo_color = Color(0.87511, 0, 0.23506531, 1)
 
 [node name="Enemy" type="CharacterBody3D" node_paths=PackedStringArray("model_container") groups=["enemies"]]
 collision_layer = 2
 collision_mask = 9
 motion_mode = 1
-floor_max_angle = 3.1415927
+floor_max_angle = 3.14159
 script = ExtResource("1_7p1mj")
 model_container = NodePath("Visuals")
 metadata/_edit_group_ = true
@@ -48,11 +46,11 @@ metadata/_edit_group_ = true
 replication_config = SubResource("SceneReplicationConfig_8tegq")
 
 [node name="EnemyCollisionBody" type="CollisionShape3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 2.842171e-14, -1.228716e-07, -3.0527768)
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 2.84217e-14, -1.22872e-07, -3.05278)
 shape = SubResource("CapsuleShape3D_md0e3")
 
 [node name="EnemyCollisionWings" type="CollisionShape3D" parent="."]
-transform = Transform3D(-4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0, 1, -0.039306134, 0.2886486, 4.7987337)
+transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, -0.0393061, 0.288649, 4.79873)
 shape = SubResource("CapsuleShape3D_4ra3w")
 
 [node name="DetectionArea" type="Area3D" parent="."]
@@ -60,16 +58,22 @@ collision_layer = 2
 collision_mask = 65535
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="DetectionArea"]
-transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, -4.001897e-09, 0.091552734)
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, -4.0019e-09, 0.0915527)
 shape = SubResource("SphereShape3D_7p1mj")
 
 [node name="Visuals" type="Node3D" parent="."]
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Visuals" groups=["enemies"]]
-transform = Transform3D(-0.7, 0, -6.119594e-08, 0, 0.7, 0, 6.119594e-08, 0, -0.7, 0, 0, 0)
-material_override = SubResource("StandardMaterial3D_8tegq")
-mesh = ExtResource("2_md0e3")
-skeleton = NodePath("../..")
+[node name="ThrusterExhaust" parent="Visuals" instance=ExtResource("3_nenq2")]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 2.72978, 6.07812)
+
+[node name="ThrusterExhaust2" parent="Visuals" instance=ExtResource("3_nenq2")]
+transform = Transform3D(0.6, 0, 0, 0, -2.62268e-08, 0.6, 0, -0.6, -2.62268e-08, -27.5042, 2.93507, 6.07812)
+
+[node name="ThrusterExhaust3" parent="Visuals" instance=ExtResource("3_nenq2")]
+transform = Transform3D(0.6, 0, 0, 0, -2.62268e-08, 0.6, 0, -0.6, -2.62268e-08, 27.5029, 2.93507, 6.07812)
+
+[node name="enemy" parent="Visuals" instance=ExtResource("2_5uy6h")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
 
 [node name="EnemyGun" parent="Visuals" instance=ExtResource("3_5uy6h")]
 

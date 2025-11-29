@@ -1,4 +1,4 @@
-[gd_scene load_steps=4 format=3 uid="uid://m2myyhjhyqn4"]
+[gd_scene load_steps=4 format=3 uid="uid://cduaufs6120d2"]
 
 [ext_resource type="Texture2D" uid="uid://dqwa42jtr1sqb" path="res://assets/models/thruster_exhaust/particle1.png" id="1_kjhec"]
 
@@ -7,11 +7,10 @@ transparency = 1
 cull_mode = 2
 no_depth_test = true
 disable_ambient_light = true
-disable_specular_occlusion = true
-albedo_color = Color(1, 1, 1, 0.023529412)
+albedo_color = Color(1, 1, 1, 0.0235294)
 albedo_texture = ExtResource("1_kjhec")
 emission_enabled = true
-emission = Color(0.6865477, 0.58362395, 0.948836, 1)
+emission = Color(0.686548, 0.583624, 0.948836, 1)
 emission_energy_multiplier = 6.92
 disable_receive_shadows = true
 billboard_mode = 3
