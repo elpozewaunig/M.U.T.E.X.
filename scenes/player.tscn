@@ -1,9 +1,10 @@
-[gd_scene load_steps=10 format=3 uid="uid://c111b6l8it2x6"]
+[gd_scene load_steps=11 format=3 uid="uid://c111b6l8it2x6"]
 
 [ext_resource type="Script" uid="uid://cc6g7dopbnu7h" path="res://scripts/Player.gd" id="1_qhqgy"]
 [ext_resource type="Texture2D" uid="uid://cslvlgyrpicam" path="res://_coolscene/sealtext.png" id="2_dqkch"]
 [ext_resource type="ArrayMesh" uid="uid://br5rnl4j1b3p8" path="res://_coolscene/seal.obj" id="3_qlg0r"]
 [ext_resource type="Script" uid="uid://t5w0edulbr26" path="res://scripts/playerMovement.gd" id="4_dqkch"]
+[ext_resource type="PackedScene" uid="uid://d2snjgmsw07qr" path="res://scenes/gun.tscn" id="5_qlg0r"]
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_qhqgy"]
 properties/0/path = NodePath(".:position")
@@ -70,3 +71,6 @@ visible = false
 material_override = SubResource("StandardMaterial3D_qhqgy")
 mesh = ExtResource("3_qlg0r")
 skeleton = NodePath("../..")
+
+[node name="Gun" parent="." instance=ExtResource("5_qlg0r")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.14239645, 1.7010101, -0.37525558)
