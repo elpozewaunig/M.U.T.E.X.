@@ -5,10 +5,16 @@ extends Node3D
 @export var model_container : Node3D 
 
 @export_group("Speed & Acceleration")
-@export var MAX_SPEED := 60.0       
+@export var MAX_SPEED := 70.0       
 @export var MIN_SPEED := -0.0      
-@export var acceleration := 30.0    
-@export var decceleration := -45.0  
+@export var acceleration := 25.0    
+@export var decceleration := -45.0
+
+@export_group("Boosting")
+@export var booooooooooost_acceleration := 100.0
+@export var max_speed_while_boosting := 120.0
+@export var boost_duration = 1.0
+@export var boost_cooldown = 2.0
 var default_acceleration : float 
 
 @export_group("Turning")
@@ -36,6 +42,8 @@ var default_acceleration : float
 var current_speed := 0.0
 var current_pitch_input := 0.0
 var current_yaw_input := 0.0
+var remaining_boost_duration := 0.0
+var current_boost_cooldown := 0.0
 
 func _ready():
 	if not player:
@@ -54,6 +62,7 @@ func _physics_process(delta):
 	var raw_pitch = Input.get_axis("TiltDown", "TiltUp")
 	var raw_turn = Input.get_axis("RollRight", "RollLeft") 
 	var acceleration_direction = Input.get_axis("Accelerate", "Break")
+	var is_boosting = Input.is_action_pressed("boost");
 	
 	# Allow for sharper Turns when flying slower
 	var yaw_turn_multiplier = 1.0
@@ -62,6 +71,12 @@ func _physics_process(delta):
 		var speed_percent = clamp(current_speed / MAX_SPEED, 0.0, 1.0)
 		yaw_turn_multiplier = lerp(max_yaw_turn_multiplier, 1.0, speed_percent) 
 		pitch_turn_multiplier = lerp(max_pitch_turn_multiplier, 1.0, speed_percent) 
+		
+	var airflow_control = clamp(abs(current_speed) / 30.0, 0.3, 1.0)
+	airflow_control = clamp(abs(current_speed) / 15.0, 0.1, 1.0)
+	
+	yaw_turn_multiplier *= airflow_control
+	pitch_turn_multiplier *= airflow_control
 	
 	# Smooth Input
 	current_pitch_input = lerp(current_pitch_input, raw_pitch, delta * response_speed)
@@ -93,15 +108,32 @@ func _physics_process(delta):
 	var target_bank = raw_turn * max_bank_angle
 	model_container.rotation.z = lerp(model_container.rotation.z, target_bank, delta * bank_smoothness)
 
+	var apply_boost = is_boosting and remaining_boost_duration > 0
+	if apply_boost:
+			remaining_boost_duration -= delta
+			current_speed += booooooooooost_acceleration * delta
+			current_boost_cooldown += (boost_cooldown / boost_duration) * delta
+
+	if apply_boost and current_boost_cooldown > 0:
+		current_boost_cooldown -= delta
+		
+	if (current_boost_cooldown <= 0):
+			remaining_boost_duration = boost_duration
+		
 	# Move
 	if acceleration_direction < 0:
 		current_speed += acceleration * delta
 	elif acceleration_direction > 0:
 		current_speed += decceleration * delta
-	else:
+	elif not apply_boost:
 		current_speed = move_toward(current_speed, 0.0, abs(default_acceleration) * delta)
 	   
-	current_speed = clamp(current_speed, MIN_SPEED, MAX_SPEED)
+	if apply_boost:
+		current_speed = clamp(current_speed, MIN_SPEED, max_speed_while_boosting)
+	else: 
+		current_speed = clamp(current_speed, MIN_SPEED, MAX_SPEED)
+		
+		
 	# Move relative to where we are facing (-Z is Forward)
 	player.velocity = -player.transform.basis.z * current_speed
 	
