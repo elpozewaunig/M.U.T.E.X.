@@ -2,23 +2,23 @@ extends CharacterBody3D
 
 var health
 
-# Movement Settings
+@export_group("Movement Settings")
 @export var MOVEMENT_SPEED = 15.0
 @export var ROTATION_SPEED = 3.0
 @export var WAYPOINT_REACH_DISTANCE = 5.0
 
-# Combat Settings
+@export_group("Combat Settings")
 @export var ATTACK_RANGE = 40.0
 @export var AVOID_RANGE = 5.0
 @export var DETECTION_RANGE = 50.0
 
-# Obstacle Avoidance
-@export var OBSTACLE_DETECT_DISTANCE = 15.0
+@export_group("Obstacle Avoidance")
+@export var OBSTACLE_DETECT_DISTANCE = 25.0
 @export var AVOIDANCE_FORCE = 2.0
 @export var RAYCAST_COUNT = 5 
 @export var ASTEROID_COLLISION_LAYER = 1
 
-# Path Settings
+@export_group("Path Settings")
 @export var PATROL_PATH_GROUP_NAME = "PatrolPaths"
 @export var PLAYERS_GROUP_NAME = "Players"
 
@@ -174,6 +174,10 @@ func check_asteroid_ray(from: Vector3, direction: Vector3, distance: float) -> b
 	
 	var result = space_state.intersect_ray(query)
 	return result.is_empty()
+	
+func check_player_ray(from: Vector3, direction: Vector3, distance: float) -> bool:
+	var space_state = get_world_3d().direct_space_state
+	return true #TODO implement
 
 func move_in_direction(direction: Vector3, delta: float) -> void:
 	if direction.length_squared() > 0.001:

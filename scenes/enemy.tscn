@@ -1,13 +1,10 @@
-[gd_scene load_steps=8 format=3 uid="uid://cuyyf2weq0thj"]
+[gd_scene load_steps=9 format=3 uid="uid://cuyyf2weq0thj"]
 
 [ext_resource type="Script" uid="uid://tfednihsjjtl" path="res://scripts/enemy.gd" id="1_7p1mj"]
+[ext_resource type="ArrayMesh" uid="uid://c8ywj02dkssvf" path="res://assets/models/ship/Spaceship_Player.obj" id="2_md0e3"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_8tegq"]
 albedo_color = Color(0.87511, 0, 0.23506531, 1)
-
-[sub_resource type="CapsuleMesh" id="CapsuleMesh_7p1mj"]
-radius = 2.0
-height = 10.0
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_8tegq"]
 properties/0/path = NodePath(".:position")
@@ -23,7 +20,13 @@ properties/2/replication_mode = 1
 [sub_resource type="BoxMesh" id="BoxMesh_7p1mj"]
 size = Vector3(2, 2, 2)
 
-[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_7p1mj"]
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_md0e3"]
+radius = 2.0092773
+height = 19.225952
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_4ra3w"]
+radius = 3.2211914
+height = 19.86084
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_7p1mj"]
 radius = 50.0
@@ -37,9 +40,9 @@ script = ExtResource("1_7p1mj")
 metadata/_edit_group_ = true
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="." groups=["enemies"]]
-transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0)
+transform = Transform3D(-0.7, 0, -6.119594e-08, 0, 0.7, 0, 6.119594e-08, 0, -0.7, 0, 0, 0)
 material_override = SubResource("StandardMaterial3D_8tegq")
-mesh = SubResource("CapsuleMesh_7p1mj")
+mesh = ExtResource("2_md0e3")
 
 [node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
 
@@ -50,9 +53,13 @@ replication_config = SubResource("SceneReplicationConfig_8tegq")
 transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0, 0, -1.0051968)
 mesh = SubResource("BoxMesh_7p1mj")
 
-[node name="EnemyCollision" type="CollisionShape3D" parent="."]
-transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0)
-shape = SubResource("CapsuleShape3D_7p1mj")
+[node name="EnemyCollisionBody" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 2.842171e-14, -1.228716e-07, -3.0527768)
+shape = SubResource("CapsuleShape3D_md0e3")
+
+[node name="EnemyCollisionWings" type="CollisionShape3D" parent="."]
+transform = Transform3D(-4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0, 1, -0.039306134, 0.2886486, 4.7987337)
+shape = SubResource("CapsuleShape3D_4ra3w")
 
 [node name="DetectionArea" type="Area3D" parent="."]
 collision_layer = 2
