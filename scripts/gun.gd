@@ -33,6 +33,8 @@ func server_shoot_bullet():
 	if not bullet_container:
 		printerr("Error: Could not find 'Bullets' node!")
 		return
+	
+	bullet.name = "Bullet_%d" % randi()
 
 	bullet_container.add_child(bullet, true)
 

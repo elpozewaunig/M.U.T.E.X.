@@ -22,7 +22,7 @@ properties/3/path = NodePath(".:scale")
 properties/3/spawn = true
 properties/3/replication_mode = 1
 
-[node name="CharacterBody3D" type="Area3D"]
+[node name="Bullet" type="Area3D"]
 script = ExtResource("1_mkf8s")
 
 [node name="Rocket" parent="." instance=ExtResource("2_y25gk")]
