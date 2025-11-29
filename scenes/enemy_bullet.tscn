@@ -1,0 +1,28 @@
+[gd_scene load_steps=5 format=3 uid="uid://cpwlcv55dkw2"]
+
+[ext_resource type="Script" uid="uid://dp6vcnnfhmqnv" path="res://scripts/enemy_bullet.gd" id="1_qx7rs"]
+[ext_resource type="PackedScene" uid="uid://cin7k7075t28o" path="res://scenes/rocket.tscn" id="2_38r62"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_y25gk"]
+height = 2.7907715
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_qncy5"]
+
+[node name="CharacterBody3D" type="Area3D"]
+script = ExtResource("1_qx7rs")
+
+[node name="Rocket" parent="." instance=ExtResource("2_38r62")]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(0.36831325, 0, 0, 0, -0.008451483, -0.3904885, 0, 1.0413373, -0.003169201, 0.0019836426, 9.086693e-05, 0.054075524)
+shape = SubResource("CapsuleShape3D_y25gk")
+
+[node name="DetectionArea" type="Area3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="DetectionArea"]
+transform = Transform3D(20, 0, 0, 0, 20, 0, 0, 0, 20, 0, 0, 0)
+shape = SubResource("SphereShape3D_qncy5")
+
+[node name="LifeTimer" type="Timer" parent="."]
+wait_time = 2.0
+autostart = true

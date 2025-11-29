@@ -1,0 +1,19 @@
+[gd_scene load_steps=3 format=3 uid="uid://dls7354f4iw2m"]
+
+[ext_resource type="Script" uid="uid://6iksotqxv0pt" path="res://scripts/enemy_gun.gd" id="1_7w47d"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_og67c"]
+
+[node name="Gun" type="Node3D"]
+script = ExtResource("1_7w47d")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.5, 0, 0, 0)
+mesh = SubResource("BoxMesh_og67c")
+
+[node name="RayCast3D" type="RayCast3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.29293367)
+target_position = Vector3(0, 0, -1)
+hit_from_inside = true
+debug_shape_custom_color = Color(0.78039217, 0.88235295, 0.050980393, 1)
+debug_shape_thickness = 5

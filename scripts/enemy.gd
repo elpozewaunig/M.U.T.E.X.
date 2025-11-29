@@ -314,6 +314,9 @@ func _on_detection_area_body_exited(body: Node3D) -> void:
 		print("Player lost! Returning to patrol")
 		
 
+func shoot_gun() -> void:
+	$Visuals/Gun.shoot_homing_missile()
+
 #Chris injected low quality code here
 #func take_damage(damage):
 #	print("Taking Damage")
