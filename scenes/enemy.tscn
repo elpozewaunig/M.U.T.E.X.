@@ -1,10 +1,8 @@
-[gd_scene load_steps=9 format=3 uid="uid://cuyyf2weq0thj"]
+[gd_scene load_steps=10 format=3 uid="uid://cuyyf2weq0thj"]
 
 [ext_resource type="Script" uid="uid://tfednihsjjtl" path="res://scripts/enemy.gd" id="1_7p1mj"]
 [ext_resource type="ArrayMesh" uid="uid://c8ywj02dkssvf" path="res://assets/models/ship/Spaceship_Player.obj" id="2_md0e3"]
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_8tegq"]
-albedo_color = Color(0.87511, 0, 0.23506531, 1)
+[ext_resource type="Script" uid="uid://cindsixiocgcm" path="res://scripts/enemyVisibility.gd" id="3_4ra3w"]
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_8tegq"]
 properties/0/path = NodePath(".:position")
@@ -31,6 +29,9 @@ height = 19.86084
 [sub_resource type="SphereShape3D" id="SphereShape3D_7p1mj"]
 radius = 50.0
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_8tegq"]
+albedo_color = Color(0.87511, 0, 0.23506531, 1)
+
 [node name="Enemy" type="CharacterBody3D" groups=["enemies"]]
 collision_layer = 2
 collision_mask = 9
@@ -38,11 +39,6 @@ motion_mode = 1
 floor_max_angle = 3.1415927
 script = ExtResource("1_7p1mj")
 metadata/_edit_group_ = true
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="." groups=["enemies"]]
-transform = Transform3D(-0.7, 0, -6.119594e-08, 0, 0.7, 0, 6.119594e-08, 0, -0.7, 0, 0, 0)
-material_override = SubResource("StandardMaterial3D_8tegq")
-mesh = ExtResource("2_md0e3")
 
 [node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
 
@@ -68,6 +64,18 @@ collision_mask = 65535
 [node name="CollisionShape3D" type="CollisionShape3D" parent="DetectionArea"]
 transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, -4.001897e-09, 0.091552734)
 shape = SubResource("SphereShape3D_7p1mj")
+
+[node name="Visuals" type="Node3D" parent="."]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Visuals" groups=["enemies"]]
+transform = Transform3D(-0.7, 0, -6.119594e-08, 0, 0.7, 0, 6.119594e-08, 0, -0.7, 0, 0, 0)
+material_override = SubResource("StandardMaterial3D_8tegq")
+mesh = ExtResource("2_md0e3")
+skeleton = NodePath("../..")
+
+[node name="VisibilityConstroller" type="Node3D" parent="." node_paths=PackedStringArray("visuals_node")]
+script = ExtResource("3_4ra3w")
+visuals_node = NodePath("../Visuals")
 
 [connection signal="body_entered" from="DetectionArea" to="." method="_on_detection_area_body_entered"]
 [connection signal="body_exited" from="DetectionArea" to="." method="_on_detection_area_body_exited"]

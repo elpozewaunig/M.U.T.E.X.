@@ -42,12 +42,14 @@ func spawn_enemy():
 		
 	var route_data = $PatrolRouteManager.get_random_route()
 
-	var enemy_instance = enemy_scene.instantiate();
+	
 	var enemyTypes = [1,2]
-	enemy_instance.initialize(enemyTypes.pick_random(), route_data["points"])
+	var enemy_instance = enemy_scene.instantiate();
 
 	$Enemies.add_child(enemy_instance)
 	enemy_instance.set_multiplayer_authority(1)
-
+	
+	
+	enemy_instance.initialize(enemyTypes.pick_random(), route_data["points"])
 func _on_enemy_spawn_timer_timeout() -> void:
 	spawn_enemy()

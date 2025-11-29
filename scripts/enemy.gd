@@ -1,7 +1,7 @@
 extends CharacterBody3D
 
 var health = 100
-var typeId: int; # 1 -> Host, 2 -> Client 
+var typeId: int; # 1 -> Seen by Host/Shot by Client, 2 -> Seen by Client/Shot by Host
 
 @export_group("Movement Settings")
 @export var MOVEMENT_SPEED = 15.0
@@ -62,6 +62,8 @@ func initialize(enemy_type_id: int, path_points: Array[Vector3]) -> void:
 	var random_index = randi() % path_points.size()
 	var spawn_position: Vector3 = patrol_points[random_index];
 	call_deferred("set_global_position", spawn_position)
+	
+	$VisibilityConstroller.apply_visibility(typeId)
 
 func _setup_patrol_path() -> void:
 	var all_paths: Array = get_tree().get_nodes_in_group(PATROL_PATH_GROUP_NAME)
