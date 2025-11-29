@@ -46,39 +46,56 @@ var smooth_avoidance: Vector3 = Vector3.ZERO
 var smooth_velocity: Vector3 = Vector3.ZERO
 
 func _ready() -> void:
+	# Only the Server runs the AI Logic loop.
+	# Clients just exist to show the mesh and have collisions.
 	if not is_multiplayer_authority():
 		return
-	
+
+# Called by the Spawner (Level Script) on the SERVER only
 func initialize(enemy_type_id: int, path_points: Array[Vector3]) -> void:
-	typeId = enemy_type_id
+	# 1. SETUP PATHING (Server Only)
+	patrol_points = path_points
+	if not patrol_points.is_empty():
+		var random_index = randi() % path_points.size()
+		global_position = patrol_points[random_index]
 	
-	match enemy_type_id:
+	# 2. SETUP TYPE (Networked)
+	# We use an RPC so the Client gets the message to set up Layers & Visuals
+	rpc("setup_enemy_type", enemy_type_id)
+
+# This function runs on Server AND Clients
+@rpc("call_local", "reliable")
+func setup_enemy_type(id: int):
+	typeId = id
+	
+	# Reset Layers
+	collision_layer = 0
+	collision_mask = 0
+	
+	match id:
 		1:
-			# Layer 2, Mask: 1, 4, 5
+			# Layer 2 | Mask: 1 (Map), 4 (Host), 5 (Client)
 			set_collision_layer_value(2, true)
 			set_collision_mask_value(1, true)
 			set_collision_mask_value(4, true)
 			set_collision_mask_value(5, true)
 		2:
-			# Layer 3, Mask: 1, 4, 5
+			# Layer 3 | Mask: 1, 4, 5
 			set_collision_layer_value(3, true)
 			set_collision_mask_value(1, true)
 			set_collision_mask_value(4, true)
 			set_collision_mask_value(5, true)
 		_:
-			push_error("Unknown enemy type: %d" % enemy_type_id)
-	
-	patrol_points = path_points
-	
-	var random_index = randi() % path_points.size()
-	var spawn_position: Vector3 = patrol_points[random_index];
-	call_deferred("set_global_position", spawn_position)
-	
-	$VisibilityConstroller.apply_visibility(typeId)
+			push_error("Unknown enemy type: %d" % id)
+			
+	# Apply Visibility (Handling potential typo in node name)
+	if has_node("VisibilityController"):
+		$VisibilityController.apply_visibility(typeId)
+	elif has_node("VisibilityConstroller"):
+		$VisibilityConstroller.apply_visibility(typeId)
 
 func _setup_patrol_path() -> void:
 	var all_paths: Array = get_tree().get_nodes_in_group(PATROL_PATH_GROUP_NAME)
-	
 	if all_paths.is_empty():
 		push_error("No Path3D nodes with group '%s' found" % PATROL_PATH_GROUP_NAME)
 		return
@@ -92,13 +109,13 @@ func _setup_patrol_path() -> void:
 func _load_patrol_points(path: Path3D) -> void:
 	patrol_points.clear()
 	var curve: Curve3D = path.curve
-	
 	for i in range(curve.point_count):
 		var local_point = curve.get_point_position(i)
 		var global_point = path.to_global(local_point)
 		patrol_points.append(global_point)
 
 func _physics_process(delta: float) -> void:
+	# Only Server calculates movement
 	if not is_multiplayer_authority():
 		return
 	
@@ -170,7 +187,6 @@ func attack_player(delta: float) -> void:
 	else:
 		current_state = CHASING
 
-
 func detect_obstacles(desired_direction: Vector3) -> Vector3:
 	var avoidance_vector = Vector3.ZERO
 	
@@ -212,13 +228,9 @@ func detect_obstacles(desired_direction: Vector3) -> Vector3:
 func check_asteroid_ray(from: Vector3, direction: Vector3, distance: float) -> bool:
 	# Shoots RayCast to check if something is in the way
 	var space_state = get_world_3d().direct_space_state
-	var query = PhysicsRayQueryParameters3D.create(
-		from,
-		from + direction.normalized() * distance
-	)
+	var query = PhysicsRayQueryParameters3D.create(from, from + direction.normalized() * distance)
 	query.exclude = [self]
 	query.collision_mask = ASTEROID_COLLISION_LAYER
-	
 	var result = space_state.intersect_ray(query)
 	return result.is_empty()
 	
@@ -248,26 +260,24 @@ func move_in_direction(direction: Vector3, delta: float) -> void:
 	else:
 		smooth_velocity = smooth_velocity.lerp(Vector3.ZERO, 8.0 * delta)
 		velocity = smooth_velocity
-		
 	move_and_slide()
 
 func rotate_towards(direction: Vector3, delta: float) -> void:
 	if direction.length_squared() < 0.001:
-		model_container.rotation.z = lerp(model_container.rotation.z, 0.0, delta * bank_smoothness)
-		model_container.rotation.x = lerp(model_container.rotation.x, 0.0, delta * bank_smoothness)
+		if model_container:
+			model_container.rotation.z = lerp(model_container.rotation.z, 0.0, delta * bank_smoothness)
+			model_container.rotation.x = lerp(model_container.rotation.x, 0.0, delta * bank_smoothness)
 		return
 	
 	var target_basis = Basis.looking_at(direction, Vector3.UP)
 	
-	# Berechne Rotationsdifferenz
 	var current_forward = -basis.z.normalized()
 	var target_forward = direction.normalized()
 	var rotation_axis = current_forward.cross(target_forward)
 	
-	# Banking mit Geschwindigkeitseinfluss
 	var bank_amount = 0.0
 	if rotation_axis.length_squared() > 0.001:
-		var turn_rate = rotation_axis.length();
+		var turn_rate = rotation_axis.length()
 		bank_amount = rotation_axis.y * max_bank_angle * turn_rate
 		bank_amount = clampf(bank_amount, -max_bank_angle, max_bank_angle)
 	
@@ -281,8 +291,9 @@ func rotate_towards(direction: Vector3, delta: float) -> void:
 	var pitch_amount = eased_pitch * max_pitch_angle * 0.6
 	
 	# Apply smooth rotation
-	model_container.rotation.z = lerp(model_container.rotation.z, deg_to_rad(bank_amount), delta * bank_smoothness)
-	model_container.rotation.x = lerp(model_container.rotation.x, deg_to_rad(pitch_amount), delta * bank_smoothness)
+	if model_container:
+		model_container.rotation.z = lerp(model_container.rotation.z, deg_to_rad(bank_amount), delta * bank_smoothness)
+		model_container.rotation.x = lerp(model_container.rotation.x, deg_to_rad(pitch_amount), delta * bank_smoothness)
 	
 	basis = basis.slerp(target_basis, ROTATION_SPEED * delta)
 	
@@ -315,14 +326,11 @@ func _on_detection_area_body_exited(body: Node3D) -> void:
 		
 
 func shoot_gun() -> void:
-	$Visuals/Gun.shoot_homing_missile()
+	# Calls the method on the gun node inside Visuals
+	# Make sure your Gun node actually has this method
+	if has_node("Visuals/Gun"):
+		$Visuals/Gun.shoot_homing_missile()
 
-#Chris injected low quality code here
-#func take_damage(damage):
-#	print("Taking Damage")
-#	health = health - damage
-#	if health <= 0:
-#		queue_free()
 @rpc("any_peer", "call_local")
 func take_damage(damage_amount):
 	if not multiplayer.is_server():
