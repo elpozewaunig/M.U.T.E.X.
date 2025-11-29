@@ -9,7 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://bdfw8wp21jlmh" path="res://scenes/thruster_exhaust.tscn" id="5_tuyoq"]
 [ext_resource type="Material" uid="uid://bm06tepcpvlcd" path="res://assets/models/thruster_exhaust/outline_shader.tres" id="6_ur7pv"]
 [ext_resource type="Texture2D" uid="uid://qymy4et4jfcg" path="res://assets/sprites/svgviewer-output.svg" id="7_fjrip"]
-[ext_resource type="Script" path="res://scripts/texture_rect.gd" id="8_smehm"]
+[ext_resource type="Script" uid="uid://bckvg3syriw3r" path="res://scripts/texture_rect.gd" id="8_smehm"]
 [ext_resource type="PackedScene" uid="uid://m2myyhjhyqn4" path="res://scenes/thruster_particles.tscn" id="11_d2wvv"]
 [ext_resource type="Texture2D" uid="uid://dqwa42jtr1sqb" path="res://assets/models/thruster_exhaust/particle1.png" id="12_3v2ag"]
 
@@ -32,6 +32,8 @@ properties/3/replication_mode = 1
 [sub_resource type="ViewportTexture" id="ViewportTexture_smehm"]
 viewport_path = NodePath("ModelContainer/HUD/SubViewport")
 
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_tuyoq"]
+
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_8bjf3"]
 transparency = 1
 cull_mode = 2
@@ -44,7 +46,7 @@ distance_fade_mode = 1
 material = SubResource("StandardMaterial3D_8bjf3")
 size = Vector2(0.14, 0.1)
 
-[node name="CharacterBody3D" type="CharacterBody3D" node_paths=PackedStringArray("movement_controller", "camera_controller", "camera") groups=["Players"]]
+[node name="CharacterBody3D2" type="CharacterBody3D" node_paths=PackedStringArray("movement_controller", "camera_controller", "camera") groups=["Players"]]
 collision_layer = 2
 collision_mask = 8
 motion_mode = 1
@@ -124,6 +126,10 @@ shape = SubResource("CapsuleShape3D_tuyoq")
 
 [node name="CollisionShape3D2" type="CollisionShape3D" parent="ModelContainer"]
 transform = Transform3D(5.95371, 0, 5.05552e-08, 0, 0.279729, 0, 1.53151e-06, 0, 1.3531, -0.07686, 0.058098, 1.39981)
+shape = SubResource("CapsuleShape3D_tuyoq")
+
+[node name="CollisionShape3D3" type="CollisionShape3D" parent="ModelContainer"]
+transform = Transform3D(2.70113e-07, 0, 0.89754, 0, 0.528894, 0, 6.17946, 0, -3.92327e-08, 0, 0.038, -0.914)
 shape = SubResource("CapsuleShape3D_tuyoq")
 
 [node name="CollisionShape3D4" type="CollisionShape3D" parent="ModelContainer"]

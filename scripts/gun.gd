@@ -30,11 +30,11 @@ func server_shoot_bullet():
 	var bullet = bulletScene.instantiate()
 	var bullet_container = get_node("/root/LevelScene/Bullets")
 	
-	if bullet_container:
-		bullet_container.add_child(bullet)
-	else:
-		printerr("Error: Could not find 'Bullets' node in LevelScene!")
+	if not bullet_container:
+		printerr("Error: Could not find 'Bullets' node!")
 		return
+
+	bullet_container.add_child(bullet, true)
 
 	bullet.global_position = gun_ray.global_position
 	bullet.global_transform.basis = gun_ray.global_transform.basis
