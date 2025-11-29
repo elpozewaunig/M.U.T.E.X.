@@ -7,6 +7,6 @@ transparency = 1
 cull_mode = 2
 albedo_texture = ExtResource("1_pgif2")
 emission_enabled = true
-emission = Color(0, 0, 0.8, 1)
+emission = Color(0.237483, 0.204102, 0.517631, 1)
 emission_energy_multiplier = 17.1
 disable_receive_shadows = true

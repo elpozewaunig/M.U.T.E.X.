@@ -1,0 +1,29 @@
+[gd_scene load_steps=4 format=3 uid="uid://nx6niris3iu1"]
+
+[ext_resource type="PackedScene" uid="uid://d03en4a46ugui" path="res://assets/models/thruster_exhaust/thruster_exhaust.glb" id="1_cvcbv"]
+[ext_resource type="Texture2D" uid="uid://dqwa42jtr1sqb" path="res://assets/models/thruster_exhaust/particle1.png" id="2_cvcbv"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_te1p6"]
+transparency = 1
+cull_mode = 2
+albedo_texture = ExtResource("2_cvcbv")
+emission_enabled = true
+emission = Color(0.429293, 0.165834, 0.147748, 1)
+emission_energy_multiplier = 17.1
+disable_receive_shadows = true
+
+[node name="ThrusterExhaust" type="Node3D"]
+
+[node name="thruster_exhaust" parent="." instance=ExtResource("1_cvcbv")]
+
+[node name="SIDE" parent="thruster_exhaust" index="0"]
+material_override = SubResource("StandardMaterial3D_te1p6")
+
+[node name="TOP" parent="thruster_exhaust" index="1"]
+material_override = SubResource("StandardMaterial3D_te1p6")
+
+[node name="AnimationPlayer" parent="thruster_exhaust" index="2"]
+autoplay = "Action"
+speed_scale = 5.0
+
+[editable path="thruster_exhaust"]

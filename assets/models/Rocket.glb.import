@@ -3,13 +3,13 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://ctqp8yhnra6jl"
-path="res://.godot/imported/Spaceship_Player.glb-58a331a34a58c61786ea7388c4f479d9.scn"
+uid="uid://b66ahf20ywpob"
+path="res://.godot/imported/Rocket.glb-488cbb5657d4f25533a152cde2946e1d.scn"
 
 [deps]
 
-source_file="res://assets/models/ship/Spaceship_Player.glb"
-dest_files=["res://.godot/imported/Spaceship_Player.glb-58a331a34a58c61786ea7388c4f479d9.scn"]
+source_file="res://assets/models/Rocket.glb"
+dest_files=["res://.godot/imported/Rocket.glb-488cbb5657d4f25533a152cde2946e1d.scn"]
 
 [params]
 
@@ -33,5 +33,5 @@ animation/remove_immutable_tracks=true
 animation/import_rest_as_RESET=false
 import_script/path=""
 _subresources={}
-gltf/naming_version=2
+gltf/naming_version=1
 gltf/embedded_image_handling=1

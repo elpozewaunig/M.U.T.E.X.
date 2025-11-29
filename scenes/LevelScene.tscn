@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://curg5wfwg0y3w"]
+[gd_scene load_steps=17 format=3 uid="uid://curg5wfwg0y3w"]
 
 [ext_resource type="Script" uid="uid://b0g8rxgtpwr8c" path="res://scripts/levelScript.gd" id="1_in5yg"]
 [ext_resource type="PackedScene" uid="uid://c111b6l8it2x6" path="res://scenes/player.tscn" id="2_dfg5a"]
@@ -21,8 +21,8 @@ reflected_light_source = 2
 glow_enabled = true
 volumetric_fog_enabled = true
 volumetric_fog_density = 0.001
-volumetric_fog_albedo = Color(0.46618086, 0.4661808, 0.4661808, 1)
-volumetric_fog_emission = Color(0.87311625, 0.4314523, 1.1551381e-06, 1)
+volumetric_fog_albedo = Color(0.466181, 0.466181, 0.466181, 1)
+volumetric_fog_emission = Color(0.873116, 0.431452, 1.15514e-06, 1)
 volumetric_fog_emission_energy = 5.0
 
 [sub_resource type="Animation" id="Animation_vle45"]
@@ -50,7 +50,7 @@ tracks/0/path = NodePath("WorldEnvironment:environment:sky:sky_material:energy_m
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.9333333),
+"times": PackedFloat32Array(0, 0.933333),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
 "values": [3.0, 1.0]
@@ -62,12 +62,9 @@ _data = {
 &"fadein": SubResource("Animation_n4611")
 }
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_lpkg1"]
-size = Vector3(50, 20, 1)
-
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_dfg5a"]
 vertex_color_is_srgb = true
-albedo_color = Color(0.91224825, 0.4228835, 0.76278186, 1)
+albedo_color = Color(0.912248, 0.422884, 0.762782, 1)
 
 [sub_resource type="BoxMesh" id="BoxMesh_y8gwd"]
 material = SubResource("StandardMaterial3D_dfg5a")
@@ -94,7 +91,7 @@ _spawnable_scenes = PackedStringArray("uid://c111b6l8it2x6")
 spawn_path = NodePath("../Players")
 
 [node name="OmniLight3D" type="OmniLight3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 5.270752)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 5.27075)
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_dfg5a")
@@ -107,7 +104,7 @@ libraries = {
 autoplay = "fadein"
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="WorldEnvironment"]
-transform = Transform3D(-0.9569052, -0.11949257, -0.2646767, 0.014246265, -0.9296398, 0.36819422, -0.2900505, 0.34855643, 0.89127946, -159.26929, 40.64657, 0)
+transform = Transform3D(-0.956905, -0.119493, -0.264677, 0.0142463, -0.92964, 0.368194, -0.290051, 0.348556, 0.891279, -159.269, 40.6466, 0)
 
 [node name="EnemySpawner" type="MultiplayerSpawner" parent="."]
 spawn_path = NodePath("../Enemies")
@@ -117,25 +114,18 @@ spawn_limit = 15
 wait_time = 10.0
 autostart = true
 
-[node name="StaticBody3D" type="StaticBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -10)
-metadata/_edit_group_ = true
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
-shape = SubResource("BoxShape3D_lpkg1")
-
 [node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="."]
 volume_db = 0.75
 
 [node name="Wall2" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -124.94079)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -124.941)
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Wall2"]
-transform = Transform3D(23.047922, 0, 0, 0, 10.132043, 0, 0, 0, 1, 18.303036, 3.0949965, -13.6137085)
+transform = Transform3D(23.0479, 0, 0, 0, 10.132, 0, 0, 0, 1, 18.303, 3.095, -13.6137)
 mesh = SubResource("BoxMesh_y8gwd")
 
 [node name="Wall3" type="StaticBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -165.51074, 0, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -165.511, 0, 0)
 physics_material_override = SubResource("PhysicsMaterial_lpkg1")
 metadata/_edit_group_ = true
 
@@ -147,16 +137,16 @@ mesh = SubResource("BoxMesh_y8gwd")
 shape = SubResource("BoxShape3D_n4611")
 
 [node name="Wall4" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -121.35637, 0, -128.3823)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -121.356, 0, -128.382)
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Wall4"]
-transform = Transform3D(23.047922, 0, 0, 0, 10.132043, 0, 0, 0, 1, 18.303036, 3.0949965, -13.6137085)
+transform = Transform3D(23.0479, 0, 0, 0, 10.132, 0, 0, 0, 1, 18.303, 3.095, -13.6137)
 mesh = SubResource("BoxMesh_y8gwd")
 
 [node name="Map" type="Node3D" parent="."]
 
 [node name="AsteroidBelt8" type="MeshInstance3D" parent="Map"]
-transform = Transform3D(450, 0, 0, 0, 10.429138, -449.87915, 0, 449.87915, 10.429138, 696.3865, -296.8474, -848.5074)
+transform = Transform3D(450, 0, 0, 0, 10.4291, -449.879, 0, 449.879, 10.4291, 696.386, -296.847, -848.507)
 mesh = ExtResource("6_vle45")
 skeleton = NodePath("../..")
 

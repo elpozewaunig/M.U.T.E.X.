@@ -1,5 +1,6 @@
 extends Node3D
 
+signal max_Speed(speed)
 @export_group("Character & Model")
 @export var player : CharacterBody3D 
 @export var model_container : Node3D 
@@ -57,6 +58,7 @@ func _ready():
 	
 	default_acceleration = -MAX_SPEED / 5.0
 	print("Visual Banking Controller Initialized")
+	max_Speed.emit(MAX_SPEED)
 
 func _physics_process(delta):
 	var raw_pitch = Input.get_axis("TiltDown", "TiltUp")

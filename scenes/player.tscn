@@ -1,9 +1,10 @@
-[gd_scene load_steps=13 format=3 uid="uid://c111b6l8it2x6"]
+[gd_scene load_steps=14 format=3 uid="uid://c111b6l8it2x6"]
 
 [ext_resource type="Script" uid="uid://cc6g7dopbnu7h" path="res://scripts/Player.gd" id="1_qhqgy"]
 [ext_resource type="Script" uid="uid://b4rer4p7cpwlv" path="res://scripts/cameraController.gd" id="3_tuyoq"]
 [ext_resource type="Script" uid="uid://t5w0edulbr26" path="res://scripts/playerMovement.gd" id="4_dqkch"]
 [ext_resource type="PackedScene" uid="uid://84qcf0s50w45" path="res://assets/models/thruster_exhaust/ship_model.tscn" id="4_qlg0r"]
+[ext_resource type="Script" uid="uid://sdinj12j5eet" path="res://scenes/Thurstes.gd" id="4_y4r1p"]
 [ext_resource type="PackedScene" uid="uid://d2snjgmsw07qr" path="res://scenes/gun.tscn" id="5_qlg0r"]
 [ext_resource type="PackedScene" uid="uid://bdfw8wp21jlmh" path="res://scenes/thruster_exhaust.tscn" id="5_tuyoq"]
 [ext_resource type="Material" uid="uid://bm06tepcpvlcd" path="res://assets/models/thruster_exhaust/outline_shader.tres" id="6_ur7pv"]
@@ -44,30 +45,36 @@ player = NodePath("..")
 model_container = NodePath("../ModelContainer")
 
 [node name="SpringArm3D" type="SpringArm3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 0.8755742, 0.48308375, 0, -0.48308375, 0.8755742, 0, 0, 0)
+transform = Transform3D(1, 0, 0, 0, 0.875574, 0.483084, 0, -0.483084, 0.875574, 0, 0, 0)
 spring_length = 10.0
 script = ExtResource("3_tuyoq")
 
 [node name="Camera3D" type="Camera3D" parent="SpringArm3D"]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
-transform = Transform3D(2.7011293e-07, 0, 0.89754, 0, 0.5288943, 0, 6.1794634, 0, -3.9232717e-08, 0, 0.038, -0.914)
+transform = Transform3D(2.70113e-07, 0, 0.89754, 0, 0.528894, 0, 6.17946, 0, -3.92327e-08, 0, 0.038, -0.914)
 shape = SubResource("CapsuleShape3D_tuyoq")
 
 [node name="CollisionShape3D2" type="CollisionShape3D" parent="."]
-transform = Transform3D(5.953706, 0, 5.0555247e-08, 0, 0.2797292, 0, 1.5315118e-06, 0, 1.3531013, -0.07686001, 0.05809798, 1.3998126)
+transform = Transform3D(5.95371, 0, 5.05552e-08, 0, 0.279729, 0, 1.53151e-06, 0, 1.3531, -0.07686, 0.058098, 1.39981)
 shape = SubResource("CapsuleShape3D_tuyoq")
 
-[node name="ModelContainer" type="Node3D" parent="."]
+[node name="ModelContainer" type="Node3D" parent="." node_paths=PackedStringArray("player", "thrusterMain", "thrusterLeft", "thrusterRight", "movement")]
+script = ExtResource("4_y4r1p")
+player = NodePath("..")
+thrusterMain = NodePath("ThrusterExhaust")
+thrusterLeft = NodePath("ThrusterExhaust2")
+thrusterRight = NodePath("ThrusterExhaust3")
+movement = NodePath("../movementController")
 
 [node name="ThrusterExhaust" parent="ModelContainer" instance=ExtResource("5_tuyoq")]
-transform = Transform3D(0.445, 0, 0, 0, 0.010235764, 0.21294236, 0, -0.43988094, 0.0049550403, -0.13010788, 0.2513337, 2.230224)
+transform = Transform3D(0.445, 0, 0, 0, 0.0102358, 0.212942, 0, -0.439881, 0.00495504, -0.130108, 0.251334, 2.23022)
 
 [node name="ThrusterExhaust2" parent="ModelContainer" instance=ExtResource("5_tuyoq")]
-transform = Transform3D(0.43191287, 0.10589531, -0.0011928582, 0, 0.010235766, 0.21294239, 0.10712765, -0.42694435, 0.0048093162, 1.1940761, 0.1329537, 1.9760575)
+transform = Transform3D(0.431913, 0.105895, -0.00119282, 0, 0.0102355, 0.212942, 0.107128, -0.426944, 0.00480917, 1.19408, 0.132954, 1.97606)
 
 [node name="ThrusterExhaust3" parent="ModelContainer" instance=ExtResource("5_tuyoq")]
-transform = Transform3D(0.4298149, -0.11393116, 0.001283378, 0, 0.010235766, 0.21294239, -0.11525702, -0.42487055, 0.0047859554, -1.4816318, 0.1474101, 1.9760575)
+transform = Transform3D(0.429815, -0.113931, 0.00128334, 0, 0.0102355, 0.212942, -0.115257, -0.424871, 0.00478581, -1.48163, 0.14741, 1.97606)
 
 [node name="ShipModel" parent="ModelContainer" instance=ExtResource("4_qlg0r")]
 transform = Transform3D(0.25, 0, 0, 0, 0.25, 0, 0, 0, 0.25, 0, 0, 0)
@@ -76,7 +83,7 @@ transform = Transform3D(0.25, 0, 0, 0, 0.25, 0, 0, 0, 0.25, 0, 0, 0)
 material_overlay = ExtResource("6_ur7pv")
 
 [node name="Gun" parent="." instance=ExtResource("5_qlg0r")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.14239645, -0.105989575, -4.380159)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.142396, -0.10599, -4.38016)
 
 [node name="HUD" type="Node3D" parent="."]
 
@@ -90,8 +97,10 @@ texture = ExtResource("7_fjrip")
 script = ExtResource("8_smehm")
 
 [node name="Sprite3D" type="Sprite3D" parent="HUD"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5116393, 0, -7.777567)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.511639, 0, -7.77757)
 texture = SubResource("ViewportTexture_smehm")
+
+[connection signal="max_Speed" from="movementController" to="ModelContainer" method="_on_movement_controller_max_speed"]
 
 [editable path="ModelContainer/ShipModel"]
 [editable path="ModelContainer/ShipModel/Spaceship_Player"]
