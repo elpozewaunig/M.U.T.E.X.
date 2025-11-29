@@ -2,24 +2,23 @@ extends Node3D
 
 @onready var gun_ray = $RayCast3D
 
-var bullet = load("res://scenes/bullet.tscn")
+var bulletScene = load("res://scenes/bullet.tscn")
 var bulletObject
 var is_shooting = false
 
-# Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	pass # Replace with function body.
+	pass 
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	if Input.is_action_just_pressed("shoot"):
-		#if !is_shooting:
-			shoot()
+			shoot_homing_missile()
 
 
-func shoot() -> void:
-	bulletObject = bullet.instantiate()
-	get_tree().root.add_child(bulletObject)
-	bulletObject.global_transform = gun_ray.global_transform
-	#await get_tree().create_timer(10).timeout
-	#is_shooting = false
+func shoot_homing_missile():
+	var bullet = bulletScene.instantiate()
+	get_tree().root.add_child(bullet) 
+
+	bullet.global_position = gun_ray.global_position
+	bullet.global_transform.basis = gun_ray.global_transform.basis
+	
+	bullet.setup_bullet(multiplayer.is_server())

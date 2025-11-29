@@ -237,6 +237,7 @@ func _on_detection_area_body_exited(body: Node3D) -> void:
 
 #Chris injected low quality code here
 func take_damage(damage):
+	print("Taking Damage")
 	health = health - damage
 	if health <= 0:
 		queue_free()

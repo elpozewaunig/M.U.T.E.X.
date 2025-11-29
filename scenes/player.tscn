@@ -9,7 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://bdfw8wp21jlmh" path="res://scenes/thruster_exhaust.tscn" id="5_tuyoq"]
 [ext_resource type="Material" uid="uid://bm06tepcpvlcd" path="res://assets/models/thruster_exhaust/outline_shader.tres" id="6_ur7pv"]
 [ext_resource type="Texture2D" uid="uid://qymy4et4jfcg" path="res://assets/sprites/svgviewer-output.svg" id="7_fjrip"]
-[ext_resource type="Script" path="res://scenes/texture_rect.gd" id="8_smehm"]
+[ext_resource type="Script" uid="uid://bckvg3syriw3r" path="res://scenes/texture_rect.gd" id="8_smehm"]
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_qhqgy"]
 properties/0/path = NodePath(".:position")
@@ -82,8 +82,19 @@ transform = Transform3D(0.25, 0, 0, 0, 0.25, 0, 0, 0, 0.25, 0, 0, 0)
 [node name="Ship A" parent="ModelContainer/ShipModel/Spaceship_Player" index="0"]
 material_overlay = ExtResource("6_ur7pv")
 
-[node name="Gun" parent="." instance=ExtResource("5_qlg0r")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.142396, -0.10599, -4.38016)
+[node name="LeftGun" parent="ModelContainer" instance=ExtResource("5_qlg0r")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.47844988, 0.42692745, -0.53148603)
+
+[node name="RightGun" parent="ModelContainer" instance=ExtResource("5_qlg0r")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.247, 0.36378676, -0.56205153)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="ModelContainer"]
+transform = Transform3D(2.7011293e-07, 0, 0.89754, 0, 0.5288943, 0, 6.1794634, 0, -3.9232717e-08, 0, 0.038, -0.914)
+shape = SubResource("CapsuleShape3D_tuyoq")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="ModelContainer"]
+transform = Transform3D(5.953706, 0, 5.0555247e-08, 0, 0.2797292, 0, 1.5315118e-06, 0, 1.3531013, -0.07686001, 0.05809798, 1.3998126)
+shape = SubResource("CapsuleShape3D_tuyoq")
 
 [node name="HUD" type="Node3D" parent="."]
 
@@ -91,13 +102,14 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.142396, -0.10599, -4.38016
 transparent_bg = true
 
 [node name="HUD SVG" type="TextureRect" parent="HUD/SubViewport"]
-offset_right = 40.0
-offset_bottom = 40.0
+offset_right = 400.0
+offset_bottom = 2000.0
 texture = ExtResource("7_fjrip")
+stretch_mode = 1
 script = ExtResource("8_smehm")
 
 [node name="Sprite3D" type="Sprite3D" parent="HUD"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.511639, 0, -7.77757)
+transform = Transform3D(5, 0, 0, 0, 5, 0, 0, 0, 5, 1.664, 0, -11.829)
 texture = SubResource("ViewportTexture_smehm")
 
 [connection signal="max_Speed" from="movementController" to="ModelContainer" method="_on_movement_controller_max_speed"]

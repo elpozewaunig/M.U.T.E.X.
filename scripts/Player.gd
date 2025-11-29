@@ -10,7 +10,15 @@ func _enter_tree():
 	set_multiplayer_authority(str(name).to_int())
 
 func _ready():
-	# 2. DECIDE WHO IS IN CONTROL
+	collision_layer = 0
+	var my_peer_id = str(name).to_int()
+	
+	if my_peer_id == 1:
+		set_collision_layer_value(4, true)
+	else:
+		set_collision_layer_value(5, true)
+		
+		
 	if is_multiplayer_authority():
 		# This is MY player. 
 		# Enable Camera.
