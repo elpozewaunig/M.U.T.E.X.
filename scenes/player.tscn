@@ -48,6 +48,7 @@ model_container = NodePath("../ModelContainer")
 
 [node name="Camera3D" type="Camera3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 0.9300461, 0.36744288, 0, -0.36744288, 0.9300461, 0, 2.3808396, 6.8393536)
+visible = false
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(-4.3711387e-07, 0, 10, 0, 10, 0, -10, 0, -4.3711387e-07, 46.52, 7.4, -2.0334537e-06)

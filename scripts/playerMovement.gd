@@ -5,10 +5,10 @@ extends Node3D
 @export var model_container : Node3D 
 
 @export_group("Speed & Acceleration")
-@export var MAX_SPEED := 80.0       
+@export var MAX_SPEED := 60.0       
 @export var MIN_SPEED := -0.0      
-@export var acceleration := 40.0    
-@export var decceleration := -60.0  
+@export var acceleration := 30.0    
+@export var decceleration := -45.0  
 var default_acceleration : float 
 
 @export_group("Turning")
@@ -21,7 +21,7 @@ var default_acceleration : float
 @export_group("Visual Banking")
 @export var max_bank_angle := 70.0
 @export var bank_smoothness := 15.0 
-@export var max_pitch_angle := 75.0 # if > 85 -> you fucked. 
+@export var max_pitch_angle := 60.0 # if > 85 -> you fucked. 
 
 @export_group("Control Feel")
 @export var response_speed := 10.0
