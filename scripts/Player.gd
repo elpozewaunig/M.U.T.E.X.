@@ -18,7 +18,10 @@ signal newColor(primary:Color,secondary)
 @export var missileLockColor:Color
 @export var noMissileLockColor:Color
 @export var locked:bool =false
+@export var audioMissileLock:AudioStreamPlayer3D
 
+var timer=1; 
+var maxTime=1;
 var enemyCounter=0
 
 
@@ -27,7 +30,11 @@ signal takeDamageSignal(damageAmount)
 func _enter_tree():
 	# 1. Set Authority based on Name (Standard stuff)
 	set_multiplayer_authority(str(name).to_int())
-
+func _process(delta: float) -> void:
+	timer-=delta
+	if locked and timer<=0: 
+		timer=maxTime
+		PlayAudio()
 func _ready():
 	collision_layer = 0
 	var my_peer_id = str(name).to_int()
@@ -96,8 +103,11 @@ func MissileLock()->void:
 	enemyCounter+=1
 	missileLock.modulate=missileLockColor
 	
+	
 func MissileUnlock()->void: 
 	locked=false
 	enemyCounter-=1
 	if(enemyCounter<=0):
 		missileLock.modulate=noMissileLockColor
+func PlayAudio()->void:
+	audioMissileLock.play()
