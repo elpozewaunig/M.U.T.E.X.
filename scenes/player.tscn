@@ -1,4 +1,4 @@
-[gd_scene load_steps=33 format=3 uid="uid://c111b6l8it2x6"]
+[gd_scene load_steps=35 format=3 uid="uid://c111b6l8it2x6"]
 
 [ext_resource type="Script" uid="uid://cc6g7dopbnu7h" path="res://scripts/Player.gd" id="1_qhqgy"]
 [ext_resource type="Script" uid="uid://b4rer4p7cpwlv" path="res://scripts/cameraController.gd" id="3_tuyoq"]
@@ -22,6 +22,7 @@
 [ext_resource type="PackedScene" uid="uid://cvwnv2lgiecdf" path="res://scenes/explosion.tscn" id="18_fulsm"]
 [ext_resource type="AudioStream" uid="uid://1gw744hujikf" path="res://assets/sounds/explosion.wav" id="19_4r5pv"]
 [ext_resource type="AudioStream" uid="uid://ckwcyngu2k4cl" path="res://assets/sounds/engine.wav" id="20_60mlk"]
+[ext_resource type="Script" uid="uid://cp35ju278p1ev" path="res://scenes/shape_cast_3d.gd" id="22_4ni07"]
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_qhqgy"]
 properties/0/path = NodePath(".:position")
@@ -70,6 +71,10 @@ viewport_path = NodePath("PointDisplay/SubViewport")
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_fulsm"]
 radius = 0.675
 height = 7.5
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_l71n6"]
+height = 15.335
+radius = 0.965
 
 [node name="CharacterBody3D2" type="CharacterBody3D" node_paths=PackedStringArray("movement_controller", "camera_controller", "camera", "point_display", "circle_hud", "pitch_hud", "speed_bar", "missileLock", "audioMissileLock") groups=["Players"]]
 collision_layer = 8
@@ -290,6 +295,14 @@ stream = ExtResource("19_4r5pv")
 stream = ExtResource("20_60mlk")
 volume_db = 5.0
 autoplay = true
+
+[node name="ShapeCast3D" type="ShapeCast3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, -10.688684)
+shape = SubResource("CylinderShape3D_l71n6")
+collision_mask = 8
+collide_with_areas = true
+debug_shape_custom_color = Color(0.7642498, 0.84840256, 2.3102762e-06, 1)
+script = ExtResource("22_4ni07")
 
 [node name="Explosion" parent="." instance=ExtResource("18_fulsm")]
 
