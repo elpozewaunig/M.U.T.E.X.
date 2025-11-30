@@ -1,4 +1,4 @@
-[gd_scene load_steps=31 format=3 uid="uid://c111b6l8it2x6"]
+[gd_scene load_steps=32 format=3 uid="uid://c111b6l8it2x6"]
 
 [ext_resource type="Script" uid="uid://cc6g7dopbnu7h" path="res://scripts/Player.gd" id="1_qhqgy"]
 [ext_resource type="Script" uid="uid://b4rer4p7cpwlv" path="res://scripts/cameraController.gd" id="3_tuyoq"]
@@ -15,8 +15,9 @@
 [ext_resource type="Texture2D" uid="uid://cfed5qf8seeex" path="res://assets/sprites/CircleHUD.png" id="14_a8ls1"]
 [ext_resource type="Script" path="res://scripts/circle_hud.gd" id="14_f1ej7"]
 [ext_resource type="Texture2D" uid="uid://batglaeqbvbt" path="res://assets/sprites/SpeedBar.jpg" id="15_a8ls1"]
-[ext_resource type="Script" uid="uid://bw2j8cmn2acep" path="res://scripts/speed_bar.gd" id="16_qfm1y"]
-[ext_resource type="Script" uid="uid://d2a45bagp3nmb" path="res://scripts/point_display.gd" id="17_qfm1y"]
+[ext_resource type="Texture2D" uid="uid://ct3e64l3uj6mt" path="res://assets/MissileLOKC.png" id="15_fulsm"]
+[ext_resource type="Script" path="res://scripts/speed_bar.gd" id="16_qfm1y"]
+[ext_resource type="Script" path="res://scripts/point_display.gd" id="17_qfm1y"]
 [ext_resource type="PackedScene" uid="uid://cvwnv2lgiecdf" path="res://scenes/explosion.tscn" id="18_fulsm"]
 [ext_resource type="AudioStream" uid="uid://1gw744hujikf" path="res://assets/sounds/explosion.wav" id="19_4r5pv"]
 [ext_resource type="AudioStream" uid="uid://ckwcyngu2k4cl" path="res://assets/sounds/engine.wav" id="20_60mlk"]
@@ -69,7 +70,7 @@ viewport_path = NodePath("PointDisplay/SubViewport")
 radius = 0.675
 height = 7.5
 
-[node name="CharacterBody3D2" type="CharacterBody3D" node_paths=PackedStringArray("movement_controller", "camera_controller", "camera", "point_display", "circle_hud", "pitch_hud", "speed_bar") groups=["Players"]]
+[node name="CharacterBody3D2" type="CharacterBody3D" node_paths=PackedStringArray("movement_controller", "camera_controller", "camera", "point_display", "circle_hud", "pitch_hud", "speed_bar", "missileLock") groups=["Players"]]
 collision_layer = 8
 collision_mask = 31
 motion_mode = 1
@@ -81,6 +82,9 @@ point_display = NodePath("PointDisplay")
 circle_hud = NodePath("CircleHUD")
 pitch_hud = NodePath("ModelContainer/HUD")
 speed_bar = NodePath("SpeedBar")
+missileLock = NodePath("MissieLock/Sprite3D")
+missileLockColor = Color(0.7563626, 0, 0.1324442, 1)
+noMissileLockColor = Color(0.07450981, 0.99215686, 0.08235294, 1)
 
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
 replication_config = SubResource("SceneReplicationConfig_qhqgy")
@@ -181,6 +185,14 @@ shape = SubResource("CapsuleShape3D_tuyoq")
 transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 0, 0.194874, 2.08403)
 shape = SubResource("CapsuleShape3D_4r5pv")
 
+[node name="MissieLock" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.99999946, 0, 0, 0, 0.99999946, -8.74988, 0.7703991, -6.357684)
+
+[node name="Sprite3D" type="Sprite3D" parent="MissieLock"]
+transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0, 0, 0)
+modulate = Color(0.27058825, 1, 0.101960786, 1)
+texture = ExtResource("15_fulsm")
+
 [node name="shield_scannerparticle_try" type="CPUParticles3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, -0.953664, 0.300872, 0, -0.300872, -0.953664, -0.0405608, -0.55562, 1.41512)
 visible = false
@@ -275,6 +287,7 @@ stream = ExtResource("19_4r5pv")
 stream = ExtResource("20_60mlk")
 volume_db = 5.0
 autoplay = true
+
 [node name="Explosion" parent="." instance=ExtResource("18_fulsm")]
 
 [connection signal="newColor" from="." to="ModelContainer" method="_on_character_body_3d_2_new_color"]
