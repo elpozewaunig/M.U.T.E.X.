@@ -88,20 +88,15 @@ func on_game_over():
 	rpc("return_to_main_menu")
 
 @rpc("call_local", "reliable")
-func display_game_over_ui():
-	var child;
-	if ($Players.get_child_count() > 0):
-		child = $Players.get_child(0);
-	if ($Players.get_child_count() > 1):
-		child = $Players.get_child(1)
-		
-	if child != null:
-		# Hide all player visuals right before playing the explosion
-		for visual in player_visual_nodes:
-			if child.has_node(visual):
-				child.get_node(visual).hide()
-				
-		await child.get_node("./Explosion").explode()
+func display_game_over_ui():	
+	for child in $Players.get_children():
+		if child != null:
+			# Hide all player visuals right before playing the explosion
+			for visual in player_visual_nodes:
+				if child.has_node(visual):
+					child.get_node(visual).hide()
+					
+			await child.get_node("./Explosion").explode()
 	print("GAME OVER")
 	gameOver.visible=true
 	FG.visible=true
