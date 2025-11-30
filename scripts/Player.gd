@@ -17,6 +17,7 @@ func _ready():
 		set_collision_layer_value(4, true)
 	else:
 		set_collision_layer_value(5, true)
+		global_position = Vector3(15, 0, 0)
 		
 		
 	if is_multiplayer_authority():

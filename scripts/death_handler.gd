@@ -20,6 +20,9 @@ func _on_body_entered(body: Node3D) -> void:
 		
 	if body.collision_layer & (1 << 0): 
 		rpc_id(1, "server_handle_crash")
+	
+	if body.collision_layer & (1 << 3) || body.collision_layer & (1 << 4): # Layer 4 / 5 -> other player
+		rpc_id(1, "server_handle_crash")
 
 
 @rpc("any_peer", "call_local")
