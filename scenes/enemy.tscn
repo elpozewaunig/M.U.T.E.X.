@@ -1,10 +1,11 @@
-[gd_scene load_steps=10 format=3 uid="uid://cuyyf2weq0thj"]
+[gd_scene load_steps=11 format=3 uid="uid://cuyyf2weq0thj"]
 
 [ext_resource type="Script" uid="uid://tfednihsjjtl" path="res://scripts/enemy.gd" id="1_7p1mj"]
 [ext_resource type="Script" path="res://scripts/enemyVisibility.gd" id="3_4ra3w"]
 [ext_resource type="PackedScene" uid="uid://dls7354f4iw2m" path="res://scenes/enemy_gun.tscn" id="3_5uy6h"]
 [ext_resource type="PackedScene" uid="uid://be63w05i85cw1" path="res://scenes/thruster_exhaustEnemy.tscn" id="3_nenq2"]
 [ext_resource type="PackedScene" uid="uid://bxlhblwuef6wy" path="res://scenes/enemyModel.tscn" id="4_c4w8v"]
+[ext_resource type="PackedScene" uid="uid://cvwnv2lgiecdf" path="res://scenes/explosion.tscn" id="6_xwavj"]
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_8tegq"]
 properties/0/path = NodePath(".:position")
@@ -116,6 +117,9 @@ collision_mask = 24
 
 [node name="GunCooldown" type="Timer" parent="."]
 one_shot = true
+
+[node name="Explosion" parent="." instance=ExtResource("6_xwavj")]
+transform = Transform3D(5, 0, 0, 0, 5, 0, 0, 0, 5, 0, 0.66185004, -1.1505702)
 
 [connection signal="body_entered" from="Area3D" to="." method="_on_collision_entered"]
 [connection signal="body_entered" from="DetectionArea" to="." method="_on_detection_area_body_entered"]

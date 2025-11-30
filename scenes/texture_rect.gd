@@ -18,17 +18,9 @@ func _process(delta: float) -> void:
 
 func pan_camera(delta):
 	var is_input_active = false
-	#if Input.is_action_pressed("TiltDown"):
-		#position.y -= pan_speed * delta
-		#is_input_active = true
-	#if Input.is_action_pressed("TiltUp"):
-		#position.y += pan_speed * delta
-		#is_input_active = true
 	var playerrot=player.rotation_degrees
-
 	var rot = remap(playerrot.x,-60,60,min_panning,max_panning)
-
 	position.y = clamp(rot, min_panning, max_panning)
-
+	
 	if not is_input_active:
 		position.y = lerp(position.y, -texture_height_half, return_speed * delta)

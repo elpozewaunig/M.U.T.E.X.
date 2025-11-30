@@ -125,12 +125,16 @@ draw_pass_1 = SubResource("SphereMesh_x2c5d")
 
 [node name="Smoke" type="GPUParticles3D" parent="."]
 emitting = false
-amount = 15
-lifetime = 2.0
+amount = 25
+lifetime = 5.0
+one_shot = true
 explosiveness = 1.0
 fixed_fps = 60
 process_material = SubResource("ParticleProcessMaterial_h461u")
 draw_pass_1 = SubResource("SphereMesh_x2c5d")
 
 [node name="ExplosionSound" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("2_aw4cw")
+
+[node name="Explosion" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("2_aw4cw")

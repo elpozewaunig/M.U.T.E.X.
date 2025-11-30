@@ -3,11 +3,13 @@ extends Node3D
 @onready var fire: GPUParticles3D = $Fire
 @onready var smoke: GPUParticles3D = $Smoke
 @onready var explosion_sound: AudioStreamPlayer3D = $ExplosionSound
+@onready var explosion_sound2: AudioStreamPlayer = $Explosion
+
 
 func explode():
+	print("Boomski")
 	debris.emitting = true
 	fire.emitting = true
 	smoke.emitting = true
-	explosion_sound.sound.play()
+	explosion_sound.play()
 	await get_tree().create_timer(2.0).timeout
-	queue_free()

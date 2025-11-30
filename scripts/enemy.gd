@@ -410,7 +410,8 @@ func take_damage(damage_amount):
 	if health <= 0:
 		ScoreManager.add_score(1)
 		print("Taking Damage")
-		#TODO: Animation + Timer
+		$Explosion.explode()
+		await get_tree().create_timer(4.0).timeout
 		queue_free()
 
 
