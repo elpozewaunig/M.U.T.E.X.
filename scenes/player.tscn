@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://cc6g7dopbnu7h" path="res://scripts/Player.gd" id="1_qhqgy"]
 [ext_resource type="Script" uid="uid://b4rer4p7cpwlv" path="res://scripts/cameraController.gd" id="3_tuyoq"]
 [ext_resource type="Script" uid="uid://t5w0edulbr26" path="res://scripts/playerMovement.gd" id="4_dqkch"]
+[ext_resource type="Script" uid="uid://chwxwoq3oyq82" path="res://scripts/death_handler.gd" id="4_jej6c"]
 [ext_resource type="PackedScene" uid="uid://84qcf0s50w45" path="res://assets/models/thruster_exhaust/ship_model.tscn" id="4_qlg0r"]
 [ext_resource type="Script" uid="uid://c5nc1c4n64d8p" path="res://scenes/Thurstes.gd" id="4_y4r1p"]
 [ext_resource type="PackedScene" uid="uid://d2snjgmsw07qr" path="res://scenes/gun.tscn" id="5_qlg0r"]
@@ -10,6 +11,8 @@
 [ext_resource type="Material" uid="uid://bm06tepcpvlcd" path="res://assets/models/thruster_exhaust/outline_shader.tres" id="6_ur7pv"]
 [ext_resource type="Texture2D" uid="uid://qymy4et4jfcg" path="res://assets/sprites/VerticleHUD.svg" id="7_fjrip"]
 [ext_resource type="Script" path="res://scenes/VerticleHUD.gd" id="8_smehm"]
+[ext_resource type="Texture2D" uid="uid://qymy4et4jfcg" path="res://assets/sprites/svgviewer-output.svg" id="7_fjrip"]
+[ext_resource type="Script" uid="uid://bckvg3syriw3r" path="res://scenes/texture_rect.gd" id="8_smehm"]
 [ext_resource type="PackedScene" uid="uid://cduaufs6120d2" path="res://scenes/thruster_particles.tscn" id="11_d2wvv"]
 [ext_resource type="Texture2D" uid="uid://dqwa42jtr1sqb" path="res://assets/models/thruster_exhaust/particle1.png" id="12_3v2ag"]
 [ext_resource type="Texture2D" uid="uid://cfed5qf8seeex" path="res://assets/sprites/CircleHUD.png" id="14_a8ls1"]
@@ -60,7 +63,7 @@ viewport_path = NodePath("PointDisplay/SubViewport")
 
 [node name="CharacterBody3D2" type="CharacterBody3D" node_paths=PackedStringArray("movement_controller", "camera_controller", "camera") groups=["Players"]]
 collision_layer = 2
-collision_mask = 8
+collision_mask = 9
 motion_mode = 1
 script = ExtResource("1_qhqgy")
 movement_controller = NodePath("movementController")
@@ -85,7 +88,10 @@ player = NodePath("..")
 
 [node name="Camera3D" type="Camera3D" parent="SpringArm3D"]
 
-[node name="CollisionShape3D3" type="CollisionShape3D" parent="." groups=["Players"]]
+[node name="Area3D" type="Area3D" parent="."]
+script = ExtResource("4_jej6c")
+
+[node name="CollisionShape3D3" type="CollisionShape3D" parent="Area3D" groups=["Players"]]
 transform = Transform3D(2.70113e-07, 0, 0.89754, 0, 0.528894, 0, 6.17946, 0, -3.92327e-08, 0, 0.038, -0.914)
 shape = SubResource("CapsuleShape3D_tuyoq")
 
@@ -149,19 +155,21 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.47845, 0.426927, -0.531486
 [node name="RightGun" parent="ModelContainer" instance=ExtResource("5_qlg0r")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.247, 0.363787, -0.562052)
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="ModelContainer"]
+[node name="Area3D" type="Area3D" parent="ModelContainer"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="ModelContainer/Area3D"]
 transform = Transform3D(2.70113e-07, 0, 0.89754, 0, 0.528894, 0, 6.17946, 0, -3.92327e-08, 0, 0.038, -0.914)
 shape = SubResource("CapsuleShape3D_tuyoq")
 
-[node name="CollisionShape3D2" type="CollisionShape3D" parent="ModelContainer"]
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="ModelContainer/Area3D"]
 transform = Transform3D(5.95371, 0, 5.05552e-08, 0, 0.279729, 0, 1.53151e-06, 0, 1.3531, -0.07686, 0.058098, 1.39981)
 shape = SubResource("CapsuleShape3D_tuyoq")
 
-[node name="CollisionShape3D3" type="CollisionShape3D" parent="ModelContainer"]
+[node name="CollisionShape3D3" type="CollisionShape3D" parent="ModelContainer/Area3D"]
 transform = Transform3D(2.70113e-07, 0, 0.89754, 0, 0.528894, 0, 6.17946, 0, -3.92327e-08, 0, 0.038, -0.914)
 shape = SubResource("CapsuleShape3D_tuyoq")
 
-[node name="CollisionShape3D4" type="CollisionShape3D" parent="ModelContainer"]
+[node name="CollisionShape3D4" type="CollisionShape3D" parent="ModelContainer/Area3D"]
 transform = Transform3D(5.95371, 0, 5.05552e-08, 0, 0.279729, 0, 1.53151e-06, 0, 1.3531, -0.07686, 0.058098, 1.39981)
 shape = SubResource("CapsuleShape3D_tuyoq")
 
@@ -250,6 +258,8 @@ texture = SubResource("ViewportTexture_qfm1y")
 
 [connection signal="max_Speed" from="movementController" to="SpringArm3D" method="_on_movement_controller_max_speed"]
 [connection signal="max_Speed" from="movementController" to="ModelContainer" method="_on_movement_controller_max_speed"]
+[connection signal="body_entered" from="Area3D" to="Area3D" method="_on_body_entered"]
+[connection signal="body_entered" from="ModelContainer/Area3D" to="Area3D" method="_on_area_3d_body_entered"]
 
 [editable path="ModelContainer/ShipModel"]
 [editable path="ModelContainer/ShipModel/Spaceship_Player"]

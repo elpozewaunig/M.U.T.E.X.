@@ -2,9 +2,12 @@ extends Node3D # Or Node2D
 
 @export var player_scene: PackedScene
 @export var enemy_scene: PackedScene 
+@export var main_menu_scene: PackedScene
 @onready var enemySpawner: MultiplayerSpawner = $EnemySpawner
 
+
 func _ready():
+	ScoreManager.game_over.connect(on_game_over)
 	# If this is the Host, spawn existing players (like yourself)
 	if multiplayer.is_server():
 		# 1 is always the ID of the server
@@ -53,3 +56,25 @@ func spawn_enemy():
 	enemy_instance.initialize(enemyTypes.pick_random(), route_data["points"])
 func _on_enemy_spawn_timer_timeout() -> void:
 	spawn_enemy()
+
+func on_game_over():
+	if not multiplayer.is_server():
+		return
+	
+	ScoreManager.save_current_run()
+	# Tell everyone to show "Game Over" screen
+	rpc("display_game_over_ui")
+	
+	# -> Wait 
+	await get_tree().create_timer(5.0).timeout
+	rpc("return_to_main_menu")
+
+@rpc("call_local", "reliable")
+func display_game_over_ui():
+	#TODO: Explosion
+	print("GAME OVER")
+
+@rpc("call_local", "reliable")
+func return_to_main_menu():
+	multiplayer.multiplayer_peer.close()
+	get_tree().change_scene_to_file("main_menu_scene")

@@ -9,6 +9,7 @@ var current_team_name = "Unnamed Team"
 
 # Signal to update UI
 signal score_updated(new_score)
+signal game_over()
 
 func _ready():
 	current_score = 0
@@ -25,6 +26,9 @@ func add_score(amount: int = 1):
 	
 	# Sync score to clients (RPC)
 	rpc("sync_score", current_score)
+	
+func signal_game_over():
+	game_over.emit()
 
 @rpc("authority", "call_remote")
 func sync_score(new_val):
