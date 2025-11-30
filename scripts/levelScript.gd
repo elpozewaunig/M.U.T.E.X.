@@ -66,7 +66,7 @@ func spawn_enemy():
 	enemy_instance.name = "Enemy_%d%d" % [Time.get_ticks_usec(), randi()]
 	enemy_instance.set_multiplayer_authority(1)
 	
-	var enemy_type_id: int = 2#(child_count % 2) + 1
+	var enemy_type_id: int = (child_count % 2) + 1
 	enemy_instance.initialize(enemy_type_id, route_data["points"])
 	
 	$EnemySpawnTimer.start(Global.timeTillNewEnemy)
