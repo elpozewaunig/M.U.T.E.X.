@@ -1,4 +1,4 @@
-# M.U.T.E.X
+# M.U.T.E.X.
 This is our game jam submission for [KluJam 2025 Tech Edition (Winter Semester)](https://itch.io/jam/klagenfurt-game-jam-2nd-tech-edition)!
 
 Stranded in outer space, you and your friend have been drifting for months at hyper speed. You have now reached the event horizon and you two are seeing things nobody has seen before. A black hole consuming a star drawing you in, extraterrestrial lifeforms attacking you, and a shattered planet that has turned into an asteroid belt. Due to your extended voyage, components of your ship have broken down and you are only able to identify some ships with your radar. Can you and your friend work together to make it out alive? Or will the lack of communication be your downfall?! Communicate with your friend to identify the hidden aliens! Blast the enemies with your rockets, weave around the asteroids to make the enemies crash into them and escape together!
