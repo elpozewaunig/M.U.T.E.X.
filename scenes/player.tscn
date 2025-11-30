@@ -101,7 +101,7 @@ player = NodePath("..")
 [node name="Area3D" type="Area3D" parent="."]
 script = ExtResource("4_jej6c")
 
-[node name="CollisionShape3D3" type="CollisionShape3D" parent="." groups=["Players"]]
+[node name="CollisionShape3D3" type="CollisionShape3D" parent="Area3D" groups=["Players"]]
 transform = Transform3D(2.70113e-07, 0, 0.89754, 0, 0.528894, 0, 6.17946, 0, -3.92327e-08, 0, 0.038, -0.914)
 shape = SubResource("CapsuleShape3D_tuyoq")
 

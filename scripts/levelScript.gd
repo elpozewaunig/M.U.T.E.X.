@@ -63,6 +63,7 @@ func _on_enemy_spawn_timer_timeout() -> void:
 func on_game_over():
 	#TODO: maybe not the best decision will see later if animationPlayer gets fucked
 	process_mode = Node.PROCESS_MODE_DISABLED
+	
 	if not multiplayer.is_server():
 		return
 	
