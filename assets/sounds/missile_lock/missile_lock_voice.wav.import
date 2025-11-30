@@ -3,12 +3,12 @@
 importer="wav"
 type="AudioStreamWAV"
 uid="uid://bd71gfyrtvjvb"
-path="res://.godot/imported/MissileLock.wav-9bd1adef498352323dacdc7b4c912f37.sample"
+path="res://.godot/imported/missile_lock_voice.wav-5c93e643ea73c6c4196adb3a96a091bd.sample"
 
 [deps]
 
-source_file="res://assets/sounds/MissileLock.wav"
-dest_files=["res://.godot/imported/MissileLock.wav-9bd1adef498352323dacdc7b4c912f37.sample"]
+source_file="res://assets/sounds/missile_lock/missile_lock_voice.wav"
+dest_files=["res://.godot/imported/missile_lock_voice.wav-5c93e643ea73c6c4196adb3a96a091bd.sample"]
 
 [params]
 

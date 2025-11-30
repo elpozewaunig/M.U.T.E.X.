@@ -12,7 +12,7 @@
 [ext_resource type="Script" uid="uid://dwblcvei8080m" path="res://scenes/texture_rect.gd" id="8_smehm"]
 [ext_resource type="PackedScene" uid="uid://cduaufs6120d2" path="res://scenes/thruster_particles.tscn" id="11_d2wvv"]
 [ext_resource type="Texture2D" uid="uid://dqwa42jtr1sqb" path="res://assets/models/thruster_exhaust/particle1.png" id="12_3v2ag"]
-[ext_resource type="AudioStream" uid="uid://bd71gfyrtvjvb" path="res://assets/sounds/MissileLock.wav" id="13_a38lo"]
+[ext_resource type="AudioStream" uid="uid://bd71gfyrtvjvb" path="res://assets/sounds/missile_lock/missile_lock_voice.wav" id="13_a38lo"]
 [ext_resource type="Texture2D" uid="uid://cfed5qf8seeex" path="res://assets/sprites/CircleHUD.png" id="14_a8ls1"]
 [ext_resource type="Script" path="res://scripts/circle_hud.gd" id="14_f1ej7"]
 [ext_resource type="Texture2D" uid="uid://batglaeqbvbt" path="res://assets/sprites/SpeedBar.jpg" id="15_a8ls1"]
