@@ -26,7 +26,7 @@ func add_player(peer_id, _player_info = {}):
 	print("Adding Player to Scene " + str(peer_id))
 	# Instantiate the player
 	var player = player_scene.instantiate()
-	player.setup_colors(NetworkManager.primary, NetworkManager.secondary)
+	player.receive_colors(NetworkManager.primary, NetworkManager.secondary)
 	
 	# IMPORTANT: Set the name to the ID. 
 	# The MultiplayerSpawner tracks nodes by name.

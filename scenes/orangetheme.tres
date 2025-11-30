@@ -1,6 +1,6 @@
 [gd_resource type="Theme" load_steps=3 format=3 uid="uid://540k58tsq54u"]
 
-[ext_resource type="FontFile" uid="uid://dvqc52ue6u7jx" path="res://assets/font/condenbitmap/CondenBitmap.otf" id="1_lct0h"]
+[ext_resource type="FontFile" uid="uid://bm8mst0c7qrjw" path="res://assets/font/condenbitmap/CondenBitmap.otf" id="1_lct0h"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_uuqcg"]
 content_margin_left = 0.0
