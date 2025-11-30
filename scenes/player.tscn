@@ -1,4 +1,4 @@
-[gd_scene load_steps=34 format=3 uid="uid://c111b6l8it2x6"]
+[gd_scene load_steps=35 format=3 uid="uid://c111b6l8it2x6"]
 
 [ext_resource type="Script" uid="uid://cc6g7dopbnu7h" path="res://scripts/Player.gd" id="1_qhqgy"]
 [ext_resource type="Script" uid="uid://b4rer4p7cpwlv" path="res://scripts/cameraController.gd" id="3_tuyoq"]
@@ -23,6 +23,7 @@
 [ext_resource type="PackedScene" uid="uid://cvwnv2lgiecdf" path="res://scenes/explosion.tscn" id="18_fulsm"]
 [ext_resource type="AudioStream" uid="uid://1gw744hujikf" path="res://assets/sounds/explosion.wav" id="19_4r5pv"]
 [ext_resource type="AudioStream" uid="uid://ckwcyngu2k4cl" path="res://assets/sounds/engine.wav" id="20_60mlk"]
+[ext_resource type="Texture2D" uid="uid://bcsrny6wuflty" path="res://assets/Chroshair.svg" id="20_l71n6"]
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_qhqgy"]
 properties/0/path = NodePath(".:position")
@@ -271,6 +272,11 @@ transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 1.2976
 texture = SubResource("ViewportTexture_fulsm")
 
 [node name="PointDisplay" type="Node3D" parent="."]
+
+[node name="Sprite3D2" type="Sprite3D" parent="PointDisplay"]
+transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, -0.5, 0.5, -12.122)
+modulate = Color(0.41808584, 0.99934345, 0, 1)
+texture = ExtResource("20_l71n6")
 
 [node name="SubViewport" type="SubViewport" parent="PointDisplay"]
 transparent_bg = true
