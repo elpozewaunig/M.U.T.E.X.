@@ -13,8 +13,8 @@ curve = SubResource("Curve_3el85")
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_xfoey"]
 particle_flag_align_y = true
 spread = 180.0
-scale_min = 0.5
-scale_max = 1.5
+scale_min = 30.0
+scale_max = 40.0
 scale_curve = SubResource("CurveTexture_hbmxj")
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_v8gpv"]
@@ -58,8 +58,8 @@ spread = 90.0
 initial_velocity_min = 2.0
 initial_velocity_max = 4.0
 gravity = Vector3(0, 5, 0)
-scale_min = 0.5
-scale_max = 1.5
+scale_min = 30.0
+scale_max = 40.0
 scale_curve = SubResource("CurveTexture_4hpr0")
 color = Color(1, 0.70980394, 0.15294118, 1)
 color_ramp = SubResource("GradientTexture1D_4jttm")
@@ -95,8 +95,8 @@ direction = Vector3(0, -1, 0)
 initial_velocity_min = 1.0
 initial_velocity_max = 2.0
 gravity = Vector3(0, 5, 0)
-scale_min = 0.5
-scale_max = 1.5
+scale_min = 30.0
+scale_max = 40.0
 scale_curve = SubResource("CurveTexture_fasmd")
 color = Color(0.36471254, 0.24402708, 2.8878452e-07, 1)
 alpha_curve = SubResource("CurveTexture_xe657")
@@ -135,6 +135,7 @@ draw_pass_1 = SubResource("SphereMesh_x2c5d")
 
 [node name="ExplosionSound" type="AudioStreamPlayer3D" parent="."]
 stream = ExtResource("2_aw4cw")
+volume_db = 5.0
 
 [node name="Explosion" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("2_aw4cw")
