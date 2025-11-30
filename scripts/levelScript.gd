@@ -60,6 +60,7 @@ func spawn_enemy():
 	var enemy_type_id: int = (child_count % 2) + 1
 	enemy_instance.initialize(enemy_type_id, route_data["points"])
 	
+	$EnemySpawnTimer.start(Global.timeTillNewEnemy)
 	$Enemies.add_child(enemy_instance)
 	
 func _on_enemy_spawn_timer_timeout() -> void:

@@ -360,7 +360,7 @@ func shoot_gun() -> void:
 		
 		if selected_gun.has_method("shoot_homing_missile"):
 			selected_gun.shoot_homing_missile(self)
-			gun_cooldown_timer.start()
+			gun_cooldown_timer.start(Global.enemyShootingCooldown)
 
 @rpc("any_peer", "call_local")
 func take_damage(damage_amount):

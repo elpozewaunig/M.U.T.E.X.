@@ -15,6 +15,7 @@ var game_over_signal_emmited = false
 
 func _ready():
 	current_score = 0
+	add_difficuly()
 	if not FileAccess.file_exists(SAVE_FILE_PATH):
 		save_highscores([]) 
 
@@ -23,6 +24,7 @@ func add_score(amount: int = 1):
 		return
 		
 	current_score += amount
+	add_difficuly()
 	score_updated.emit(current_score)
 	print("tets")
 	
@@ -91,3 +93,29 @@ func save_highscores(data: Array):
 	file.store_string(json_string)
 	file.close()
 	print("Highscores saved to: ", ProjectSettings.globalize_path(SAVE_FILE_PATH))
+
+func add_difficuly():
+	if current_score < 5:
+		Global.timeTillNewEnemy = 3.0
+		Global.enemyShootingCooldown = 1.5
+	elif current_score < 7:
+		Global.timeTillNewEnemy = 2.5
+		Global.enemyShootingCooldown = 1.5
+	elif current_score < 10:
+		Global.timeTillNewEnemy = 2.5
+		Global.enemyShootingCooldown = 1
+	elif current_score < 13:
+		Global.timeTillNewEnemy = 2
+		Global.enemyShootingCooldown = 1
+	elif current_score < 15:
+		Global.timeTillNewEnemy = 2
+		Global.enemyShootingCooldown = 0.8
+	elif current_score < 20:
+		Global.timeTillNewEnemy = 1.5
+		Global.enemyShootingCooldown = 0.8
+	elif current_score < 25:
+		Global.timeTillNewEnemy = 1.5
+		Global.enemyShootingCooldown = 0.5
+	else:
+		Global.timeTillNewEnemy = 1
+		Global.enemyShootingCooldown = 0.5
