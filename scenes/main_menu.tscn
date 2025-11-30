@@ -1,9 +1,8 @@
 [gd_scene load_steps=21 format=3 uid="uid://cypwqksg1qrc5"]
 
 [ext_resource type="Texture2D" uid="uid://b156cmxm1wmhe" path="res://assets/skybox/bg.png" id="1_l6cm7"]
-[ext_resource type="Texture2D" uid="uid://qymy4et4jfcg" path="res://assets/sprites/svgviewer-output.svg" id="2_8ln24"]
-[ext_resource type="Texture2D" uid="uid://btbnj4v1qq3v1" path="res://assets/skybox/bg2.png" id="2_rtw2f"]
 [ext_resource type="Texture2D" uid="uid://qymy4et4jfcg" path="res://assets/sprites/VerticleHUD.svg" id="2_8ln24"]
+[ext_resource type="Texture2D" uid="uid://btbnj4v1qq3v1" path="res://assets/skybox/bg2.png" id="2_rtw2f"]
 [ext_resource type="Texture2D" uid="uid://cayw6362tw6y1" path="res://assets/skybox/cockpit.png" id="2_wu84c"]
 [ext_resource type="Material" uid="uid://dg1x6fpusyufh" path="res://assets/shaders/scanline.tres" id="3_wu84c"]
 [ext_resource type="PackedScene" uid="uid://dp3rvhbvdll7k" path="res://scenes/miniscreen.tscn" id="4_8ln24"]
@@ -103,6 +102,7 @@ var time_until_snapback: float = 0
 
 func _ready() -> void:
 	position = screen_center
+	Input.set_mouse_mode(Input.MOUSE_MODE_HIDDEN)
 
 var zoomed = false
 func _process(delta: float) -> void:
@@ -264,7 +264,7 @@ tracks/1/keys = {
 "times": PackedFloat32Array(0.20000002, 1.2666667),
 "transitions": PackedFloat32Array(1, 0.1961461),
 "update": 0,
-"values": [Vector2(0, 0), Vector2(-4248.405, 951.81)]
+"values": [Vector2(0, 0), Vector2(-4448.405, 951.81)]
 }
 tracks/2/type = "method"
 tracks/2/imported = false
@@ -283,7 +283,7 @@ tracks/2/keys = {
 
 [sub_resource type="Animation" id="Animation_tbmy8"]
 resource_name = "zoomback"
-length = 5.2755
+length = 7.253
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -291,7 +291,7 @@ tracks/0/path = NodePath(".:zoom")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0.100000024, 2.1666667),
+"times": PackedFloat32Array(0.4, 2.4666672),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
 "values": [Vector2(4.725, 4.725), Vector2(1, 1)]
@@ -303,10 +303,10 @@ tracks/1/path = NodePath(".:offset")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0, 2.4666667),
+"times": PackedFloat32Array(0.3000001, 2.766667),
 "transitions": PackedFloat32Array(0.1961461, 1),
 "update": 0,
-"values": [Vector2(-4248.405, 951.81), Vector2(0, 0)]
+"values": [Vector2(-4448.405, 951.81), Vector2(0, 0)]
 }
 tracks/2/type = "value"
 tracks/2/imported = false
@@ -315,7 +315,7 @@ tracks/2/path = NodePath("../../BG/BGAfter:visible")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
-"times": PackedFloat32Array(0.20000002, 0.4),
+"times": PackedFloat32Array(0.5000001, 0.70000017),
 "transitions": PackedFloat32Array(1, 1),
 "update": 1,
 "values": [false, true]
@@ -324,11 +324,11 @@ tracks/3/type = "value"
 tracks/3/imported = false
 tracks/3/enabled = true
 tracks/3/path = NodePath("../../BG/BGAfter:scale")
-tracks/3/interp = 1
+tracks/3/interp = 2
 tracks/3/loop_wrap = true
 tracks/3/keys = {
-"times": PackedFloat32Array(3.0666666, 5.0666666),
-"transitions": PackedFloat32Array(1, 1),
+"times": PackedFloat32Array(4.6, 6.6),
+"transitions": PackedFloat32Array(1, 3.3635933),
 "update": 0,
 "values": [Vector2(0.80376893, 0.80376893), Vector2(1.159, 1.159)]
 }
@@ -339,7 +339,7 @@ tracks/4/path = NodePath("../../FADETOWHITE:modulate")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/keys = {
-"times": PackedFloat32Array(3.3333333, 4.9333334),
+"times": PackedFloat32Array(4.8666663, 6.4666667),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
 "values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
@@ -351,7 +351,7 @@ tracks/5/path = NodePath("../../BG/BGAfter:modulate")
 tracks/5/interp = 1
 tracks/5/loop_wrap = true
 tracks/5/keys = {
-"times": PackedFloat32Array(0.36666667, 0.6333333),
+"times": PackedFloat32Array(0.66666687, 0.9333333),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
 "values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
@@ -363,7 +363,7 @@ tracks/6/path = NodePath("../../FADETOWHITE:visible")
 tracks/6/interp = 1
 tracks/6/loop_wrap = true
 tracks/6/keys = {
-"times": PackedFloat32Array(2.6333334, 3.0666666),
+"times": PackedFloat32Array(2.9333339, 4.6),
 "transitions": PackedFloat32Array(1, 1),
 "update": 1,
 "values": [false, true]
@@ -375,7 +375,7 @@ tracks/7/path = NodePath(".")
 tracks/7/interp = 1
 tracks/7/loop_wrap = true
 tracks/7/keys = {
-"times": PackedFloat32Array(5.1),
+"times": PackedFloat32Array(6.6333327),
 "transitions": PackedFloat32Array(1),
 "values": [{
 "args": [],

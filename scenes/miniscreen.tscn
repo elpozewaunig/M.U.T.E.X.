@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://dp3rvhbvdll7k"]
+[gd_scene load_steps=15 format=3 uid="uid://dp3rvhbvdll7k"]
 
 [ext_resource type="Script" uid="uid://ojikmh0bkwii" path="res://scenes/miniscreen_controller.gd" id="1_4qlu7"]
 [ext_resource type="Theme" uid="uid://540k58tsq54u" path="res://scenes/orangetheme.tres" id="1_j2igt"]
@@ -6,18 +6,33 @@
 [ext_resource type="Texture2D" uid="uid://bwqjr8hrqdd33" path="res://assets/sprites/opsec und so.png" id="3_l6gtq"]
 [ext_resource type="FontFile" uid="uid://d304xnpnbruf4" path="res://assets/font/DSEG14-Classic/DSEG14Classic-Regular.ttf" id="3_oua23"]
 
+[sub_resource type="GDScript" id="GDScript_03b6j"]
+resource_name = "asdsadsadsadsadsads"
+script/source = "extends Panel
+
+
+func _on_join_pressed() -> void:
+	show()
+"
+
 [sub_resource type="GDScript" id="GDScript_j7o8s"]
 resource_name = "gurber"
 script/source = "extends Panel
 
 
 func _on_returnfromcreditsbtn_pressed() -> void:
-	$HostGameBTN.grab_focus()
-	$QuitGameBTN.resetbtn()
-
+	$VBoxContainer/HostGameBTN.grab_focus()
+	$VBoxContainer/QuitGameBTN.resetbtn()
 func _on_returnfromoptions_pressed() -> void:
-	$HostGameBTN.grab_focus()
-	$QuitGameBTN.resetbtn()
+	$VBoxContainer/HostGameBTN.grab_focus()
+	$VBoxContainer/QuitGameBTN.resetbtn()
+func _on_cancelhost_pressed() -> void:
+	$VBoxContainer/HostGameBTN.grab_focus()
+	$VBoxContainer/QuitGameBTN.resetbtn()
+
+
+func _on_join_pressed() -> void:
+	hide()
 "
 
 [sub_resource type="GDScript" id="GDScript_vocgd"]
@@ -36,6 +51,20 @@ func resetbtn():
 func _init() -> void:
 	resetbtn()	
 	
+"
+
+[sub_resource type="GDScript" id="GDScript_t6nao"]
+resource_name = "tut"
+script/source = "extends Panel
+
+
+func _on_host_game_btn_pressed() -> void:
+	show()
+	$ACKTutorialBTN.grab_focus()
+
+
+func _on_ack_tutorial_btn_pressed() -> void:
+	hide()
 "
 
 [sub_resource type="GDScript" id="GDScript_lt044"]
@@ -66,6 +95,46 @@ func _on_options_btn_pressed() -> void:
 	$RETURNFROMOPTIONS.grab_focus()
 "
 
+[sub_resource type="GDScript" id="GDScript_bi3l1"]
+resource_name = "hosting"
+script/source = "extends Panel
+
+
+func _on_host_game_btn_pressed() -> void:
+	show()
+	$CANCELHOST.grab_focus()
+
+func _on_cancelhost_pressed() -> void:
+	hide()
+
+
+func _on_join_pressed() -> void:
+	hide()
+
+
+func _on_cancelhh_pressed() -> void:
+	show()
+	$CANCELHOST.grab_focus()
+
+
+func _on_host_pressed() -> void:
+	hide()
+"
+
+[sub_resource type="GDScript" id="GDScript_hofui"]
+resource_name = "hhost"
+script/source = "extends Panel
+
+
+func _on_cancelhost_pressed() -> void:
+	hide()
+
+
+func _on_host_pressed() -> void:
+	show()
+	$CANCELHH.grab_focus()
+"
+
 [sub_resource type="GDScript" id="GDScript_oua23"]
 resource_name = "makevisible"
 script/source = "extends Panel
@@ -94,6 +163,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("1_j2igt")
+script = SubResource("GDScript_03b6j")
 
 [node name="RichTextLabel" type="RichTextLabel" parent="PRESSTART"]
 layout_mode = 1
@@ -224,10 +294,10 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 120.0
-offset_top = 88.0
-offset_right = 364.0
-offset_bottom = 88.0
+offset_left = 172.0
+offset_top = 164.0
+offset_right = 416.0
+offset_bottom = 164.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_font_sizes/normal_font_size = 25
@@ -243,52 +313,34 @@ text = "[ OK ] TUNNEL MARGIN THRESHOLD ADJUSTED
 [ WARN ] JAM PROCESS TERMINATED WITH ERROR EXIT CODE 1; 'SUBMISSION STATUS: INCOMPLETE'
 [ ERR ] Stacktrace fetched to MFD "
 
-[node name="HostGameBTN" type="Button" parent="Menu"]
+[node name="VBoxContainer" type="VBoxContainer" parent="Menu"]
 layout_mode = 0
-offset_left = 866.0
-offset_top = 115.0
-offset_right = 909.0
-offset_bottom = 159.0
+offset_left = 821.00006
+offset_top = 165.0
+offset_right = 908.00006
+offset_bottom = 353.0
+scale = Vector2(1.5678881, 1.5678881)
+
+[node name="HostGameBTN" type="Button" parent="Menu/VBoxContainer"]
+layout_mode = 2
 focus_neighbor_top = NodePath("../QuitGameBTN")
-focus_neighbor_bottom = NodePath("../JoinGameBTN")
-text = "Host"
-
-[node name="JoinGameBTN" type="Button" parent="Menu"]
-layout_mode = 0
-offset_left = 876.0
-offset_top = 179.0
-offset_right = 919.0
-offset_bottom = 223.0
-focus_neighbor_top = NodePath("../HostGameBTN")
 focus_neighbor_bottom = NodePath("../CreditsBTN")
-text = "Join"
+text = "LAUNCH"
 
-[node name="CreditsBTN" type="Button" parent="Menu"]
-layout_mode = 0
-offset_left = 867.0
-offset_top = 252.0
-offset_right = 936.0
-offset_bottom = 296.0
-focus_neighbor_top = NodePath("../JoinGameBTN")
+[node name="CreditsBTN" type="Button" parent="Menu/VBoxContainer"]
+layout_mode = 2
+focus_neighbor_top = NodePath("../HostGameBTN")
 focus_neighbor_bottom = NodePath("../OptionsBTN")
 text = "INFO"
 
-[node name="OptionsBTN" type="Button" parent="Menu"]
-layout_mode = 0
-offset_left = 942.0
-offset_top = 294.0
-offset_right = 1011.0
-offset_bottom = 338.0
+[node name="OptionsBTN" type="Button" parent="Menu/VBoxContainer"]
+layout_mode = 2
 focus_neighbor_top = NodePath("../CreditsBTN")
 focus_neighbor_bottom = NodePath("../QuitGameBTN")
-text = "CONF"
+text = "CONFIG"
 
-[node name="QuitGameBTN" type="Button" parent="Menu"]
-layout_mode = 0
-offset_left = 848.0
-offset_top = 350.0
-offset_right = 935.0
-offset_bottom = 394.0
+[node name="QuitGameBTN" type="Button" parent="Menu/VBoxContainer"]
+layout_mode = 2
 focus_neighbor_top = NodePath("../OptionsBTN")
 focus_neighbor_bottom = NodePath("../HostGameBTN")
 text = "[!] EJECT"
@@ -308,6 +360,7 @@ grow_horizontal = 2
 grow_vertical = 2
 scale = Vector2(0.8403049, 0.8403049)
 theme = ExtResource("1_j2igt")
+script = SubResource("GDScript_t6nao")
 
 [node name="RichTextLabel" type="RichTextLabel" parent="Tutorial"]
 layout_mode = 1
@@ -343,10 +396,14 @@ CODE: ARRANGE. COOrdinate.  NEUTRALIZE."
 
 [node name="ACKTutorialBTN" type="Button" parent="Tutorial"]
 layout_mode = 0
-offset_left = 934.18475
-offset_top = 669.9949
-offset_right = 1187.1848
-offset_bottom = 753.9949
+offset_left = 708.0763
+offset_top = 655.71436
+offset_right = 961.07635
+offset_bottom = 739.71436
+focus_neighbor_left = NodePath(".")
+focus_neighbor_top = NodePath(".")
+focus_neighbor_right = NodePath(".")
+focus_neighbor_bottom = NodePath(".")
 theme_override_font_sizes/font_size = 75
 text = "   >>ACK<<   "
 
@@ -450,6 +507,10 @@ offset_left = 134.47491
 offset_top = 104.72389
 offset_right = 387.47498
 offset_bottom = 188.72389
+focus_neighbor_left = NodePath(".")
+focus_neighbor_top = NodePath(".")
+focus_neighbor_right = NodePath(".")
+focus_neighbor_bottom = NodePath(".")
 theme_override_font_sizes/font_size = 75
 text = "<< return >>"
 
@@ -532,8 +593,137 @@ offset_left = 134.47491
 offset_top = 104.72389
 offset_right = 387.47498
 offset_bottom = 188.72389
+focus_neighbor_left = NodePath(".")
+focus_neighbor_top = NodePath(".")
+focus_neighbor_right = NodePath(".")
+focus_neighbor_bottom = NodePath(".")
 theme_override_font_sizes/font_size = 75
 text = "<< return >>"
+
+[node name="HOSTING" type="Panel" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 106.0
+offset_top = 51.000004
+offset_right = 106.0
+offset_bottom = 51.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.8403049, 0.8403049)
+theme = ExtResource("1_j2igt")
+script = SubResource("GDScript_bi3l1")
+
+[node name="RichTextLabel2" type="RichTextLabel" parent="HOSTING"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 154.70575
+offset_top = 247.52917
+offset_right = 398.7058
+offset_bottom = 247.52905
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.75156784, 0.75156784)
+theme_override_font_sizes/normal_font_size = 70
+text = "<Host Will Decide COLOR AND TEAM NAME>"
+
+[node name="CANCELHOST" type="Button" parent="HOSTING"]
+layout_mode = 0
+offset_left = 134.47491
+offset_top = 104.72389
+offset_right = 387.47498
+offset_bottom = 188.72389
+focus_neighbor_left = NodePath(".")
+focus_neighbor_top = NodePath("../HOST")
+focus_neighbor_right = NodePath(".")
+focus_neighbor_bottom = NodePath("../HOST")
+theme_override_font_sizes/font_size = 75
+text = "<< return >>"
+
+[node name="HOST" type="Button" parent="HOSTING"]
+layout_mode = 0
+offset_left = 134.47491
+offset_top = 398.6648
+offset_right = 387.47498
+offset_bottom = 482.6648
+focus_neighbor_left = NodePath("../JOIN")
+focus_neighbor_top = NodePath("../CANCELHOST")
+focus_neighbor_right = NodePath("../JOIN")
+focus_neighbor_bottom = NodePath("../CANCELHOST")
+theme_override_font_sizes/font_size = 75
+text = "HOST GAME"
+
+[node name="JOIN" type="Button" parent="HOSTING"]
+layout_mode = 0
+offset_left = 574.7914
+offset_top = 398.6648
+offset_right = 827.79144
+offset_bottom = 482.6648
+focus_neighbor_left = NodePath("../HOST")
+focus_neighbor_top = NodePath("../CANCELHOST")
+focus_neighbor_right = NodePath("../HOST")
+focus_neighbor_bottom = NodePath("../CANCELHOST")
+theme_override_font_sizes/font_size = 75
+text = "JOIN GAME"
+
+[node name="HOSTINGASHOST" type="Panel" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 106.0
+offset_top = 51.000004
+offset_right = 106.0
+offset_bottom = 51.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.8403049, 0.8403049)
+theme = ExtResource("1_j2igt")
+script = SubResource("GDScript_hofui")
+
+[node name="RichTextLabel2" type="RichTextLabel" parent="HOSTINGASHOST"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 154.70575
+offset_top = 247.52917
+offset_right = 398.7058
+offset_bottom = 247.52905
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.75156784, 0.75156784)
+theme_override_font_sizes/normal_font_size = 70
+text = "<Host Will Decide COLOR AND TEAM NAME>"
+
+[node name="CANCELHH" type="Button" parent="HOSTINGASHOST"]
+layout_mode = 0
+offset_left = 134.47491
+offset_top = 104.72389
+offset_right = 387.47498
+offset_bottom = 188.72389
+focus_neighbor_left = NodePath(".")
+focus_neighbor_top = NodePath("../HOST")
+focus_neighbor_right = NodePath(".")
+focus_neighbor_bottom = NodePath("../HOST")
+theme_override_font_sizes/font_size = 75
+text = "<< return >>"
+
+[node name="HOST" type="Button" parent="HOSTINGASHOST"]
+layout_mode = 0
+offset_left = 134.47491
+offset_top = 398.6648
+offset_right = 387.47498
+offset_bottom = 482.6648
+focus_neighbor_top = NodePath("../CANCELHH")
+focus_neighbor_bottom = NodePath("../CANCELHH")
+theme_override_font_sizes/font_size = 75
+text = "START!"
 
 [node name="Customize" type="Panel" parent="."]
 visible = false
@@ -597,13 +787,23 @@ position = Vector2(590.26196, 502.19867)
 scale = Vector2(1.6113886, 0.6932225)
 texture = ExtResource("2_e87qj")
 
-[connection signal="pressed" from="Menu/JoinGameBTN" to="." method="_zoomout"]
-[connection signal="pressed" from="Menu/CreditsBTN" to="Credits" method="_on_options_btn_pressed"]
-[connection signal="pressed" from="Menu/OptionsBTN" to="Options" method="_on_options_btn_pressed"]
-[connection signal="pressed" from="Tutorial/ACKTutorialBTN" to="." method="_on_button_pressed"]
-[connection signal="pressed" from="Tutorial/ACKTutorialBTN" to="Customize" method="_on_ack_tutorial_btn_pressed"]
+[connection signal="pressed" from="Menu/VBoxContainer/HostGameBTN" to="Tutorial" method="_on_host_game_btn_pressed"]
+[connection signal="pressed" from="Menu/VBoxContainer/CreditsBTN" to="Credits" method="_on_options_btn_pressed"]
+[connection signal="pressed" from="Menu/VBoxContainer/OptionsBTN" to="Options" method="_on_options_btn_pressed"]
+[connection signal="pressed" from="Tutorial/ACKTutorialBTN" to="Tutorial" method="_on_ack_tutorial_btn_pressed"]
+[connection signal="pressed" from="Tutorial/ACKTutorialBTN" to="HOSTING" method="_on_host_game_btn_pressed"]
 [connection signal="pressed" from="Credits/RETURNFROMCREDITSBTN" to="Menu" method="_on_returnfromcreditsbtn_pressed"]
 [connection signal="pressed" from="Credits/RETURNFROMCREDITSBTN" to="Credits" method="_on_returnfromcreditsbtn_pressed"]
 [connection signal="pressed" from="Options/RETURNFROMOPTIONS" to="Menu" method="_on_returnfromoptions_pressed"]
 [connection signal="pressed" from="Options/RETURNFROMOPTIONS" to="Options" method="_on_returnfromoptions_pressed"]
+[connection signal="pressed" from="HOSTING/CANCELHOST" to="Menu" method="_on_cancelhost_pressed"]
+[connection signal="pressed" from="HOSTING/CANCELHOST" to="HOSTING" method="_on_cancelhost_pressed"]
+[connection signal="pressed" from="HOSTING/HOST" to="HOSTING" method="_on_host_pressed"]
+[connection signal="pressed" from="HOSTING/HOST" to="HOSTINGASHOST" method="_on_host_pressed"]
+[connection signal="pressed" from="HOSTING/JOIN" to="." method="_zoomout"]
+[connection signal="pressed" from="HOSTING/JOIN" to="PRESSTART" method="_on_join_pressed"]
+[connection signal="pressed" from="HOSTING/JOIN" to="Menu" method="_on_join_pressed"]
+[connection signal="pressed" from="HOSTING/JOIN" to="HOSTING" method="_on_join_pressed"]
+[connection signal="pressed" from="HOSTINGASHOST/CANCELHH" to="HOSTING" method="_on_cancelhh_pressed"]
+[connection signal="pressed" from="HOSTINGASHOST/CANCELHH" to="HOSTINGASHOST" method="_on_cancelhost_pressed"]
 [connection signal="pressed" from="Customize/StartGameBTN" to="." method="_on_button_pressed"]
