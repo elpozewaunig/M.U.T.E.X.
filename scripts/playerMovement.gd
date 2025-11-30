@@ -24,6 +24,7 @@ var default_acceleration : float
 @export var max_yaw_turn_multiplier := 4.0
 @export var pitch_speed := 70.0
 @export var max_pitch_turn_multiplier := 2.0
+@export var vertical_yaw_damper_activated := true
 
 # Visual
 @export_group("Visual Banking")
@@ -86,7 +87,9 @@ func _physics_process(delta):
 	
 	# Restrict Turning when aggresively Pitching
 	var is_vertical = abs(player.transform.basis.z.y)
-	var vertical_yaw_damper = clamp(1.0 - is_vertical, 0.0, 1.0)
+	if not vertical_yaw_damper_activated:
+		is_vertical = 0.0
+	var vertical_yaw_damper = clamp(1.0 - is_vertical, 0.5, 1.0)
 	
 	# Rotate
 	player.rotate_object_local(Vector3.RIGHT, current_pitch_input * pitch_speed * pitch_turn_multiplier * delta)
