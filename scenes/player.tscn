@@ -13,10 +13,10 @@
 [ext_resource type="PackedScene" uid="uid://cduaufs6120d2" path="res://scenes/thruster_particles.tscn" id="11_d2wvv"]
 [ext_resource type="Texture2D" uid="uid://dqwa42jtr1sqb" path="res://assets/models/thruster_exhaust/particle1.png" id="12_3v2ag"]
 [ext_resource type="Texture2D" uid="uid://cfed5qf8seeex" path="res://assets/sprites/CircleHUD.png" id="14_a8ls1"]
-[ext_resource type="Script" uid="uid://cyax7q6bims4n" path="res://scripts/circle_hud.gd" id="14_f1ej7"]
+[ext_resource type="Script" path="res://scripts/circle_hud.gd" id="14_f1ej7"]
 [ext_resource type="Texture2D" uid="uid://batglaeqbvbt" path="res://assets/sprites/SpeedBar.jpg" id="15_a8ls1"]
-[ext_resource type="Script" uid="uid://bw2j8cmn2acep" path="res://scripts/speed_bar.gd" id="16_qfm1y"]
-[ext_resource type="Script" uid="uid://d2a45bagp3nmb" path="res://scripts/point_display.gd" id="17_qfm1y"]
+[ext_resource type="Script" path="res://scripts/speed_bar.gd" id="16_qfm1y"]
+[ext_resource type="Script" path="res://scripts/point_display.gd" id="17_qfm1y"]
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_qhqgy"]
 properties/0/path = NodePath(".:position")

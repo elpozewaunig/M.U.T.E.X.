@@ -75,8 +75,7 @@ func _physics_process(delta):
 		yaw_turn_multiplier = lerp(max_yaw_turn_multiplier, 1.0, speed_percent) 
 		pitch_turn_multiplier = lerp(max_pitch_turn_multiplier, 1.0, speed_percent) 
 		
-	var airflow_control = clamp(abs(current_speed) / 30.0, 0.3, 1.0)
-	airflow_control = clamp(abs(current_speed) / 15.0, 0.1, 1.0)
+	var airflow_control = clamp(abs(current_speed) / 20.0, 0.3, 1.0)
 	
 	yaw_turn_multiplier *= airflow_control
 	pitch_turn_multiplier *= airflow_control
