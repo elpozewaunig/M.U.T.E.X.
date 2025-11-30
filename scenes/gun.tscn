@@ -17,3 +17,12 @@ target_position = Vector3(0, 0, -1)
 hit_from_inside = true
 debug_shape_custom_color = Color(0.78039217, 0.88235295, 0.050980393, 1)
 debug_shape_thickness = 5
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 2.5
+one_shot = true
+
+[node name="Shoot" type="Timer" parent="."]
+one_shot = true
+
+[connection signal="timeout" from="Shoot" to="." method="_on_shoot_timeout"]

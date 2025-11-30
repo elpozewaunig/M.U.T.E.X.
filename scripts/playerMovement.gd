@@ -146,9 +146,3 @@ func _physics_process(delta):
 		pass
 	
 	
-	# Reset (debugging)
-	if Input.is_action_just_pressed("RESET"):
-		current_speed = 0.0
-		player.position = Vector3.ZERO
-		player.rotation = Vector3.ZERO
-		

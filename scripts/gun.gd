@@ -9,8 +9,12 @@ func _process(_delta):
 	if not owner.is_multiplayer_authority():
 		return
 		
-	if Input.is_action_just_pressed("shoot"):
-		request_fire()
+	if Input.is_action_just_pressed("shoot") && $Timer.is_stopped():
+		$Timer.start()
+		$Shoot.start()
+
+func _on_shoot_timeout() -> void:
+	request_fire()
 
 func request_fire():
 	var pos = gun_ray.global_position

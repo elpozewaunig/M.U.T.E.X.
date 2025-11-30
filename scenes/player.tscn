@@ -38,6 +38,10 @@ properties/3/replication_mode = 1
 [sub_resource type="ViewportTexture" id="ViewportTexture_smehm"]
 viewport_path = NodePath("ModelContainer/HUD/SubViewport")
 
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_4r5pv"]
+radius = 1.0
+height = 7.0
+
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_8bjf3"]
 transparency = 1
 cull_mode = 2
@@ -62,10 +66,6 @@ viewport_path = NodePath("PointDisplay/SubViewport")
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_fulsm"]
 radius = 0.675
 height = 7.5
-
-[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_4r5pv"]
-radius = 1.0
-height = 7.0
 
 [node name="CharacterBody3D2" type="CharacterBody3D" node_paths=PackedStringArray("movement_controller", "camera_controller", "camera", "point_display", "circle_hud", "pitch_hud", "speed_bar") groups=["Players"]]
 collision_layer = 8
@@ -102,7 +102,7 @@ player = NodePath("..")
 script = ExtResource("4_jej6c")
 
 [node name="CollisionShape3D3" type="CollisionShape3D" parent="Area3D" groups=["Players"]]
-transform = Transform3D(2.70113e-07, 0, 0.89754, 0, 0.528894, 0, 6.17946, 0, -3.92327e-08, 0, 0.038, -0.914)
+transform = Transform3D(3.086707e-07, 0, 0.89754, 0, 0.528894, 0, 7.061557, 0, -3.92327e-08, 0, 0.038, -0.914)
 shape = SubResource("CapsuleShape3D_tuyoq")
 
 [node name="ModelContainer" type="Node3D" parent="." node_paths=PackedStringArray("player", "thrusterMain", "thrusterLeft", "thrusterRight", "movement", "Ship", "Ship_Node", "particle")]
@@ -182,6 +182,10 @@ shape = SubResource("CapsuleShape3D_tuyoq")
 [node name="CollisionShape3D4" type="CollisionShape3D" parent="ModelContainer/Area3D"]
 transform = Transform3D(5.95371, 0, 5.05552e-08, 0, 0.279729, 0, 1.53151e-06, 0, 1.3531, -0.07686, 0.058098, 1.39981)
 shape = SubResource("CapsuleShape3D_tuyoq")
+
+[node name="ShipWingsCollisionShape" type="CollisionShape3D" parent="ModelContainer/Area3D"]
+transform = Transform3D(-4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0, 1, 0, 0.19487417, 2.0840282)
+shape = SubResource("CapsuleShape3D_4r5pv")
 
 [node name="shield_scannerparticle_try" type="CPUParticles3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, -0.953664, 0.300872, 0, -0.300872, -0.953664, -0.0405608, -0.55562, 1.41512)
@@ -269,10 +273,6 @@ texture = SubResource("ViewportTexture_qfm1y")
 [node name="ShipBodyCollisionShape" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 4.850299e-08, -0.6157321)
 shape = SubResource("CapsuleShape3D_fulsm")
-
-[node name="ShipWingsCollisionShape" type="CollisionShape3D" parent="."]
-transform = Transform3D(-4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0, 1, 0, 0.19487417, 2.0840282)
-shape = SubResource("CapsuleShape3D_4r5pv")
 
 [connection signal="max_Speed" from="movementController" to="SpringArm3D" method="_on_movement_controller_max_speed"]
 [connection signal="max_Speed" from="movementController" to="ModelContainer" method="_on_movement_controller_max_speed"]
