@@ -209,7 +209,7 @@ offset_left = 942.0
 offset_top = 294.0
 offset_right = 1011.0
 offset_bottom = 338.0
-focus_neighbor_top = NodePath(".")
+focus_neighbor_top = NodePath("../CreditsBTN")
 focus_neighbor_bottom = NodePath("../QuitGameBTN")
 text = "CONF"
 

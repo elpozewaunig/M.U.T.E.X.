@@ -1,0 +1,279 @@
+[gd_scene load_steps=15 format=3 uid="uid://cypwqksg1qrc5"]
+
+[ext_resource type="Texture2D" uid="uid://b156cmxm1wmhe" path="res://assets/skybox/bg.png" id="1_l6cm7"]
+[ext_resource type="Texture2D" uid="uid://qymy4et4jfcg" path="res://assets/sprites/svgviewer-output.svg" id="2_8ln24"]
+[ext_resource type="Texture2D" uid="uid://cayw6362tw6y1" path="res://assets/skybox/cockpit.png" id="2_wu84c"]
+[ext_resource type="Material" uid="uid://dg1x6fpusyufh" path="res://assets/shaders/scanline.tres" id="3_wu84c"]
+[ext_resource type="PackedScene" uid="uid://dp3rvhbvdll7k" path="res://scenes/miniscreen.tscn" id="4_8ln24"]
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_wu84c"]
+viewport_path = NodePath("FG/SubViewport")
+
+[sub_resource type="Animation" id="Animation_oa1go"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:material:shader_parameter/rgb_offset_uv")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.002]
+}
+
+[sub_resource type="Animation" id="Animation_rtw2f"]
+resource_name = "jigglergb"
+length = 8.1525
+loop_mode = 1
+step = 0.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:material:shader_parameter/rgb_offset_uv")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5709455, 0.6101601, 0.7042787, 1.4253291, 1.4477018, 1.4837841, 2.0401247, 2.0624974, 2.0985796, 2.687702, 2.7100747, 2.746157, 3.4267719, 3.4822462, 3.5436647, 4.000557, 4.0229297, 4.059012, 4.607065, 4.6625395, 4.7239575, 5.355327, 5.3777, 5.413782, 6.0542536, 6.109728, 6.1711464, 6.7100973, 6.7655716, 6.8269897, 7.510716, 7.5330887, 7.569171),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [0.002, 0.002, 0.057, 0.002, 0.002, 0.005, 0.002, 0.002, 0.005, 0.002, 0.002, 0.005, 0.002, 0.002, -0.002, 0.002, 0.002, 0.005, 0.002, 0.002, -0.002, 0.002, 0.002, 0.005, 0.002, 0.002, -0.002, 0.002, 0.002, -0.002, 0.002, 0.002, 0.005, 0.002]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_tbmy8"]
+_data = {
+&"RESET": SubResource("Animation_oa1go"),
+&"jigglergb": SubResource("Animation_rtw2f")
+}
+
+[sub_resource type="GDScript" id="GDScript_l6cm7"]
+resource_name = "cameraparallax"
+script/source = "extends Camera2D
+class_name CameraController
+signal zoom_in
+
+@export var move_speed_factor: float = 1.2
+@export var zoom_speed_factor: float = 1
+@onready var screen_center: Vector2 = get_viewport().get_visible_rect().size / 2
+
+var target_zoom: Vector2 = Vector2(1, 1)
+var time_until_snapback: float = 0
+
+func _ready() -> void:
+	position = screen_center
+
+var zoomed = false
+func _process(delta: float) -> void:
+	if zoomed:
+		return
+	var mouse_pos: Vector2 = get_viewport().get_mouse_position()
+	var offset_vec: Vector2 = mouse_pos - position
+	var distance: float = offset_vec.length()
+	
+	var speed: float = distance * move_speed_factor
+	if speed < 10:
+		speed = 10
+	
+	position = position.move_toward(mouse_pos, delta * speed)
+	
+	if time_until_snapback > 0:
+		time_until_snapback -= delta
+		zoom = zoom.move_toward(target_zoom, delta * zoom_speed_factor)
+		if time_until_snapback <= 0:
+			zoom = Vector2(1, 1)
+			time_until_snapback = 0
+	
+	if Input.is_anything_pressed():
+		$AnimationPlayer.play(\"zoom\")
+		zoomed = true
+		
+
+
+func zoom_and_snap_back(duration: float) -> void:
+	target_zoom = Vector2(2, 2)
+	time_until_snapback = duration
+	
+func fettsack():
+	zoom_in.emit()
+	
+
+func _input(event: InputEvent) -> void:
+	$\"../../FG/SubViewport\".push_input(event,false)
+	print(event)
+	
+"
+
+[sub_resource type="Animation" id="Animation_8ln24"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:zoom")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:offset")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_wu84c"]
+resource_name = "zoom"
+length = 1.387
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:zoom")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.13333334, 1.2666667),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(6.01, 6.01)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:offset")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.19999999, 1.2666667),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(-3748.405, 472.95)]
+}
+tracks/2/type = "method"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(1.2333333),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"fettsack"
+}]
+}
+
+[sub_resource type="Animation" id="Animation_tbmy8"]
+resource_name = "zoomback"
+length = 1.412
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:zoom")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.06666667, 1.2666667),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(6.01, 6.01), Vector2(1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:offset")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.06666667, 1.2666667),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(-3748.405, 472.95), Vector2(0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_8ln24"]
+_data = {
+&"RESET": SubResource("Animation_8ln24"),
+&"zoom": SubResource("Animation_wu84c"),
+&"zoomback": SubResource("Animation_tbmy8")
+}
+
+[node name="MainMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="BG" type="Parallax2D" parent="."]
+scroll_scale = Vector2(0.1, 0.1)
+
+[node name="BG" type="Sprite2D" parent="BG"]
+position = Vector2(549, 242)
+scale = Vector2(0.441, 0.441)
+texture = ExtResource("1_l6cm7")
+
+[node name="cockpithud" type="Parallax2D" parent="."]
+scroll_scale = Vector2(0.06, 0.06)
+
+[node name="SvgviewerOutput" type="Sprite2D" parent="cockpithud"]
+position = Vector2(593.00006, 241)
+scale = Vector2(0.10050969, 0.10050969)
+texture = ExtResource("2_8ln24")
+region_enabled = true
+region_rect = Rect2(0, 705.48254, 400, 852.1505)
+
+[node name="FG" type="Parallax2D" parent="."]
+scroll_scale = Vector2(0.05, 0.05)
+
+[node name="FG" type="Sprite2D" parent="FG"]
+position = Vector2(564.44446, 290.33328)
+scale = Vector2(0.7849712, 0.7849711)
+texture = ExtResource("2_wu84c")
+
+[node name="TextureRect" type="TextureRect" parent="FG"]
+material = ExtResource("3_wu84c")
+offset_left = 310.0
+offset_top = 304.0
+offset_right = 1510.0
+offset_bottom = 1304.0
+rotation = -0.011517963
+scale = Vector2(0.13517392, 0.13517392)
+texture = SubResource("ViewportTexture_wu84c")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="FG/TextureRect"]
+libraries = {
+&"": SubResource("AnimationLibrary_tbmy8")
+}
+autoplay = "jigglergb"
+
+[node name="SubViewport" type="SubViewport" parent="FG"]
+size = Vector2i(1200, 1000)
+render_target_update_mode = 4
+
+[node name="Control" parent="FG/SubViewport" instance=ExtResource("4_8ln24")]
+
+[node name="Node2D" type="Node2D" parent="."]
+
+[node name="Camera2D" type="Camera2D" parent="Node2D"]
+position = Vector2(572, 465.665)
+script = SubResource("GDScript_l6cm7")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Node2D/Camera2D"]
+libraries = {
+&"": SubResource("AnimationLibrary_8ln24")
+}
+
+[connection signal="zoom_in" from="Node2D/Camera2D" to="FG/SubViewport/Control" method="_on_zoomin"]

@@ -1,10 +1,49 @@
-[gd_scene load_steps=15 format=3 uid="uid://cypwqksg1qrc5"]
+[gd_scene load_steps=21 format=3 uid="uid://cypwqksg1qrc5"]
 
 [ext_resource type="Texture2D" uid="uid://b156cmxm1wmhe" path="res://assets/skybox/bg.png" id="1_l6cm7"]
 [ext_resource type="Texture2D" uid="uid://qymy4et4jfcg" path="res://assets/sprites/svgviewer-output.svg" id="2_8ln24"]
+[ext_resource type="Texture2D" uid="uid://btbnj4v1qq3v1" path="res://assets/skybox/bg2.png" id="2_rtw2f"]
 [ext_resource type="Texture2D" uid="uid://cayw6362tw6y1" path="res://assets/skybox/cockpit.png" id="2_wu84c"]
 [ext_resource type="Material" uid="uid://dg1x6fpusyufh" path="res://assets/shaders/scanline.tres" id="3_wu84c"]
 [ext_resource type="PackedScene" uid="uid://dp3rvhbvdll7k" path="res://scenes/miniscreen.tscn" id="4_8ln24"]
+
+[sub_resource type="Animation" id="Animation_5dd4i"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0.66675067, 0.66675067)]
+}
+
+[sub_resource type="Animation" id="Animation_jk1qb"]
+resource_name = "woosh"
+length = 60.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 28.233334, 59.472355),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(0.637, 0.637), Vector2(2.037, 2.037), Vector2(0.637, 0.637)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_lgwnu"]
+_data = {
+&"RESET": SubResource("Animation_5dd4i"),
+&"woosh": SubResource("Animation_jk1qb")
+}
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_wu84c"]
 viewport_path = NodePath("FG/SubViewport")
@@ -97,6 +136,12 @@ func zoom_and_snap_back(duration: float) -> void:
 	
 func fettsack():
 	zoom_in.emit()
+	
+
+func _input(event: InputEvent) -> void:
+	$\"../../FG/SubViewport\".push_input(event,false)
+	#print(event)
+	
 "
 
 [sub_resource type="Animation" id="Animation_8ln24"]
@@ -125,6 +170,66 @@ tracks/1/keys = {
 "update": 0,
 "values": [Vector2(0, 0)]
 }
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("../../BG/BGAfter:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("../../BG/BGAfter:scale")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0.80376893, 0.80376893)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("../../FADETOWHITE:modulate")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("../../BG/BGAfter:modulate")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("../../FADETOWHITE:visible")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
 
 [sub_resource type="Animation" id="Animation_wu84c"]
 resource_name = "zoom"
@@ -136,22 +241,22 @@ tracks/0/path = NodePath(".:zoom")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0.13333334, 1.2666667),
-"transitions": PackedFloat32Array(1, 1),
+"times": PackedFloat32Array(0.6666667, 1.2666667),
+"transitions": PackedFloat32Array(7.209997, 1),
 "update": 0,
-"values": [Vector2(1, 1), Vector2(6.01, 6.01)]
+"values": [Vector2(1, 1), Vector2(4.725, 4.725)]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
 tracks/1/path = NodePath(".:offset")
-tracks/1/interp = 1
+tracks/1/interp = 2
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0.19999999, 1.2666667),
-"transitions": PackedFloat32Array(1, 1),
+"times": PackedFloat32Array(0.20000002, 1.2666667),
+"transitions": PackedFloat32Array(1, 0.1961461),
 "update": 0,
-"values": [Vector2(0, 0), Vector2(-3748.405, 472.95)]
+"values": [Vector2(0, 0), Vector2(-4548.405, 951.81)]
 }
 tracks/2/type = "method"
 tracks/2/imported = false
@@ -170,7 +275,7 @@ tracks/2/keys = {
 
 [sub_resource type="Animation" id="Animation_tbmy8"]
 resource_name = "zoomback"
-length = 1.412
+length = 5.2755
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -178,10 +283,10 @@ tracks/0/path = NodePath(".:zoom")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0.06666667, 1.2666667),
+"times": PackedFloat32Array(0.100000024, 2.1666667),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [Vector2(6.01, 6.01), Vector2(1, 1)]
+"values": [Vector2(4.725, 4.725), Vector2(1, 1)]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -190,10 +295,70 @@ tracks/1/path = NodePath(".:offset")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0.06666667, 1.2666667),
+"times": PackedFloat32Array(0.100000024, 2.4666667),
+"transitions": PackedFloat32Array(0.1961461, 1),
+"update": 0,
+"values": [Vector2(-4548.405, 951.81), Vector2(0, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("../../BG/BGAfter:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0.20000002, 0.4),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("../../BG/BGAfter:scale")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(3.0666666, 5.0666666),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [Vector2(-3748.405, 472.95), Vector2(0, 0)]
+"values": [Vector2(0.80376893, 0.80376893), Vector2(1.159, 1.159)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("../../FADETOWHITE:modulate")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(3.3333333, 4.9333334),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("../../BG/BGAfter:modulate")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0.36666667, 0.6333333),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("../../FADETOWHITE:visible")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(2.6333334, 3.0666666),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_8ln24"]
@@ -202,6 +367,13 @@ _data = {
 &"zoom": SubResource("Animation_wu84c"),
 &"zoomback": SubResource("Animation_tbmy8")
 }
+
+[sub_resource type="Gradient" id="Gradient_rtw2f"]
+offsets = PackedFloat32Array(1)
+colors = PackedColorArray(1, 1, 1, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_oa1go"]
+gradient = SubResource("Gradient_rtw2f")
 
 [node name="MainMenu" type="Control"]
 layout_mode = 3
@@ -215,16 +387,28 @@ grow_vertical = 2
 scroll_scale = Vector2(0.1, 0.1)
 
 [node name="BG" type="Sprite2D" parent="BG"]
-position = Vector2(549, 242)
-scale = Vector2(0.441, 0.441)
+position = Vector2(596, 266.00003)
+scale = Vector2(0.66675067, 0.66675067)
 texture = ExtResource("1_l6cm7")
 
+[node name="AnimationPlayer" type="AnimationPlayer" parent="BG/BG"]
+libraries = {
+&"": SubResource("AnimationLibrary_lgwnu")
+}
+autoplay = "woosh"
+
+[node name="BGAfter" type="Sprite2D" parent="BG"]
+visible = false
+position = Vector2(593.00006, 214)
+scale = Vector2(0.80376893, 0.80376893)
+texture = ExtResource("2_rtw2f")
+
 [node name="cockpithud" type="Parallax2D" parent="."]
-scroll_scale = Vector2(0.06, 0.06)
+scroll_scale = Vector2(0.07, 0.07)
 
 [node name="SvgviewerOutput" type="Sprite2D" parent="cockpithud"]
 position = Vector2(593.00006, 241)
-scale = Vector2(0.10050969, 0.10050969)
+scale = Vector2(0.14077969, 0.14077969)
 texture = ExtResource("2_8ln24")
 region_enabled = true
 region_rect = Rect2(0, 705.48254, 400, 852.1505)
@@ -233,18 +417,18 @@ region_rect = Rect2(0, 705.48254, 400, 852.1505)
 scroll_scale = Vector2(0.05, 0.05)
 
 [node name="FG" type="Sprite2D" parent="FG"]
-position = Vector2(564.44446, 290.33328)
-scale = Vector2(0.7849712, 0.7849711)
+position = Vector2(587.00006, 323)
+scale = Vector2(0.9318551, 0.9318551)
 texture = ExtResource("2_wu84c")
 
 [node name="TextureRect" type="TextureRect" parent="FG"]
 material = ExtResource("3_wu84c")
-offset_left = 310.0
-offset_top = 304.0
-offset_right = 1510.0
-offset_bottom = 1304.0
-rotation = -0.011517963
-scale = Vector2(0.13517392, 0.13517392)
+offset_left = 257.0
+offset_top = 321.0
+offset_right = 1457.0
+offset_bottom = 1321.0
+rotation = -0.01782701
+scale = Vector2(0.15700814, 0.15354782)
 texture = SubResource("ViewportTexture_wu84c")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="FG/TextureRect"]
@@ -269,5 +453,10 @@ script = SubResource("GDScript_l6cm7")
 libraries = {
 &"": SubResource("AnimationLibrary_8ln24")
 }
+
+[node name="FADETOWHITE" type="Sprite2D" parent="."]
+visible = false
+scale = Vector2(157.66106, 83.95388)
+texture = SubResource("GradientTexture2D_oa1go")
 
 [connection signal="zoom_in" from="Node2D/Camera2D" to="FG/SubViewport/Control" method="_on_zoomin"]
