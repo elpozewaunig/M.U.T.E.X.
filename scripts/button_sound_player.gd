@@ -10,9 +10,7 @@ func _ready() -> void:
 	button.pressed.connect(_on_pressed)
 
 func _on_focus() -> void:
-	if button.is_visible_in_tree():
-		focus_sound.play()
+	focus_sound.play()
 
 func _on_pressed() -> void:
-	if button.is_visible_in_tree():
-		click_sound.play()
+	click_sound.play()
