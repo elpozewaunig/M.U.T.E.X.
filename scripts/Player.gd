@@ -11,6 +11,7 @@ extends CharacterBody3D
 @export var pitch_hud: Node3D
 @export var speed_bar: Node3D
 
+signal takeDamageSignal(damageAmount)
 
 func _enter_tree():
 	# 1. Set Authority based on Name (Standard stuff)
@@ -47,3 +48,6 @@ func _ready():
 		circle_hud.hide()
 		pitch_hud.hide()
 		speed_bar.hide()
+
+func take_damage(damage_amount):
+	takeDamageSignal.emit(damage_amount)

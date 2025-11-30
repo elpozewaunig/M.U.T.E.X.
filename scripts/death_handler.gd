@@ -11,6 +11,9 @@ func take_damage(damage_amount):
 	if health <= 0:
 		die()
 
+func _on_character_body_3d_2_take_damage_signal(damageAmount: Variant) -> void:
+	take_damage(damageAmount)
+
 func _on_area_3d_body_entered(body: Node3D) -> void:
 	_on_body_entered(body)
 

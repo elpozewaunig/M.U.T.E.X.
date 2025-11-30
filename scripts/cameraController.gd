@@ -83,7 +83,7 @@ func _process(delta):
 		_current_yaw = lerp(_current_yaw, _default_yaw, return_speed * delta)
 
 	if (look_back):
-		rotation_degrees.x = -5
+		rotation_degrees.x = -5 
 		rotation_degrees.y = 180
 		spring_length = shortened_spring_length
 		point_display.hide()
