@@ -3,6 +3,9 @@ extends Node3D
 @export var guns_node: Node3D
 
 func apply_visibility(type_id: int):
+	if (not multiplayer):
+		return
+	
 	var is_host = multiplayer.is_server()
 
 	# Logic:
