@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=3 uid="uid://c111b6l8it2x6"]
+[gd_scene load_steps=27 format=3 uid="uid://c111b6l8it2x6"]
 
 [ext_resource type="Script" uid="uid://cc6g7dopbnu7h" path="res://scripts/Player.gd" id="1_qhqgy"]
 [ext_resource type="Script" uid="uid://b4rer4p7cpwlv" path="res://scripts/cameraController.gd" id="3_tuyoq"]
@@ -10,16 +10,14 @@
 [ext_resource type="PackedScene" uid="uid://bdfw8wp21jlmh" path="res://scenes/thruster_exhaust.tscn" id="5_tuyoq"]
 [ext_resource type="Material" uid="uid://bm06tepcpvlcd" path="res://assets/models/thruster_exhaust/outline_shader.tres" id="6_ur7pv"]
 [ext_resource type="Texture2D" uid="uid://qymy4et4jfcg" path="res://assets/sprites/VerticleHUD.svg" id="7_fjrip"]
-[ext_resource type="Script" path="res://scenes/VerticleHUD.gd" id="8_smehm"]
-[ext_resource type="Texture2D" uid="uid://qymy4et4jfcg" path="res://assets/sprites/svgviewer-output.svg" id="7_fjrip"]
-[ext_resource type="Script" uid="uid://bckvg3syriw3r" path="res://scenes/texture_rect.gd" id="8_smehm"]
+[ext_resource type="Script" path="res://scenes/texture_rect.gd" id="8_smehm"]
 [ext_resource type="PackedScene" uid="uid://cduaufs6120d2" path="res://scenes/thruster_particles.tscn" id="11_d2wvv"]
 [ext_resource type="Texture2D" uid="uid://dqwa42jtr1sqb" path="res://assets/models/thruster_exhaust/particle1.png" id="12_3v2ag"]
 [ext_resource type="Texture2D" uid="uid://cfed5qf8seeex" path="res://assets/sprites/CircleHUD.png" id="14_a8ls1"]
-[ext_resource type="Script" uid="uid://cyax7q6bims4n" path="res://scripts/circle_hud.gd" id="14_f1ej7"]
+[ext_resource type="Script" path="res://scripts/circle_hud.gd" id="14_f1ej7"]
 [ext_resource type="Texture2D" uid="uid://batglaeqbvbt" path="res://assets/sprites/SpeedBar.jpg" id="15_a8ls1"]
 [ext_resource type="Script" path="res://scripts/speed_bar.gd" id="16_qfm1y"]
-[ext_resource type="Script" uid="uid://d2a45bagp3nmb" path="res://scripts/point_display.gd" id="17_qfm1y"]
+[ext_resource type="Script" path="res://scripts/point_display.gd" id="17_qfm1y"]
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_qhqgy"]
 properties/0/path = NodePath(".:position")
