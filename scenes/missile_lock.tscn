@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3 uid="uid://fabgyipwskbh"]
+
+[ext_resource type="Texture2D" uid="uid://ct3e64l3uj6mt" path="res://assets/MissileLOKC.png" id="1_ckhyd"]
+
+[node name="Missile Lock" type="Node3D"]
+
+[node name="Sprite3D" type="Sprite3D" parent="."]
+transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, -9.799711, 0.70419574, -6.061)
+modulate = Color(0.27058825, 1, 0.101960786, 1)
+texture = ExtResource("1_ckhyd")
