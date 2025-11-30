@@ -12,5 +12,4 @@ func _process(delta: float) -> void:
 	
 func pan_camera():
 	var playerrot = player.rotation_degrees.y
-	print(playerrot)
 	rotation_degrees = -playerrot

@@ -21,6 +21,7 @@ func add_score(amount: int = 1):
 		
 	current_score += amount
 	score_updated.emit(current_score)
+	print("tets")
 	
 	# Sync score to clients (RPC)
 	rpc("sync_score", current_score)

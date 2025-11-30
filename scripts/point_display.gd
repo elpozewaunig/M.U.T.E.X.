@@ -5,11 +5,13 @@ var point_string = "Points: 0"
 func _ready() -> void:
 	ScoreManager.score_updated.connect(increment_point)
 
-
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	text = point_string
+#func _process(delta: float) -> void:
+	#increment_point()
+	#text = point_string
 
-func increment_point():
-	current_point = current_point + 1
-	point_string = "Points: " + str(current_point)
+#func increment_point():
+	#current_point = current_point + 1
+	#point_string = "Points: " + str(current_point)
+func increment_point(new_score: int) -> void:
+	text = "Points: " + str(new_score)
