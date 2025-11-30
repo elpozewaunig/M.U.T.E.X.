@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://cypwqksg1qrc5"]
+[gd_scene load_steps=23 format=3 uid="uid://cypwqksg1qrc5"]
 
 [ext_resource type="Texture2D" uid="uid://b156cmxm1wmhe" path="res://assets/skybox/bg.png" id="1_l6cm7"]
 [ext_resource type="Texture2D" uid="uid://qymy4et4jfcg" path="res://assets/sprites/VerticleHUD.svg" id="2_8ln24"]
@@ -7,6 +7,7 @@
 [ext_resource type="Material" uid="uid://dg1x6fpusyufh" path="res://assets/shaders/scanline.tres" id="3_wu84c"]
 [ext_resource type="PackedScene" uid="uid://dp3rvhbvdll7k" path="res://scenes/miniscreen.tscn" id="4_8ln24"]
 [ext_resource type="AudioStream" uid="uid://mn1w3ulxq6jq" path="res://assets/sounds/warp_start.wav" id="7_oa1go"]
+[ext_resource type="AudioStream" uid="uid://dkmbw86ugmupy" path="res://assets/music/main_menu.ogg" id="8_tbmy8"]
 
 [sub_resource type="Animation" id="Animation_5dd4i"]
 length = 0.001
@@ -527,6 +528,11 @@ libraries = {
 visible = false
 scale = Vector2(157.661, 83.9539)
 texture = SubResource("GradientTexture2D_oa1go")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("8_tbmy8")
+autoplay = true
+parameters/looping = true
 
 [connection signal="zoomout" from="FG/SubViewport/Control" to="Node2D/Camera2D" method="_on_control_zoomout"]
 [connection signal="focus_entered" from="FG/SubViewport/Control/HOSTINGASHOST/LineEdit" to="FG/SubViewport/Control/HOSTINGASHOST" method="_on_line_edit_focus_entered"]
