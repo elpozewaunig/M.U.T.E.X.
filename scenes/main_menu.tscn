@@ -1,11 +1,11 @@
-[gd_scene load_steps=21 format=3 uid="uid://cypwqksg1qrc5"]
+[gd_scene load_steps=21 format=3 uid="uid://1qgw8j72resu"]
 
 [ext_resource type="Texture2D" uid="uid://b156cmxm1wmhe" path="res://assets/skybox/bg.png" id="1_l6cm7"]
 [ext_resource type="Texture2D" uid="uid://qymy4et4jfcg" path="res://assets/sprites/VerticleHUD.svg" id="2_8ln24"]
 [ext_resource type="Texture2D" uid="uid://btbnj4v1qq3v1" path="res://assets/skybox/bg2.png" id="2_rtw2f"]
 [ext_resource type="Texture2D" uid="uid://cayw6362tw6y1" path="res://assets/skybox/cockpit.png" id="2_wu84c"]
 [ext_resource type="Material" uid="uid://dg1x6fpusyufh" path="res://assets/shaders/scanline.tres" id="3_wu84c"]
-[ext_resource type="PackedScene" uid="uid://dp3rvhbvdll7k" path="res://scenes/miniscreen.tscn" id="4_8ln24"]
+[ext_resource type="PackedScene" uid="uid://tq2sekgu7c8" path="res://scenes/miniscreen.tscn" id="4_8ln24"]
 
 [sub_resource type="Animation" id="Animation_5dd4i"]
 length = 0.001

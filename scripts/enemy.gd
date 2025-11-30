@@ -44,6 +44,7 @@ var health = 100
 @export var type1:Color
 @export var type2:Color
 @export var ship:Node3D
+@export var targeted:CharacterBody3D
 
 enum { PATROLLING, CHASING, ATTACKING }
 var current_state = PATROLLING
@@ -169,7 +170,6 @@ func attack_player(delta: float) -> void:
 	if not target_player or not is_instance_valid(target_player):
 		current_state = PATROLLING
 		return
-	
 	var distance = global_position.distance_to(target_player.global_position)
 	var direction = (target_player.global_position - global_position).normalized()
 	
@@ -342,12 +342,14 @@ func _on_detection_area_body_entered(body: Node3D) -> void:
 	if current_state == PATROLLING and body.is_in_group(PLAYERS_GROUP_NAME):
 		target_player = body
 		current_state = CHASING
+		body.MissileLock()
 		#print("Player detected! Switching to chase mode")
 
 func _on_detection_area_body_exited(body: Node3D) -> void:
 	if body == target_player and not is_player_in_sight():
 		target_player = null
 		current_state = PATROLLING
+		body.MissileUnlock()
 		#print("Player lost! Returning to patrol")
 
 func shoot_gun() -> void:

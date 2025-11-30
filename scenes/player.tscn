@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=3 uid="uid://c111b6l8it2x6"]
+[gd_scene load_steps=29 format=3 uid="uid://c111b6l8it2x6"]
 
 [ext_resource type="Script" uid="uid://cc6g7dopbnu7h" path="res://scripts/Player.gd" id="1_qhqgy"]
 [ext_resource type="Script" uid="uid://b4rer4p7cpwlv" path="res://scripts/cameraController.gd" id="3_tuyoq"]
@@ -13,10 +13,11 @@
 [ext_resource type="PackedScene" uid="uid://cduaufs6120d2" path="res://scenes/thruster_particles.tscn" id="11_d2wvv"]
 [ext_resource type="Texture2D" uid="uid://dqwa42jtr1sqb" path="res://assets/models/thruster_exhaust/particle1.png" id="12_3v2ag"]
 [ext_resource type="Texture2D" uid="uid://cfed5qf8seeex" path="res://assets/sprites/CircleHUD.png" id="14_a8ls1"]
-[ext_resource type="Script" uid="uid://cyax7q6bims4n" path="res://scripts/circle_hud.gd" id="14_f1ej7"]
+[ext_resource type="Script" path="res://scripts/circle_hud.gd" id="14_f1ej7"]
 [ext_resource type="Texture2D" uid="uid://batglaeqbvbt" path="res://assets/sprites/SpeedBar.jpg" id="15_a8ls1"]
-[ext_resource type="Script" uid="uid://bw2j8cmn2acep" path="res://scripts/speed_bar.gd" id="16_qfm1y"]
-[ext_resource type="Script" uid="uid://d2a45bagp3nmb" path="res://scripts/point_display.gd" id="17_qfm1y"]
+[ext_resource type="Texture2D" uid="uid://ct3e64l3uj6mt" path="res://assets/MissileLOKC.png" id="15_fulsm"]
+[ext_resource type="Script" path="res://scripts/speed_bar.gd" id="16_qfm1y"]
+[ext_resource type="Script" path="res://scripts/point_display.gd" id="17_qfm1y"]
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_qhqgy"]
 properties/0/path = NodePath(".:position")
@@ -66,7 +67,7 @@ viewport_path = NodePath("PointDisplay/SubViewport")
 radius = 0.675
 height = 7.5
 
-[node name="CharacterBody3D2" type="CharacterBody3D" node_paths=PackedStringArray("movement_controller", "camera_controller", "camera", "point_display", "circle_hud", "pitch_hud", "speed_bar") groups=["Players"]]
+[node name="CharacterBody3D2" type="CharacterBody3D" node_paths=PackedStringArray("movement_controller", "camera_controller", "camera", "point_display", "circle_hud", "pitch_hud", "speed_bar", "missileLock") groups=["Players"]]
 collision_layer = 8
 collision_mask = 31
 motion_mode = 1
@@ -74,10 +75,15 @@ script = ExtResource("1_qhqgy")
 movement_controller = NodePath("movementController")
 camera_controller = NodePath("SpringArm3D")
 camera = NodePath("SpringArm3D/Camera3D")
+primary_color = Color(0.99572676, 0, 0.24413162, 1)
+secundary_color = Color(0.34117648, 1, 0.11764706, 1)
 point_display = NodePath("PointDisplay")
 circle_hud = NodePath("CircleHUD")
 pitch_hud = NodePath("ModelContainer/HUD")
 speed_bar = NodePath("SpeedBar")
+missileLock = NodePath("Missile Lock/Sprite3D")
+missileLockColor = Color(0.9297501, 0, 0.14976892, 1)
+noMissileLockColor = Color(0.34117648, 1, 0.11764706, 1)
 
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
 replication_config = SubResource("SceneReplicationConfig_qhqgy")
@@ -224,6 +230,13 @@ player = NodePath("../../..")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -4.56811, 5.41849)
 texture = SubResource("ViewportTexture_oprun")
 
+[node name="Missile Lock" type="Node3D" parent="."]
+
+[node name="Sprite3D" type="Sprite3D" parent="Missile Lock"]
+transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, -9.799711, 0.70419574, -6.061)
+modulate = Color(0.27058825, 1, 0.101960786, 1)
+texture = ExtResource("15_fulsm")
+
 [node name="SpeedBar" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.83886, 0, -6.10254)
 
@@ -235,7 +248,7 @@ offset_right = 40.0
 offset_bottom = 40.0
 min_value = 1.0
 max_value = 120.0
-value = 1.0
+value = 50.0
 texture_progress = ExtResource("15_a8ls1")
 script = ExtResource("16_qfm1y")
 player = NodePath("../../..")
