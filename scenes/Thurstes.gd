@@ -18,9 +18,11 @@ var maxSpeed:float = 100
 var Ship_primary:StandardMaterial3D
 var Ship_secondary:StandardMaterial3D
 @export var Ship:MeshInstance3D
+@export var Ship_Node:Node3D
 @export var particle:Node3D
 
 func _ready() -> void:
+	Ship = Ship_Node.get_child(0)
 	Ship_primary=Ship.mesh.surface_get_material(1)
 	Ship_secondary=Ship.mesh.surface_get_material(2)
 	Ship_primary.albedo_color=primary
