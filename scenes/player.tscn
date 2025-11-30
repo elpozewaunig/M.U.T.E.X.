@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://c111b6l8it2x6"]
+[gd_scene load_steps=21 format=3 uid="uid://c111b6l8it2x6"]
 
 [ext_resource type="Script" uid="uid://cc6g7dopbnu7h" path="res://scripts/Player.gd" id="1_qhqgy"]
 [ext_resource type="Script" uid="uid://b4rer4p7cpwlv" path="res://scripts/cameraController.gd" id="3_tuyoq"]
@@ -31,6 +31,8 @@ properties/3/replication_mode = 1
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_smehm"]
 viewport_path = NodePath("ModelContainer/HUD/SubViewport")
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_tuyoq"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_8bjf3"]
 transparency = 1
@@ -106,6 +108,7 @@ texture = SubResource("ViewportTexture_smehm")
 
 [node name="ThrusterExhaust" parent="ModelContainer" instance=ExtResource("5_tuyoq")]
 transform = Transform3D(0.445, 0, 0, 0, 0.0102358, 0.212942, 0, -0.439881, 0.00495504, -0.130108, 0.251334, 2.23022)
+visible = false
 
 [node name="particles" parent="ModelContainer/ThrusterExhaust" instance=ExtResource("11_d2wvv")]
 transform = Transform3D(2.24719, 0, 0, 0, 0.0528708, -2.27211, 0, 4.69357, 0.109217, 0, 0, 0)

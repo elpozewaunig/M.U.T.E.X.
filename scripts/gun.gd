@@ -2,44 +2,46 @@ extends Node3D
 
 @onready var gun_ray = $RayCast3D
 
-var bulletScene = load("res://scenes/bullet.tscn")
-var bulletObject
-var is_shooting = false
+# Ensure this matches your file path EXACTLY
+var missile_scene = load("res://scenes/Missile.tscn")
 
-func _ready() -> void:
-	pass 
-
-func _process(_delta: float) -> void:
+func _process(_delta):
+	# Input Guard: Only the local player can request a shot
 	if not owner.is_multiplayer_authority():
 		return
-
+		
 	if Input.is_action_just_pressed("shoot"):
-		request_shoot()
-
-func request_shoot():
-	if not multiplayer.is_server():
-		rpc_id(1, "server_shoot_bullet")
-	else:
-		server_shoot_bullet()
+		# Networking Check
+		if multiplayer.is_server():
+			spawn_missile()
+		else:
+			rpc_id(1, "spawn_missile")
 
 @rpc("any_peer", "call_local")
-func server_shoot_bullet():
-	if not multiplayer.is_server():
+func spawn_missile():
+	# Security: Only Server spawns
+	if not multiplayer.is_server(): return
+
+	# 1. Instantiate
+	var missile = missile_scene.instantiate()
+	
+	# 2. Force Unique Name (PREVENTS "Node Not Found" ERRORS)
+	missile.name = "M_%d" % randi()
+	
+	# 3. Find Container
+	var container = get_node("/root/LevelScene/Bullets")
+	if not container:
+		printerr("Gun Error: No 'Bullets' node found in LevelScene")
 		return
 
-	var bullet = bulletScene.instantiate()
-	var bullet_container = get_node("/root/LevelScene/Bullets")
+	# 4. Add Child (Networked)
+	container.add_child(missile, true)
 	
-	if not bullet_container:
-		printerr("Error: Could not find 'Bullets' node!")
-		return
+	# 5. Position & Rotation
+	missile.global_position = gun_ray.global_position
+	missile.global_transform.basis = gun_ray.global_transform.basis
 	
-	bullet.name = "Bullet_%d" % randi()
-
-	bullet_container.add_child(bullet, true)
-
-	bullet.global_position = gun_ray.global_position
-	bullet.global_transform.basis = gun_ray.global_transform.basis
-	
-	if bullet.has_method("setup_bullet"):
-		bullet.setup_bullet(owner.name == "1", owner)
+	# 6. Setup Logic
+	# owner.name == "1" checks if the shooter is the Host
+	if missile.has_method("setup_server_logic"):
+		missile.setup_server_logic(owner.name == "1", owner)

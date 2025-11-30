@@ -10,7 +10,7 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	text = point_string
 
-func increment_point():
+func increment_point(current_score):
 	current_point = current_point + 1
 	point_string = "Points: " + str(current_point)
 	

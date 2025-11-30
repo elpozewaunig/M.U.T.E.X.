@@ -1,0 +1,43 @@
+[gd_scene load_steps=6 format=3 uid="uid://b8tq0bwaqknkx"]
+
+[ext_resource type="Script" uid="uid://cqnjbk4y12ikk" path="res://scripts/bulletScript.gd" id="1_ohnc3"]
+[ext_resource type="PackedScene" uid="uid://cin7k7075t28o" path="res://scenes/rocket.tscn" id="2_1ifrg"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_iru0s"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_7880j"]
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_jwe45"]
+properties/0/path = NodePath(".:shooter_is_host")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+properties/1/path = NodePath(".:position")
+properties/1/spawn = true
+properties/1/replication_mode = 1
+properties/2/path = NodePath(".:rotation")
+properties/2/spawn = true
+properties/2/replication_mode = 1
+properties/3/path = NodePath(".:scale")
+properties/3/spawn = true
+properties/3/replication_mode = 1
+
+[node name="Missile" type="Area3D"]
+script = ExtResource("1_ohnc3")
+
+[node name="Rocket" parent="." instance=ExtResource("2_1ifrg")]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(0.3136804, 0, 0, 0, 0.39280367, 0, 0, 0, 2.9471502, 0, 0, 0)
+shape = SubResource("SphereShape3D_iru0s")
+
+[node name="DetectionArea" type="Area3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="DetectionArea"]
+transform = Transform3D(20, 0, 0, 0, 20, 0, 0, 0, 20, 0, 0, 0)
+shape = SubResource("SphereShape3D_7880j")
+
+[node name="LifeTimer" type="Timer" parent="."]
+wait_time = 2.0
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_jwe45")
