@@ -8,7 +8,7 @@
 [ext_resource type="Script" uid="uid://c5nc1c4n64d8p" path="res://scenes/Thurstes.gd" id="4_y4r1p"]
 [ext_resource type="PackedScene" uid="uid://d2snjgmsw07qr" path="res://scenes/gun.tscn" id="5_qlg0r"]
 [ext_resource type="PackedScene" uid="uid://bdfw8wp21jlmh" path="res://scenes/thruster_exhaust.tscn" id="5_tuyoq"]
-[ext_resource type="Texture2D" uid="uid://qymy4et4jfcg" path="res://assets/sprites/VerticleHUD.svg" id="7_fjrip"]
+[ext_resource type="Texture2D" uid="uid://b41grrrqbb785" path="res://assets/sprites/VerticalHUD.png" id="6_qfm1y"]
 [ext_resource type="Script" uid="uid://dwblcvei8080m" path="res://scenes/texture_rect.gd" id="8_smehm"]
 [ext_resource type="PackedScene" uid="uid://cduaufs6120d2" path="res://scenes/thruster_particles.tscn" id="11_d2wvv"]
 [ext_resource type="Texture2D" uid="uid://dqwa42jtr1sqb" path="res://assets/models/thruster_exhaust/particle1.png" id="12_3v2ag"]
@@ -126,13 +126,13 @@ transparent_bg = true
 [node name="VerticleHUD" type="TextureRect" parent="ModelContainer/HUD/SubViewport" node_paths=PackedStringArray("player")]
 offset_right = 400.0
 offset_bottom = 2000.0
-texture = ExtResource("7_fjrip")
+texture = ExtResource("6_qfm1y")
 stretch_mode = 1
 script = ExtResource("8_smehm")
 player = NodePath("../../../..")
 
 [node name="Sprite3D" type="Sprite3D" parent="ModelContainer/HUD"]
-transform = Transform3D(5, 0, 0, 0, 5, 0, 0, 0, 5, 1.664, 0, -11.829)
+transform = Transform3D(5, 0, 0, 0, 5, 0, 0, 0, 5, 2.1663532, 0, -11.829)
 texture = SubResource("ViewportTexture_smehm")
 
 [node name="ThrusterExhaust" parent="ModelContainer" instance=ExtResource("5_tuyoq")]
