@@ -108,16 +108,13 @@ script = ExtResource("4_jej6c")
 transform = Transform3D(3.08671e-07, 0, 0.89754, 0, 0.528894, 0, 7.06156, 0, -3.92327e-08, 0, 0.038, -0.914)
 shape = SubResource("CapsuleShape3D_tuyoq")
 
-[node name="ModelContainer" type="Node3D" parent="." node_paths=PackedStringArray("player", "thrusterMain", "thrusterLeft", "thrusterRight", "movement", "Ship_Node", "particle")]
+[node name="ModelContainer" type="Node3D" parent="." node_paths=PackedStringArray("player", "thrusterMain", "thrusterLeft", "thrusterRight", "movement", "particle")]
 script = ExtResource("4_y4r1p")
 player = NodePath("..")
 thrusterMain = NodePath("ThrusterExhaust")
 thrusterLeft = NodePath("ThrusterExhaust2")
 thrusterRight = NodePath("ThrusterExhaust3")
 movement = NodePath("../movementController")
-primary = Color(0.132026, 0.129026, 0.126453, 1)
-secondary = Color(0.702773, 0.115305, 2.88785e-07, 1)
-Ship_Node = NodePath("ShipModel/Spaceship_Player2")
 particle = NodePath("ThrusterExhaust/particles")
 
 [node name="HUD" type="Node3D" parent="ModelContainer"]
@@ -267,6 +264,7 @@ texture = SubResource("ViewportTexture_qfm1y")
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 4.8503e-08, -0.615732)
 shape = SubResource("CapsuleShape3D_fulsm")
 
+[connection signal="newColor" from="." to="ModelContainer" method="_on_character_body_3d_2_new_color"]
 [connection signal="takeDamageSignal" from="." to="Area3D" method="_on_character_body_3d_2_take_damage_signal"]
 [connection signal="max_Speed" from="movementController" to="SpringArm3D" method="_on_movement_controller_max_speed"]
 [connection signal="max_Speed" from="movementController" to="ModelContainer" method="_on_movement_controller_max_speed"]

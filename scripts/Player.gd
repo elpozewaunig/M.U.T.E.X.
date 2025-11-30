@@ -4,7 +4,7 @@ extends CharacterBody3D
 @export var movement_controller: Node3D
 @export var camera_controller: Node3D
 @export var camera: Camera3D
-
+signal newColor(primary:Color,secondary)
 @export var primary_color: Color
 @export var secundary_color: Color
 
@@ -14,6 +14,8 @@ extends CharacterBody3D
 @export var circle_hud: Node3D
 @export var pitch_hud: Node3D
 @export var speed_bar: Node3D
+
+
 
 signal takeDamageSignal(damageAmount)
 
@@ -59,3 +61,11 @@ func take_damage(damage_amount):
 func setup_colors(primary: Color, secondary: Color):
 	primary_color = primary
 	secundary_color = secondary
+	NetworkManager.primary=primary
+	NetworkManager.secondary = secondary
+	emit_signal("newColor",primary,secondary)
+	
+func get_primary()-> Color: 
+	return primary_color
+func get_secondary()-> Color:
+	return secundary_color
