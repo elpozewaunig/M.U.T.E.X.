@@ -1,0 +1,57 @@
+[gd_scene load_steps=5 format=3 uid="uid://d1bt2wphhu40a"]
+
+[ext_resource type="PackedScene" uid="uid://ctqp8yhnra6jl" path="res://assets/models/ship/Spaceship_Player.glb" id="1_l3nam"]
+
+[sub_resource type="Animation" id="Animation_l3nam"]
+resource_name = "Shooting"
+length = 4.0
+tracks/0/type = "rotation_3d"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("RocketLauncher")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = PackedFloat32Array(0, 1, 0, 0, 0.382683, 0.92388, 1, 1, -0.0320221, -0.0773082, 0.381341, 0.920639, 3, 1, -0.0320221, -0.0773082, 0.381341, 0.920639, 4, 1, 0, 0, 0.382683, 0.92388)
+tracks/1/type = "rotation_3d"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("RocketLauncher2")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = PackedFloat32Array(0.0333333, 1, 0, 0, 0.382683, 0.92388, 1, 1, -0.0773082, 0.0320221, 0.381341, 0.920639, 3, 1, -0.0773082, 0.0320221, 0.381341, 0.920639, 4, 1, 0, 0, 0.382683, 0.92388)
+
+[sub_resource type="Animation" id="Animation_oldiv"]
+length = 0.001
+tracks/0/type = "rotation_3d"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("RocketLauncher")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = PackedFloat32Array(0, 1, 0, 0, 0.382683, 0.92388)
+tracks/1/type = "rotation_3d"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("RocketLauncher2")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = PackedFloat32Array(0, 1, 0, 0, 0.382683, 0.92388)
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_mrcso"]
+_data = {
+&"RESET": SubResource("Animation_oldiv"),
+&"Shooting": SubResource("Animation_l3nam")
+}
+
+[node name="Spaceship_Player" instance=ExtResource("1_l3nam")]
+
+[node name="RocketLauncher" parent="." index="1"]
+transform = Transform3D(0.707107, -0.707107, 0, 0.707107, 0.707107, 0, 0, 0, 1, -1.88606, 0.0916786, -0.626113)
+
+[node name="RocketLauncher2" parent="." index="2"]
+transform = Transform3D(0.707107, -0.707107, 0, 0.707107, 0.707107, 0, 0, 0, 1, 0.721545, 2.71879, -0.629959)
+
+[node name="AnimationPlayer2" type="AnimationPlayer" parent="." index="4"]
+libraries = {
+&"": SubResource("AnimationLibrary_mrcso")
+}

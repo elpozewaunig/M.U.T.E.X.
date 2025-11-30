@@ -56,10 +56,11 @@ camera = NodePath("SpringArm3D/Camera3D")
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
 replication_config = SubResource("SceneReplicationConfig_qhqgy")
 
-[node name="movementController" type="Node3D" parent="." node_paths=PackedStringArray("player", "model_container")]
+[node name="movementController" type="Node3D" parent="." node_paths=PackedStringArray("player", "model_container", "ship_model")]
 script = ExtResource("4_dqkch")
 player = NodePath("..")
 model_container = NodePath("../ModelContainer")
+ship_model = NodePath("../ModelContainer/ShipModel/Spaceship_Player2")
 
 [node name="SpringArm3D" type="SpringArm3D" parent="." node_paths=PackedStringArray("camera", "player")]
 transform = Transform3D(1, 0, 0, 0, 0.951267, 0.30837, 0, -0.30837, 0.951267, 0, 0, 0)
@@ -74,13 +75,17 @@ player = NodePath("..")
 transform = Transform3D(2.70113e-07, 0, 0.89754, 0, 0.528894, 0, 6.17946, 0, -3.92327e-08, 0, 0.038, -0.914)
 shape = SubResource("CapsuleShape3D_tuyoq")
 
-[node name="ModelContainer" type="Node3D" parent="." node_paths=PackedStringArray("player", "thrusterMain", "thrusterLeft", "thrusterRight", "movement")]
+[node name="ModelContainer" type="Node3D" parent="." node_paths=PackedStringArray("player", "thrusterMain", "thrusterLeft", "thrusterRight", "movement", "Ship", "particle")]
 script = ExtResource("4_y4r1p")
 player = NodePath("..")
 thrusterMain = NodePath("ThrusterExhaust")
 thrusterLeft = NodePath("ThrusterExhaust2")
 thrusterRight = NodePath("ThrusterExhaust3")
 movement = NodePath("../movementController")
+primary = Color(0.132026, 0.129026, 0.126453, 1)
+secondary = Color(0.702773, 0.115305, 2.88785e-07, 1)
+Ship = NodePath("ShipModel/Spaceship_Player/Ship A")
+particle = NodePath("ThrusterExhaust/particles")
 
 [node name="HUD" type="Node3D" parent="ModelContainer"]
 
@@ -102,17 +107,26 @@ texture = SubResource("ViewportTexture_smehm")
 [node name="ThrusterExhaust" parent="ModelContainer" instance=ExtResource("5_tuyoq")]
 transform = Transform3D(0.445, 0, 0, 0, 0.0102358, 0.212942, 0, -0.439881, 0.00495504, -0.130108, 0.251334, 2.23022)
 
+[node name="particles" parent="ModelContainer/ThrusterExhaust" instance=ExtResource("11_d2wvv")]
+transform = Transform3D(2.24719, 0, 0, 0, 0.0528708, -2.27211, 0, 4.69357, 0.109217, 0, 0, 0)
+
 [node name="ThrusterExhaust2" parent="ModelContainer" instance=ExtResource("5_tuyoq")]
-transform = Transform3D(0.431913, 0.105895, -0.00119282, 0, 0.0102355, 0.212942, 0.107128, -0.426944, 0.00480917, 1.19408, 0.132954, 1.97606)
+transform = Transform3D(0.431913, 0.105895, -0.00119282, 0, 0.0102355, 0.212942, 0.107128, -0.426944, 0.00480917, 1.11393, 0.132954, 1.87072)
 
 [node name="ThrusterExhaust3" parent="ModelContainer" instance=ExtResource("5_tuyoq")]
-transform = Transform3D(0.429815, -0.113931, 0.00128334, 0, 0.0102355, 0.212942, -0.115257, -0.424871, 0.00478581, -1.48163, 0.14741, 1.97606)
+transform = Transform3D(0.429815, -0.113931, 0.00128334, 0, 0.0102355, 0.212942, -0.115257, -0.424871, 0.00478581, -1.4094, 0.14741, 1.84686)
 
 [node name="ShipModel" parent="ModelContainer" instance=ExtResource("4_qlg0r")]
 transform = Transform3D(0.25, 0, 0, 0, 0.25, 0, 0, 0, 0.25, 0, 0, 0)
 
 [node name="Ship A" parent="ModelContainer/ShipModel/Spaceship_Player" index="0"]
 material_overlay = ExtResource("6_ur7pv")
+
+[node name="RocketLauncher" parent="ModelContainer/ShipModel/Spaceship_Player" index="1"]
+transform = Transform3D(0.707106, -0.707106, 0.00174291, 0.707107, 0.707107, 5.82077e-11, -0.00123243, 0.00123243, 0.999999, -1.88606, 0.0916786, -0.626113)
+
+[node name="RocketLauncher2" parent="ModelContainer/ShipModel/Spaceship_Player" index="2"]
+transform = Transform3D(0.68764, -0.726035, 0.00491535, 0.72592, 0.687629, 0.0143379, -0.0137897, -0.00629114, 0.999885, 0.721545, 2.71879, -0.629959)
 
 [node name="LeftGun" parent="ModelContainer" instance=ExtResource("5_qlg0r")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.47845, 0.426927, -0.531486)
@@ -135,9 +149,6 @@ shape = SubResource("CapsuleShape3D_tuyoq")
 [node name="CollisionShape3D4" type="CollisionShape3D" parent="ModelContainer"]
 transform = Transform3D(5.95371, 0, 5.05552e-08, 0, 0.279729, 0, 1.53151e-06, 0, 1.3531, -0.07686, 0.058098, 1.39981)
 shape = SubResource("CapsuleShape3D_tuyoq")
-
-[node name="CPUParticles3D" parent="." instance=ExtResource("11_d2wvv")]
-transform = Transform3D(0.35, 0, 0, 0, 0.35, 0, 0, 0, 0.35, -0.134591, 0.340277, 2.237)
 
 [node name="shield_scannerparticle_try" type="CPUParticles3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, -0.953664, 0.300872, 0, -0.300872, -0.953664, -0.0405608, -0.55562, 1.41512)

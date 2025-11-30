@@ -26,19 +26,19 @@ distance_fade_max_distance = 0.0
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_hh0ww"]
 material = SubResource("StandardMaterial3D_kjhec")
-size = Vector2(0.1, 0.1)
+size = Vector2(0.06, 0.06)
 orientation = 2
 
 [node name="Node3D" type="Node3D"]
 
 [node name="CPUParticles3D" type="CPUParticles3D" parent="."]
-amount = 1500
-lifetime = 0.31
+amount = 1496
+lifetime = 0.04
 randomness = 0.15
 lifetime_randomness = 1.0
 mesh = SubResource("PlaneMesh_hh0ww")
 emission_shape = 1
-emission_sphere_radius = 0.4
+emission_sphere_radius = 0.1
 direction = Vector3(0, 0, 0)
 spread = 0.0
 gravity = Vector3(0, 0, 0)

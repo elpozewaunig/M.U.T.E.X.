@@ -4,6 +4,7 @@ signal max_Speed(speed)
 @export_group("Character & Model")
 @export var player : CharacterBody3D 
 @export var model_container : Node3D 
+@export var ship_model:Node3D
 
 @export_group("Speed & Acceleration")
 @export var MAX_SPEED := 70.0       
@@ -65,7 +66,7 @@ func _physics_process(delta):
 	var raw_turn = Input.get_axis("RollRight", "RollLeft") 
 	var acceleration_direction = Input.get_axis("Accelerate", "Break")
 	var is_boosting = Input.is_action_pressed("boost");
-	
+	var is_shooting = Input.is_action_pressed("shoot")	
 	# Allow for sharper Turns when flying slower
 	var yaw_turn_multiplier = 1.0
 	var pitch_turn_multiplier = 1.0
@@ -140,6 +141,9 @@ func _physics_process(delta):
 	player.velocity = -player.transform.basis.z * current_speed
 	
 	player.move_and_slide()
+	if is_shooting:
+		ship_model.get_child(4).current_animation="Shooting"
+		pass
 	
 	
 	# Reset (debugging)

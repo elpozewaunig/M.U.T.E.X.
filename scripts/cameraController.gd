@@ -84,7 +84,6 @@ func _process(delta):
 	if not player or not camera:
 		return
 	var speed = player.velocity.length()
-	print(speed)
 	if speed <= maxSpeed+1: 
 		if(speed<=15):
 			camera.fov= lerp(camera.fov, stoppedFOV, 2 * delta)
