@@ -29,13 +29,13 @@ var default_acceleration : float
 @export_group("Visual Banking")
 @export var max_bank_angle := 70.0
 @export var bank_smoothness := 15.0 
-@export var max_pitch_angle := 60.0 # if > 85 -> you fucked. 
+@export var max_pitch_angle := 70 # if > 85 -> you fucked. 
 
 @export_group("Control Feel")
 @export var response_speed := 10.0
 
 @export_group("Auto Leveling")
-@export var horizon_return_speed := 2.0
+@export var horizon_return_speed := 0.0 #2.0
 @export var camera_level_speed := 10.0 
 
 
