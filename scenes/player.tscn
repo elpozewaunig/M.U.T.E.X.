@@ -140,7 +140,7 @@ script = ExtResource("8_smehm")
 player = NodePath("../../../..")
 
 [node name="Sprite3D" type="Sprite3D" parent="ModelContainer/HUD"]
-transform = Transform3D(5, 0, 0, 0, 5, 0, 0, 0, 5, 2.1663532, 0, -11.829)
+transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 1.5, 0, -11.829)
 texture = SubResource("ViewportTexture_smehm")
 
 [node name="ThrusterExhaust" parent="ModelContainer" instance=ExtResource("5_tuyoq")]
@@ -232,7 +232,7 @@ scale_amount_min = 9.58
 scale_amount_max = 9.58
 
 [node name="CircleHUD" type="Node3D" parent="."]
-transform = Transform3D(4, 0, 0, 0, 4, 0, 0, 0, 4, 0, 21.2622, -29.009)
+transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 20, -28)
 
 [node name="SubViewport" type="SubViewport" parent="CircleHUD"]
 transparent_bg = true
