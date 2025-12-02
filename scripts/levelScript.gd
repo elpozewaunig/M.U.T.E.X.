@@ -2,7 +2,7 @@ extends Node3D # Or Node2D
 
 @export var player_scene: PackedScene
 @export var enemy_scene: PackedScene 
-@export var max_enemy_count: int = 30
+@export var max_enemy_count: int = 60
 @export var main_menu_scene: PackedScene
 @onready var enemySpawner: MultiplayerSpawner = $EnemySpawner
 @export var gameOver:Node3D 
