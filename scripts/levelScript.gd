@@ -13,6 +13,7 @@ var player_visual_nodes: Array[String] = ["./CircleHUD", "./SpeedBar", "./PointD
 
 func _ready():
 	ScoreManager.game_over.connect(on_game_over)
+	ScoreManager.reset_score()
 	# If this is the Host, spawn existing players (like yourself)
 	if multiplayer.is_server():
 		spawn_enemy()

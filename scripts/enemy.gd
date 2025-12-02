@@ -32,12 +32,12 @@ var health = 100
 @export var PLAYER_DETECTION_DISTANCE: float = 80.0
 
 @export_group("Obstacle Avoidance")
-@export var OBSTACLE_DETECT_DISTANCE = 70.0
+@export var OBSTACLE_DETECT_DISTANCE = 100.0
 @export var AVOIDANCE_FORCE = 3.0
 @export var RAYCAST_COUNT = 36 
 @export var ASTEROID_COLLISION_LAYER = 1
-@export var BODY_WIDTH = 15.0
-@export var BODY_HEIGHT = 1.5 
+@export var BODY_WIDTH = 30.0
+@export var BODY_HEIGHT = 3.0 
 
 @export_group("Path Settings")
 @export var PATROL_PATH_GROUP_NAME = "PatrolPaths"
