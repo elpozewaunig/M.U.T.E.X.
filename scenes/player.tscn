@@ -18,7 +18,7 @@
 [ext_resource type="Script" path="res://scripts/circle_hud.gd" id="14_f1ej7"]
 [ext_resource type="Texture2D" uid="uid://batglaeqbvbt" path="res://assets/sprites/SpeedBar.jpg" id="15_a8ls1"]
 [ext_resource type="Texture2D" uid="uid://ct3e64l3uj6mt" path="res://assets/MissileLOKC.png" id="15_fulsm"]
-[ext_resource type="Script" path="res://scripts/speed_bar.gd" id="16_qfm1y"]
+[ext_resource type="Script" uid="uid://bw2j8cmn2acep" path="res://scripts/speed_bar.gd" id="16_qfm1y"]
 [ext_resource type="Script" path="res://scripts/point_display.gd" id="17_qfm1y"]
 [ext_resource type="PackedScene" uid="uid://cvwnv2lgiecdf" path="res://scenes/explosion.tscn" id="18_fulsm"]
 [ext_resource type="AudioStream" uid="uid://1gw744hujikf" path="res://assets/sounds/explosion.wav" id="19_4r5pv"]
@@ -263,6 +263,7 @@ offset_bottom = 40.0
 min_value = 1.0
 max_value = 120.0
 value = 1.0
+rounded = true
 texture_progress = ExtResource("15_a8ls1")
 script = ExtResource("16_qfm1y")
 player = NodePath("../../..")
