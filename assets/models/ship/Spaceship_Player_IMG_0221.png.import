@@ -4,8 +4,9 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://bj4rub57v8its"
 path.s3tc="res://.godot/imported/Spaceship_Player_IMG_0221.png-3df64794b91b34f6ea14be1cd4d10b27.s3tc.ctex"
+path.etc2="res://.godot/imported/Spaceship_Player_IMG_0221.png-3df64794b91b34f6ea14be1cd4d10b27.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 generator_parameters={
@@ -15,7 +16,7 @@ generator_parameters={
 [deps]
 
 source_file="res://assets/models/ship/Spaceship_Player_IMG_0221.png"
-dest_files=["res://.godot/imported/Spaceship_Player_IMG_0221.png-3df64794b91b34f6ea14be1cd4d10b27.s3tc.ctex"]
+dest_files=["res://.godot/imported/Spaceship_Player_IMG_0221.png-3df64794b91b34f6ea14be1cd4d10b27.s3tc.ctex", "res://.godot/imported/Spaceship_Player_IMG_0221.png-3df64794b91b34f6ea14be1cd4d10b27.etc2.ctex"]
 
 [params]
 

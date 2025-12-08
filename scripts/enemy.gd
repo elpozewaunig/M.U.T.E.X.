@@ -29,15 +29,15 @@ var health = 100
 @export_group("Combat Settings")
 @export var ATTACK_RANGE = 50.0
 @export var AVOID_RANGE = 20.0
-@export var PLAYER_DETECTION_DISTANCE: float = 75.0
+@export var PLAYER_DETECTION_DISTANCE: float = 80.0
 
 @export_group("Obstacle Avoidance")
-@export var OBSTACLE_DETECT_DISTANCE = 70.0
+@export var OBSTACLE_DETECT_DISTANCE = 100.0
 @export var AVOIDANCE_FORCE = 3.0
 @export var RAYCAST_COUNT = 36 
 @export var ASTEROID_COLLISION_LAYER = 1
-@export var BODY_WIDTH = 15.0
-@export var BODY_HEIGHT = 1.5 
+@export var BODY_WIDTH = 30.0
+@export var BODY_HEIGHT = 3.0 
 
 @export_group("Path Settings")
 @export var PATROL_PATH_GROUP_NAME = "PatrolPaths"
@@ -55,6 +55,7 @@ var current_patrol_index = 0
 var target_player: CharacterBody3D = null
 var smooth_avoidance: Vector3 = Vector3.ZERO
 var smooth_velocity: Vector3 = Vector3.ZERO
+var is_dead: bool = false
 
 func _ready() -> void:
 	# If typeId was synced before _ready ran, ensure logic runs now
@@ -403,8 +404,8 @@ func shoot_gun() -> void:
 
 @rpc("any_peer", "call_local")
 func take_damage(damage_amount):
-	if not multiplayer.is_server():
-		rpc_id(1, "take_damage", damage_amount)
+	if not multiplayer or not multiplayer.is_server():
+#		rpc_id(1, "take_damage", damage_amount)
 		return
 
 	health -= damage_amount
@@ -412,8 +413,16 @@ func take_damage(damage_amount):
 	if health <= 0:
 		ScoreManager.add_score(1)
 		die()
-
+		
 func die() -> void:
+	rpc("die_and_free")
+
+@rpc("call_local", "reliable")
+func die_and_free() -> void:	
+	if not is_inside_tree() or is_dead:
+		return
+	
+	is_dead = true
 	print("Enemy died")
 	guns.hide()
 	$Visuals.hide()

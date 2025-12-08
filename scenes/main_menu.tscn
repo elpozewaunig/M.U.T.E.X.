@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://cypwqksg1qrc5"]
+[gd_scene load_steps=23 format=3 uid="uid://cypwqksg1qrc5"]
 
 [ext_resource type="Texture2D" uid="uid://b156cmxm1wmhe" path="res://assets/skybox/bg.png" id="1_l6cm7"]
 [ext_resource type="Texture2D" uid="uid://qymy4et4jfcg" path="res://assets/sprites/VerticleHUD.svg" id="2_8ln24"]
@@ -7,6 +7,7 @@
 [ext_resource type="Material" uid="uid://dg1x6fpusyufh" path="res://assets/shaders/scanline.tres" id="3_wu84c"]
 [ext_resource type="PackedScene" uid="uid://dp3rvhbvdll7k" path="res://scenes/miniscreen.tscn" id="4_8ln24"]
 [ext_resource type="AudioStream" uid="uid://mn1w3ulxq6jq" path="res://assets/sounds/warp_start.wav" id="7_oa1go"]
+[ext_resource type="AudioStream" uid="uid://dkmbw86ugmupy" path="res://assets/music/main_menu.ogg" id="8_tbmy8"]
 
 [sub_resource type="Animation" id="Animation_5dd4i"]
 length = 0.001
@@ -101,8 +102,12 @@ signal zoom_in
 
 @export var start:Button
 
+@export var mouse_hide_time: float = 3.0
+
 var target_zoom: Vector2 = Vector2(1, 1)
 var time_until_snapback: float = 0
+
+var time_since_mouse: float = 0
 
 func _ready() -> void:
 	position = screen_center
@@ -110,6 +115,11 @@ func _ready() -> void:
 
 var zoomed = false
 func _process(delta: float) -> void:
+	if get_window().has_focus() and time_since_mouse < mouse_hide_time:
+		time_since_mouse += delta
+		if time_since_mouse >= mouse_hide_time:
+			Input.mouse_mode = Input.MOUSE_MODE_HIDDEN
+	
 	if zoomed:
 		return
 	var mouse_pos: Vector2 = get_viewport().get_mouse_position()
@@ -144,9 +154,11 @@ func fettsack():
 	
 
 func _input(event: InputEvent) -> void:
-	$\"../../FG/SubViewport\".push_input(event,false)
-	#print(event)
+	if event is InputEventMouseMotion or event is InputEventMouseButton:
+		Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
+		time_since_mouse = 0
 	
+	$\"../../FG/SubViewport\".push_input(event,false)
 
 
 func _on_control_zoomout() -> void:
@@ -154,7 +166,7 @@ func _on_control_zoomout() -> void:
 	
 func change_scene_usw():
 	if container.iJoinedNotHosted:
-		NetworkManager.join_game(\"192.168.1.141\")
+		NetworkManager.join_game(NetworkManager.DEFAULT_SERVER_IP)
 		return
 	
 	NetworkManager.host_game()
@@ -256,6 +268,18 @@ tracks/6/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": [false]
+}
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("../../MusicPlayer:volume_db")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [-5.0]
 }
 
 [sub_resource type="Animation" id="Animation_wu84c"]
@@ -416,6 +440,18 @@ tracks/8/keys = {
 "times": PackedFloat32Array(0.96666664)
 }
 tracks/8/use_blend = true
+tracks/9/type = "value"
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/path = NodePath("../../MusicPlayer:volume_db")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/keys = {
+"times": PackedFloat32Array(3, 5.733333),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [-5.0, -80.0]
+}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_8ln24"]
 _data = {
@@ -522,11 +558,20 @@ libraries = {
 }
 
 [node name="WarpSound" type="AudioStreamPlayer" parent="Node2D/Camera2D"]
+volume_db = -5.0
+bus = &"SFX"
 
 [node name="FADETOWHITE" type="Sprite2D" parent="."]
 visible = false
 scale = Vector2(157.661, 83.9539)
 texture = SubResource("GradientTexture2D_oa1go")
+
+[node name="MusicPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("8_tbmy8")
+volume_db = -5.0
+autoplay = true
+bus = &"Music"
+parameters/looping = true
 
 [connection signal="zoomout" from="FG/SubViewport/Control" to="Node2D/Camera2D" method="_on_control_zoomout"]
 [connection signal="focus_entered" from="FG/SubViewport/Control/HOSTINGASHOST/LineEdit" to="FG/SubViewport/Control/HOSTINGASHOST" method="_on_line_edit_focus_entered"]

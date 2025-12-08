@@ -4,15 +4,16 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://ckjniha0gujd3"
 path.s3tc="res://.godot/imported/particle2.png-3c136bb6dc36197689ede2fb97940a0d.s3tc.ctex"
+path.etc2="res://.godot/imported/particle2.png-3c136bb6dc36197689ede2fb97940a0d.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 
 [deps]
 
 source_file="res://assets/models/thruster_exhaust/particle2.png"
-dest_files=["res://.godot/imported/particle2.png-3c136bb6dc36197689ede2fb97940a0d.s3tc.ctex"]
+dest_files=["res://.godot/imported/particle2.png-3c136bb6dc36197689ede2fb97940a0d.s3tc.ctex", "res://.godot/imported/particle2.png-3c136bb6dc36197689ede2fb97940a0d.etc2.ctex"]
 
 [params]
 

@@ -8,9 +8,9 @@ extends Node3D
 
 func explode():
 	print("Boomski")
-	debris.emitting = true
-	fire.emitting = true
-	smoke.emitting = true
-	explosion_sound.play()
 	if get_tree() != null:
+		debris.emitting = true
+		fire.emitting = true
+		smoke.emitting = true
+		explosion_sound.play()
 		await get_tree().create_timer(2.0).timeout

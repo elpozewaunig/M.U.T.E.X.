@@ -21,6 +21,5 @@ func pan_camera(delta):
 	var playerrot=player.rotation_degrees
 	var rot = remap(playerrot.x,-60,60,min_panning,max_panning)
 	position.y = clamp(rot, min_panning, max_panning)
-	
-	if not is_input_active:
-		position.y = lerp(position.y, -texture_height_half, return_speed * delta)
+	#if not is_input_active:
+		#position.y = lerp(position.y, -texture_height_half, return_speed * delta)

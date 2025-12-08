@@ -10,7 +10,7 @@ config_version=5
 
 [application]
 
-config/name="KluJamTechEditionWS2025"
+config/name="M.U.T.E.X."
 run/main_scene="uid://cypwqksg1qrc5"
 config/features=PackedStringArray("4.5", "GL Compatibility")
 boot_splash/bg_color=Color(0.780392, 0.427451, 0.184314, 1)
@@ -26,9 +26,11 @@ Global="*res://scripts/Global.gd"
 
 [display]
 
+window/size/mode=3
 window/size/initial_position_type=0
 window/size/always_on_top=true
 window/stretch/mode="canvas_items"
+window/size/mode.editor=0
 
 [editor_plugins]
 
@@ -132,3 +134,7 @@ LookBack={
 , Object(InputEventJoypadButton,"resource_local_to_scene":false,"resource_name":"","device":-1,"button_index":8,"pressure":0.0,"pressed":true,"script":null)
 ]
 }
+
+[rendering]
+
+textures/vram_compression/import_etc2_astc=true

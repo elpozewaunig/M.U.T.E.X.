@@ -109,6 +109,8 @@ func _on_options_btn_pressed() -> void:
 resource_name = "hosting"
 script/source = "extends Panel
 
+func _ready() -> void:
+	$LineEdit.text = NetworkManager.DEFAULT_SERVER_IP
 
 func _on_host_game_btn_pressed() -> void:
 	show()
@@ -116,10 +118,12 @@ func _on_host_game_btn_pressed() -> void:
 	$CANCELHOST.grab_focus()
 
 func _on_cancelhost_pressed() -> void:
+	NetworkManager.DEFAULT_SERVER_IP = $LineEdit.text
 	hide()
 
 
 func _on_join_pressed() -> void:
+	NetworkManager.DEFAULT_SERVER_IP = $LineEdit.text
 	hide()
 
 
@@ -130,7 +134,12 @@ func _on_cancelhh_pressed() -> void:
 
 
 func _on_host_pressed() -> void:
+	NetworkManager.DEFAULT_SERVER_IP = $LineEdit.text
 	hide()
+
+
+func _on_line_edit_focus_entered() -> void:
+	$LineEdit.edit()
 "
 
 [sub_resource type="GDScript" id="GDScript_ms7bd"]
@@ -143,7 +152,7 @@ func _refresh():
 	
 	# Check if empty
 	if highscores.is_empty():
-		text = \"No highscores yet :(\"
+		text = \":(\"
 		return
 	
 	# Build the list
@@ -167,6 +176,16 @@ func _on_cancelhost_pressed() -> void:
 
 
 func _on_host_pressed() -> void:
+	# Find all potential IPs that identify the host's local network adapters
+	var ips: Array = []
+	for ip in IP.get_local_addresses():
+		if ip.begins_with(\"10.\") or ip.begins_with(\"172.16.\") or ip.begins_with(\"192.168.\"):
+			ips.append(ip)
+	if ips.size() > 0:
+		$IPAddress.text = ips[0]
+	else:
+		$IPAddress.text = \"Couldn't find your IP :(\"
+	
 	show()
 	$CANCELHH.grab_focus()
 
@@ -485,11 +504,12 @@ offset_right = 448.688
 offset_bottom = 541.47
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_font_sizes/normal_font_size = 45
+theme_override_font_sizes/normal_font_size = 40
 text = "OPFOR SIGNAL SCRAMBLING DETECTED. SENSOR RENDERED INCOMPLETE. 
 COMPLEMENTARY BAND SWEEP MUTEX RECOMMENDED.
 >> CALLOUT INCOMING HOSTILES TO WINGMAN.
- THEY ARE IMMUNE TO YOU AND INVISIBLE TO HIM <<"
+SOME HOSTILES ARE INVISIBLE TO YOU.
+UNIFY VISCON FOR COMPLETE PICTURE <<"
 
 [node name="RichTextLabel3" type="RichTextLabel" parent="Tutorial"]
 layout_mode = 1
@@ -760,7 +780,7 @@ offset_right = 387.475
 offset_bottom = 188.724
 focus_neighbor_left = NodePath(".")
 focus_neighbor_top = NodePath("../HOST")
-focus_neighbor_right = NodePath(".")
+focus_neighbor_right = NodePath("../LineEdit")
 focus_neighbor_bottom = NodePath("../HOST")
 theme_override_font_sizes/font_size = 75
 text = "<< return >>"
@@ -789,7 +809,7 @@ offset_top = 264.19
 offset_right = 827.791
 offset_bottom = 348.19
 focus_neighbor_left = NodePath("../HOST")
-focus_neighbor_top = NodePath("../CANCELHOST")
+focus_neighbor_top = NodePath("../LineEdit")
 focus_neighbor_right = NodePath("../HOST")
 focus_neighbor_bottom = NodePath("../CANCELHOST")
 theme_override_font_sizes/font_size = 75
@@ -829,6 +849,24 @@ scale = Vector2(0.503559, 0.503559)
 theme_override_fonts/normal_font = ExtResource("3_oua23")
 theme_override_font_sizes/normal_font_size = 90
 text = "HIGH  SCORES"
+
+[node name="LineEdit" type="LineEdit" parent="HOSTING"]
+custom_minimum_size = Vector2(384.705, 79.67)
+layout_mode = 0
+offset_left = 571.2212
+offset_top = 109.48404
+offset_right = 955.9262
+offset_bottom = 189.15405
+scale = Vector2(0.6667876, 1)
+focus_neighbor_left = NodePath("../CANCELHOST")
+focus_neighbor_top = NodePath("../CANCELHOST")
+focus_neighbor_right = NodePath("../JOIN")
+focus_neighbor_bottom = NodePath("../JOIN")
+focus_next = NodePath("../JOIN")
+focus_previous = NodePath("../CANCELHOST")
+theme_override_fonts/font = ExtResource("3_oua23")
+placeholder_text = "ENTER IP"
+select_all_on_focus = true
 
 [node name="HOSTINGASHOST" type="Panel" parent="."]
 visible = false
@@ -986,6 +1024,37 @@ text = "#00ff55"
 placeholder_text = "<ENTER HEX CODE>"
 select_all_on_focus = true
 
+[node name="RichTextLabel5" type="RichTextLabel" parent="HOSTINGASHOST"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 671.1849
+offset_top = 116.62433
+offset_right = 227.98291
+offset_bottom = 40.620605
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.751568, 0.751568)
+theme_override_font_sizes/normal_font_size = 70
+text = "Your IP-Address:"
+
+[node name="IPAddress" type="RichTextLabel" parent="HOSTINGASHOST"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 671.1849
+offset_top = 182.07678
+offset_right = 227.98291
+offset_bottom = 18.985352
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.751568, 0.751568)
+theme_override_colors/default_color = Color(0.37254903, 0.23137255, 0.13333334, 1)
+theme_override_font_sizes/normal_font_size = 70
+text = "127.0.0.1"
+
 [connection signal="pressed" from="Menu/VBoxContainer/HostGameBTN" to="Tutorial" method="_on_host_game_btn_pressed"]
 [connection signal="pressed" from="Menu/VBoxContainer/CreditsBTN" to="Credits" method="_on_options_btn_pressed"]
 [connection signal="pressed" from="Menu/VBoxContainer/OptionsBTN" to="Options" method="_on_options_btn_pressed"]
@@ -1003,6 +1072,7 @@ select_all_on_focus = true
 [connection signal="pressed" from="HOSTING/JOIN" to="PRESSTART" method="_on_join_pressed"]
 [connection signal="pressed" from="HOSTING/JOIN" to="Menu" method="_on_join_pressed"]
 [connection signal="pressed" from="HOSTING/JOIN" to="HOSTING" method="_on_join_pressed"]
+[connection signal="focus_entered" from="HOSTING/LineEdit" to="HOSTING" method="_on_line_edit_focus_entered"]
 [connection signal="pressed" from="HOSTINGASHOST/CANCELHH" to="HOSTING" method="_on_cancelhh_pressed"]
 [connection signal="pressed" from="HOSTINGASHOST/CANCELHH" to="HOSTINGASHOST" method="_on_cancelhost_pressed"]
 [connection signal="pressed" from="HOSTINGASHOST/START" to="." method="_on_start_pressed"]

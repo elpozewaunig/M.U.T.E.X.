@@ -30,7 +30,7 @@ func _on_body_entered(body: Node3D) -> void:
 
 @rpc("any_peer", "call_local")
 func server_handle_crash():
-	if not multiplayer.is_server():
+	if not multiplayer or not multiplayer.is_server():
 		return
 	
 	take_damage(9999)

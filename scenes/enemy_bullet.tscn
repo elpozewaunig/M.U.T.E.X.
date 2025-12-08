@@ -7,7 +7,7 @@
 height = 2.7907715
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_qncy5"]
-radius = 0.25
+radius = 10.0
 
 [node name="CharacterBody3D" type="Area3D"]
 script = ExtResource("1_qx7rs")
@@ -21,7 +21,6 @@ shape = SubResource("CapsuleShape3D_y25gk")
 [node name="DetectionArea" type="Area3D" parent="."]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="DetectionArea"]
-transform = Transform3D(20, 0, 0, 0, 20, 0, 0, 0, 20, 0, 0, 0)
 shape = SubResource("SphereShape3D_qncy5")
 
 [node name="LifeTimer" type="Timer" parent="."]

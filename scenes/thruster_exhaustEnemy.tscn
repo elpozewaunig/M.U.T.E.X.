@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://be63w05i85cw1"]
 
 [ext_resource type="PackedScene" uid="uid://d03en4a46ugui" path="res://assets/models/thruster_exhaust/thruster_exhaust.glb" id="1_atucc"]
-[ext_resource type="PackedScene" uid="uid://cs1gu1wnfyr1k" path="res://scenes/thruster_particlesEnemy.tscn" id="1_kh57b"]
+[ext_resource type="PackedScene" uid="uid://cs1gu1wnfyr1k" path="res://scenes/thruster_particles.tscn" id="1_kh57b"]
 [ext_resource type="Texture2D" uid="uid://ckjniha0gujd3" path="res://assets/models/thruster_exhaust/particle2.png" id="2_atucc"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_kh57b"]

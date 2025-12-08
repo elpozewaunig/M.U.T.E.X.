@@ -2,9 +2,10 @@ extends Node
 
 # NetworkManager.gd
 const PORT = 8080
-const DEFAULT_SERVER_IP = "192.168.1.144" # Localhost
+var DEFAULT_SERVER_IP = "192.168.1.144" # Localhost
 
 const LEVEL_SCENE_PATH = "res://scenes/LevelScene.tscn" 
+const CLIENT_CONNECTION_TIMEOUT: float = 3.0
 
 var primary:Color 
 var secondary:Color
@@ -50,6 +51,16 @@ func join_game(address):
 	peer.get_host().compress(ENetConnection.COMPRESS_RANGE_CODER)
 	multiplayer.multiplayer_peer = peer
 	print("Joining...")
+	
+	await get_tree().create_timer(CLIENT_CONNECTION_TIMEOUT).timeout
+	var status: MultiplayerPeer.ConnectionStatus = peer.get_connection_status()
+	
+	if status != MultiplayerPeer.CONNECTION_CONNECTED:
+		print("No connection after %s seconds, start to host game..." % CLIENT_CONNECTION_TIMEOUT)
+		multiplayer.multiplayer_peer.close()
+		multiplayer.multiplayer_peer = null
+		host_game()
+	
 
 func cleanup_network():
 	if multiplayer.multiplayer_peer != null:
